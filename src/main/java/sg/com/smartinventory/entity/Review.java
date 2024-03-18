@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name="review")
+@AllArgsConstructor
 public class Review {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +30,14 @@ public class Review {
   private int customerId; //FK
   @Column(name="product_id")
   private int productId; //FK
+  
+  // Define Constructor for dataLoader
+  public Review(String category, String reviewContent, int rating, int customerId, int productId) {
+    this.category = category;
+    this.reviewContent = reviewContent;
+    this.rating = rating;
+    this.customerId = customerId;
+    this.productId = productId;
+  }
+  
 }
