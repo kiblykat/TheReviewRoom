@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-import sg.com.smartinventory.entity.Customer;
+import sg.com.smartinventory.entities.Customer;
 import sg.com.smartinventory.services.CustomerService;
 
 @RestController

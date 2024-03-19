@@ -10,8 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import sg.com.smartinventory.entity.Customer;
-import sg.com.smartinventory.repository.CustomerRepository;
+import sg.com.smartinventory.entities.Customer;
+import sg.com.smartinventory.repositories.CustomerRepository;
 import sg.com.smartinventory.serviceImpls.CustomerServiceImpl;
 
 @SpringBootTest

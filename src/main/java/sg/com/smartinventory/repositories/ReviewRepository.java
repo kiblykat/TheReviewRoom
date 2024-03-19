@@ -1,8 +1,8 @@
-package sg.com.smartinventory.repository;
+package sg.com.smartinventory.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import sg.com.smartinventory.entity.Review;
+import sg.com.smartinventory.entities.Review;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
