@@ -40,7 +40,7 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-          cache: maven      # Uncomment and configure if needed. 
+          # cache: maven      # Uncomment and configure if needed. 
         
       - name: Run unit tests
         run: mvn test
