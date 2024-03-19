@@ -6,5 +6,5 @@ import sg.com.smartinventory.entity.Customer;
 
 //CustomerRepository simply extends JpaRepository, giving us a lot of default methods to access db without the hardwork  
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
- 
+
 }
