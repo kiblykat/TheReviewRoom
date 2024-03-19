@@ -20,8 +20,8 @@ jobs:
           # POSTGRES_PASSWORD: postgres
           POSTGRES_HOST_AUTH_METHOD: trust
           POSTGRES_DB: smart_inventory
-            # Set health checks to wait until postgres has started. 
-            
+          
+        # Set health checks to wait until postgres has started.   
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -54,8 +54,8 @@ jobs:
         run: mvn package -DskipTests      # Skip tests since they were already run. 
       
       - name: Save Jar file
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4.3.1
         with:
-          name: demo-0.0.1-SNAPSHOT
-          path: target/demo-0.0.1-SNAPSHOT.jar 
+          name: smart-inventory-0.0.1-SNAPSHOT
+          path: target/smart-inventory-0.0.1-SNAPSHOT.jar
           retention-days: 1
