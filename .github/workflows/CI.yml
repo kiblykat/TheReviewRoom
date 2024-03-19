@@ -20,14 +20,14 @@ jobs:
           postgresql user: postgres
           # postgresql password: 
           
-      - name: Sleep for 30 seconds
-        run: sleep 10s
-        shell: bash
+      #- name: Sleep for 10 seconds
+      #  run: sleep 10s
+      #  shell: bash
         # run: Start-Sleep -s 30
         # shell: powershell
         
-      - name: Collect Docker Logs
-        uses: jwalton/gh-docker-logs@v2.2.2
+      #- name: Collect Docker Logs
+      #  uses: jwalton/gh-docker-logs@v2.2.2
      
       #- name: Check running containers
       #  run: docker ps -a
@@ -40,7 +40,7 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-          # cache: maven      # Uncomment and configure if needed. 
+          cache: maven      # Uncomment and configure if needed. 
         
       - name: Run unit tests
         run: mvn test
