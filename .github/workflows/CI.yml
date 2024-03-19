@@ -11,27 +11,28 @@ jobs:
   run-unit-tests:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Setup DB
-        uses: harmon758/postgresql-action@v1
-        with:
-          # postgresql version: 'latest'      # See https://hub.docker.com/_/postgres for available versions. 
-          postgresql db: smart_inventory
-          postgresql user: postgres
-          # postgresql password: 
-          
-      #- name: Sleep for 10 seconds
-      #  run: sleep 10s
-      #  shell: bash
-        # run: Start-Sleep -s 30
-        # shell: powershell
+    services:
+      postgres:
+        image: postgres:latest 
         
-      #- name: Collect Docker Logs
-      #  uses: jwalton/gh-docker-logs@v2.2.2
-     
-      #- name: Check running containers
-      #  run: docker ps -a
+        env:
+          POSTGRES_USER: postgres
+          # POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_DB: smart_inventory
+            # Set health checks to wait until postgres has started. 
+            
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+          
+        ports:
+          # Maps tcp port 5432 on service container to the host. 
+          - 5432:5432
 
+    steps:
       - name: Pull repository
         uses: actions/checkout@v4.1.2
     
