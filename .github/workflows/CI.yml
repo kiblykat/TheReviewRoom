@@ -19,12 +19,13 @@ jobs:
           postgresql db: smart_inventory
           postgresql user: postgres
           # postgresql password: 
-
-      - name: Wait / Sleep
-        uses: jakejarvis/wait-action@v0.1.0
-        with:
-          time: '10s'
-   
+          
+      - name: Sleep for 30 seconds
+        run: sleep 10s
+        shell: bash
+        # run: Start-Sleep -s 30
+        # shell: powershell
+        
       - name: Collect Docker Logs
         uses: jwalton/gh-docker-logs@v2.2.2
      
