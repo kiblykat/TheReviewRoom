@@ -7,5 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 class SmartInventoryApplicationTests {
 	@Test
 	void contextLoads() {
+
 	}
 }

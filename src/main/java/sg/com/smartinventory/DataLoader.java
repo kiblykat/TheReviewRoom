@@ -4,12 +4,12 @@ package sg.com.smartinventory;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
-import sg.com.smartinventory.entity.Customer;
-import sg.com.smartinventory.entity.Product;
-import sg.com.smartinventory.entity.Review;
-import sg.com.smartinventory.repository.CustomerRepository;
-import sg.com.smartinventory.repository.ProductRepository;
-import sg.com.smartinventory.repository.ReviewRepository;
+import sg.com.smartinventory.entities.Customer;
+import sg.com.smartinventory.entities.Product;
+import sg.com.smartinventory.entities.Review;
+import sg.com.smartinventory.repositories.CustomerRepository;
+import sg.com.smartinventory.repositories.ProductRepository;
+import sg.com.smartinventory.repositories.ReviewRepository;
 
 @Component
 public class DataLoader {

@@ -2,8 +2,8 @@ package sg.com.smartinventory.serviceImpls;
 
 import org.springframework.stereotype.Service;
 
-import sg.com.smartinventory.entity.Customer;
-import sg.com.smartinventory.repository.CustomerRepository;
+import sg.com.smartinventory.entities.Customer;
+import sg.com.smartinventory.repositories.CustomerRepository;
 import sg.com.smartinventory.services.CustomerService;
 
 @Service

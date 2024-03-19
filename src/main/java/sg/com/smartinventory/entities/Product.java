@@ -1,4 +1,4 @@
-package sg.com.smartinventory.entity;
+package sg.com.smartinventory.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
