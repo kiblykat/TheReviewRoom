@@ -39,13 +39,13 @@ public class Product {
   private int stockQuantity;
 
   @Column(name = "review_id")
-  private String reviewId; // FK.
+  private int reviewId; // FK.
 
   public Product() {
   }
 
   // Define Constructor for DataLoader.
-  public Product(String category, String name, String description, double price, int stockQuantity, String reviewId) {
+  public Product(String category, String name, String description, double price, int stockQuantity, int reviewId) {
     this();
 
     this.category = category;
