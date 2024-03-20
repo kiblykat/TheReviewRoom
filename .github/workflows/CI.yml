@@ -91,20 +91,3 @@ jobs:
           path: "**/target/site/**"
           if-no-files-found: error
           retention-days: 7
-
-  test-report:
-    runs-on: ubuntu-latest
-
-    needs:
-      - build-and-run-tests
-
-    steps:
-      - name: Publish Report
-        uses: turing85/publish-report@v1.0.11
-        with:
-          checkout: true
-          comment-header: my-test-report
-          download-artifact-name: test-report
-          report-path: "**/target/surefire-reports/TEST*.xml"
-          comment-message-recreate: "Reports will be posted here as they get available. "
-          recreate-comment: true
