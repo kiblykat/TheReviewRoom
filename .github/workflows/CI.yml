@@ -87,7 +87,7 @@ jobs:
         uses: actions/upload-artifact@v4.3.1
         if: ${{ always() }}
         with:
-          name: test-report
+          name: html-test-report
           path: "**/target/site/**"
           if-no-files-found: error
           retention-days: 7
