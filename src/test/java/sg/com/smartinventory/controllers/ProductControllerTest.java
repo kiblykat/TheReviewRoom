@@ -1,9 +1,10 @@
-package sg.com.smartinventory;
+package sg.com.smartinventory.controllers;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,38 +15,37 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import sg.com.smartinventory.entities.Customer;
+import sg.com.smartinventory.entities.Product;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CustomerControllerTest {
+public class ProductControllerTest {
         @Autowired
         private MockMvc mockMvc;
 
         @Autowired
         private ObjectMapper objectMapper;
 
-        @DisplayName("Create customer")
+        @DisplayName("Create product")
         @Test
-        public void createCustomerTest() throws Exception {
-                // Step 1: Create a Customer object
-                Customer newCustomer = Customer.builder().firstName("Jackie").lastName("Chan").country("Hong Kong")
-                                .address("123 HK St")
-                                .postalCode(654321).mobileNumber(87654321).email("jackie.chan@example.com")
-                                .reviewId(110).build();
+        public void createProductTest() throws Exception {
+                // Step 1: Create a Product object
+                Product newProduct = Product.builder().category("Electronics").name("Smartphone")
+                                .description("High-end smartphone with advanced features. ")
+                                .price(999.99).stockQuantity(100).reviewId(101).build();
 
                 // Step 2: Convert the Java object to JSON using ObjectMapper.
-                String newCustomerAsJSON = objectMapper.writeValueAsString(newCustomer);
+                String newProductAsJSON = objectMapper.writeValueAsString(newProduct);
 
                 // Step 3: Build the request.
-                RequestBuilder request = MockMvcRequestBuilders.post("/customers")
+                RequestBuilder request = MockMvcRequestBuilders.post("/products")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(newCustomerAsJSON);
+                                .content(newProductAsJSON);
 
                 // Step 4: Perform the request and get the response and assert.
                 mockMvc.perform(request).andExpect(status().isCreated())
                                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                                .andExpect(jsonPath("$.firstName").value("Jackie"))
-                                .andExpect(jsonPath("$.lastName").value("Chan"));
+                                .andExpect(jsonPath("$.category").value("Electronics"))
+                                .andExpect(jsonPath("$.name").value("Smartphone"));
         }
 }

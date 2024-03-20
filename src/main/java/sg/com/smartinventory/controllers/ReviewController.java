@@ -8,28 +8,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-
-import sg.com.smartinventory.entities.Customer;
-import sg.com.smartinventory.services.CustomerService;
+import sg.com.smartinventory.entities.Review;
+import sg.com.smartinventory.services.ReviewService;
 
 @RestController
-@RequestMapping("/customers")
-public class CustomerController {
-    private CustomerService customerService;
+@RequestMapping("/reviews")
+public class ReviewController {
+    private ReviewService reviewService;
 
     // @Autowired
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
+    public ReviewController(ReviewService reviewService) {
+        this.reviewService = reviewService;
     }
 
     // CREATE.
     @PostMapping("")
-    public ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer) {
+    public ResponseEntity<Review> createReview(@Valid @RequestBody Review review) {
         // if(bindingResult.hasErrors()) {
         // return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         // }
 
-        Customer newCustomer = customerService.createCustomer(customer);
-        return new ResponseEntity<>(newCustomer, HttpStatus.CREATED);
+        Review newReview = reviewService.createReview(review);
+        return new ResponseEntity<>(newReview, HttpStatus.CREATED);
     }
 }

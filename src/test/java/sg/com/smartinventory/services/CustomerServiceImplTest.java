@@ -1,13 +1,16 @@
-package sg.com.smartinventory;
+package sg.com.smartinventory.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+
 import org.springframework.boot.test.context.SpringBootTest;
 
 import sg.com.smartinventory.entities.Customer;
