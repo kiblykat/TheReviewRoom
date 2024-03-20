@@ -83,21 +83,12 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
-      - name: Upload the full HTML report test artifacts
-        uses: actions/upload-artifact@v4.3.1
-        if: ${{ always() }}
-        with:
-          name: full-html-test-report
-          path: "**/target/site/**"
-          if-no-files-found: error
-          retention-days: 7
-
-      - name: Upload the HTML file report test artifact
+      - name: Upload the HTML report test artifacts
         uses: actions/upload-artifact@v4.3.1
         if: ${{ always() }}
         with:
           name: html-test-report
-          path: "**/target/site/*-report.html"
+          path: "**/target/site/**"
           if-no-files-found: error
           retention-days: 7
 
