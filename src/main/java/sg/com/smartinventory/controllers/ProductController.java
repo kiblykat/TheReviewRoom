@@ -8,28 +8,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-
-import sg.com.smartinventory.entities.Customer;
-import sg.com.smartinventory.services.CustomerService;
+import sg.com.smartinventory.entities.Product;
+import sg.com.smartinventory.services.ProductService;
 
 @RestController
-@RequestMapping("/customers")
-public class CustomerController {
-    private CustomerService customerService;
+@RequestMapping("/products")
+public class ProductController {
+    private ProductService productService;
 
     // @Autowired
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
 
     // CREATE.
     @PostMapping("")
-    public ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer) {
+    public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product) {
         // if(bindingResult.hasErrors()) {
         // return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         // }
 
-        Customer newCustomer = customerService.createCustomer(customer);
-        return new ResponseEntity<>(newCustomer, HttpStatus.CREATED);
+        Product newProduct = productService.createProduct(product);
+        return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
     }
 }
