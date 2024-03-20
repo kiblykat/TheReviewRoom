@@ -66,14 +66,14 @@ jobs:
       #   # Skip tests since they were already run.
       #   run: mvn package -DskipTests
 
-      - name: Save the Jar file test artifact
+      - name: Upload the generated application jar file artifact
         uses: actions/upload-artifact@v4.3.1
         with:
           name: smart-inventory-0.0.1-SNAPSHOT
           path: target/smart-inventory-0.0.1-SNAPSHOT.jar
           retention-days: 7
 
-      - name: Upload the test artifacts
+      - name: Upload the test report artifacts
         uses: actions/upload-artifact@v4.3.1
         if: ${{ always() }}
         with:
@@ -83,11 +83,20 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
-      - name: Upload the HTML report test artifacts
+      - name: Upload the HTML test report artifacts
         uses: actions/upload-artifact@v4.3.1
         if: ${{ always() }}
         with:
           name: html-test-report
           path: "**/target/site/**"
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload the application and test log file artifacts
+        uses: actions/upload-artifact@v4.3.1
+        if: ${{ always() }}
+        with:
+          name: application-and-test-logs
+          path: "**/logs/**"
           if-no-files-found: error
           retention-days: 7

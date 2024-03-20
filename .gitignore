@@ -31,4 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Generated Log Files ###
 src/main/java/sg/com/smartinventory/logfile
+logs/**
