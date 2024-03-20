@@ -1,61 +1,93 @@
-# This workflow will build a Java Spring Boot Application with Maven, and run test cases. 
+# This workflow will build a Java Spring Boot Application with Maven then run test cases.
 name: Build and Test Java Spring Boot Application
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
-  run-unit-tests:
+  build-and-run-tests:
     runs-on: ubuntu-latest
 
     services:
       postgres:
-        image: postgres:latest 
-        
+        image: postgres:latest
+
         env:
           POSTGRES_USER: postgres
           # POSTGRES_PASSWORD: postgres
           POSTGRES_HOST_AUTH_METHOD: trust
           POSTGRES_DB: smart_inventory
-          
-        # Set health checks to wait until postgres has started.   
+
+        # Set health checks to wait until Postgres has started.
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-          
+
         ports:
-          # Maps tcp port 5432 on service container to the host. 
+          # Maps the TCP port 5432 on the service container to the host.
           - 5432:5432
 
     steps:
       - name: Pull repository
         uses: actions/checkout@v4.1.2
-    
+
       - name: Set up JDK
         uses: actions/setup-java@v4.2.1
         with:
-          java-version: '21'
-          distribution: 'temurin'
-          # cache: maven      # Uncomment and configure if needed. 
-        
-      - name: Run unit tests
-        run: mvn test
-      
-      # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive. 
+          java-version: "17"
+          distribution: "temurin"
+          # Uncomment and configure if needed.
+          # cache: maven
+
+      # The Maven basic phases in order: Validate, Compile, Test, Package, Verify, Install, Deploy.
+      # The verify command executes each default lifecycle phase in order (validate, compile, package, etc.), before executing verify.
+      # In most cases the effect is the same as package. However, in case there are integration tests, these will be executed as well.
+      # During the verify phase some additional checks can be done, e.g. if your code is written according to the predefined checkstyle rules.
+      # If you want to run your integration tests and check it, use verify. If you only want to run unit tests, use test.
+      # This does not seem to generate HTML reports, just the normal text reports.
+      - name: Build and run unit tests
+        # run: mvn test
+        run: mvn verify
+
+      - name: Generate HTML test report
+        # This does not rebuild, and uses the last successful build, to the test cases might not be updated.
+        run: mvn surefire-report:report
+
+      # Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive (Optional).
       # - name: Update dependency graph
       #   uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
 
-      - name: Build Jar file
-        run: mvn package -DskipTests      # Skip tests since they were already run. 
-      
-      - name: Save Jar file
+      # - name: Build Jar file
+      #   # Skip tests since they were already run.
+      #   run: mvn package -DskipTests
+
+      - name: Save the Jar file test artifact
         uses: actions/upload-artifact@v4.3.1
         with:
           name: smart-inventory-0.0.1-SNAPSHOT
           path: target/smart-inventory-0.0.1-SNAPSHOT.jar
-          retention-days: 1
+          retention-days: 7
+
+      - name: Upload the test artifacts
+        uses: actions/upload-artifact@v4.3.1
+        if: ${{ always() }}
+        with:
+          name: test-report
+          # path: '**/target/*-reports/TEST*.xml'
+          path: "**/target/*-reports/**"
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload the HTML report test artifacts
+        uses: actions/upload-artifact@v4.3.1
+        if: ${{ always() }}
+        with:
+          name: html-test-report
+          path: "**/target/site/**"
+          if-no-files-found: error
+          retention-days: 7
