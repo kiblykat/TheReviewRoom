@@ -36,16 +36,16 @@ public class DataLoader {
 
                 // Create fake data.
                 customerRepository.save(new Customer("John", "Doe", "USA", "123 Main St", 123456, 12345678,
-                                "john.doe@example.com", 101));
+                                "john.doe@example.com"));
 
                 customerRepository.save(new Customer("Alice", "Smith", "Canada", "456 Maple Ave", 543210, 98765432,
-                                "alice.smith@example.com", 102));
+                                "alice.smith@example.com"));
                 customerRepository.save(new Customer("Michael", "Johnson", "UK", "789 Oak Rd", 567890, 98761234,
-                                "michael.johnson@example.com", 103));
+                                "michael.johnson@example.com"));
                 customerRepository.save(new Customer("Emily", "Brown", "Australia", "321 Elm St", 135790, 45678912,
-                                "emily.brown@example.com", 104));
+                                "emily.brown@example.com"));
                 customerRepository.save(new Customer("David", "Wilson", "Germany", "654 Pine Rd", 987655, 36985214,
-                                "david.wilson@example.com", 105));
+                                "david.wilson@example.com"));
 
                 productRepository.save(new Product("Electronics", "Smartphone",
                                 "High-end smartphone with advanced features. ", 999.99, 100, 101));

@@ -70,13 +70,11 @@ public class IntegrationTest {
         public void runIntegratedTest() throws Exception {
                 // Step 1: Create the test objects.
                 Customer testObject1 = Customer.builder().firstName("Jackie").lastName("Chan").country("Hong Kong")
-                                .address("123 HK St")
-                                .postalCode(654321).mobileNumber(87654321).email("jackie.chan@example.com")
-                                .reviewId(110).build();
+                                .address("123 HK St").postalCode(654321).mobileNumber(87654321)
+                                .email("jackie.chan@example.com").build();
                 Customer testObject2 = Customer.builder().firstName("Jackie").lastName("Chang").country("Hong Kong")
-                                .address("123 HK St")
-                                .postalCode(654321).mobileNumber(87654321).email("jackie.chang@example.com")
-                                .reviewId(110).build();
+                                .address("123 HK St").postalCode(654321).mobileNumber(87654321)
+                                .email("jackie.chang@example.com").build();
 
                 // Step 2: Convert the Java objects to JSON using ObjectMapper.
                 String testObject1AsJSON = objectMapper.writeValueAsString(testObject1);

@@ -32,7 +32,7 @@ public class ProductControllerTest {
                 // Step 1: Create a Product object
                 Product newProduct = Product.builder().category("Electronics").name("Smartphone")
                                 .description("High-end smartphone with advanced features. ")
-                                .price(999.99).stockQuantity(100).reviewId(101).build();
+                                .price(999.99).stockQuantity(100).build();
 
                 // Step 2: Convert the Java object to JSON using ObjectMapper.
                 String newProductAsJSON = objectMapper.writeValueAsString(newProduct);
