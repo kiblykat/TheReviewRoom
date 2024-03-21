@@ -58,14 +58,14 @@ public class DataLoader {
                                 "Bestselling sci-fi novel set in a dystopian future. ", 14.99, 300));
 
                 reviewRepository.save(new Review("Electronics", "Great smartphone with excellent features. ",
-                                5, 101, 201));
+                                5, 1, 1));
                 reviewRepository.save(new Review("Clothing", "Very comfortable t-shirt, fits perfectly. ",
-                                4, 102, 202));
+                                4, 2, 2));
                 reviewRepository.save(new Review("Home & Kitchen", "Makes delicious coffee, easy to use. ",
-                                4, 103, 203));
+                                4, 3, 3));
                 reviewRepository.save(new Review("Beauty", "Lovely fragrance, long-lasting. ",
-                                5, 104, 204));
+                                5, 4, 4));
                 reviewRepository.save(new Review("Books", "Intriguing plot, couldn't put it down. ",
-                                5, 105, 205));
+                                5, 5, 5));
         }
 }
