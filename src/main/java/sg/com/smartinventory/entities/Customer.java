@@ -45,9 +45,9 @@ public class Customer {
   @Column(name = "postal_code")
   private int postalCode;
 
-  @Digits(fraction = 0, integer = 8, message = "Mobile no should be 8 digits. ")
-  @Column(name = "mobile_number")
-  private int mobileNumber;
+  @Digits(fraction = 0, integer = 8, message = "Phone no should be 8 digits. ")
+  @Column(name = "phone_number")
+  private int phoneNumber;
 
   @Email(message = "Email should be valid. ")
   @Column(name = "email")
@@ -57,7 +57,7 @@ public class Customer {
   }
 
   // Define Constructor for DataLoader.
-  public Customer(String firstName, String lastName, String country, String address, int postalCode, int mobileNumber,
+  public Customer(String firstName, String lastName, String country, String address, int postalCode, int phoneNumber,
       String email) {
     this();
 
@@ -66,7 +66,7 @@ public class Customer {
     this.country = country;
     this.address = address;
     this.postalCode = postalCode;
-    this.mobileNumber = mobileNumber;
+    this.phoneNumber = phoneNumber;
     this.email = email;
   }
 }

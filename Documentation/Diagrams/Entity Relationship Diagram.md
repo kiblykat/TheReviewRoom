@@ -7,17 +7,8 @@ erDiagram
         string country
         string address
         int postal_code
-        int mobile_number
+        int phone_number
         string email
-    }
-
-    Review {
-        long id PK
-        string category
-        string review_content
-        int rating
-        long customer_id FK
-        long product_id FK
     }
 
     Product {
@@ -27,6 +18,15 @@ erDiagram
         string description
         double price
         int stock_quantity
+    }
+
+    Review {
+        long id PK
+        string category
+        string review_content
+        int rating
+        long customer_id FK
+        long product_id FK
     }
 
     Customer ||--O{ Review : "Has"
