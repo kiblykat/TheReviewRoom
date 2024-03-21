@@ -48,7 +48,7 @@ public class UseCaseTest {
         public void createCustomerTest() {
                 // 1. Setup.
                 Customer testObject1 = Customer.builder().firstName("Jackie").lastName("Chan").country("Hong Kong")
-                                .address("123 HK St").postalCode(654321).mobileNumber(87654321)
+                                .address("123 HK St").postalCode(654321).phoneNumber(87654321)
                                 .email("jackie.chan@example.com").build();
 
                 // mock the save method of the customer repository
@@ -69,10 +69,10 @@ public class UseCaseTest {
         public void runIntegratedTest() throws Exception {
                 // Step 1: Create the test objects.
                 Customer testObject1 = Customer.builder().firstName("Jackie").lastName("Chan").country("Hong Kong")
-                                .address("123 HK St").postalCode(654321).mobileNumber(87654321)
+                                .address("123 HK St").postalCode(654321).phoneNumber(87654321)
                                 .email("jackie.chan@example.com").build();
                 Customer testObject2 = Customer.builder().firstName("Jackie").lastName("Chang").country("Hong Kong")
-                                .address("123 HK St").postalCode(654321).mobileNumber(87654321)
+                                .address("123 HK St").postalCode(654321).phoneNumber(87654321)
                                 .email("jackie.chang@example.com").build();
 
                 // Step 2: Convert the Java objects to JSON using ObjectMapper.

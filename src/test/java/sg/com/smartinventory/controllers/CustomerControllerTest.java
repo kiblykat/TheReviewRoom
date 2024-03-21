@@ -42,7 +42,7 @@ public class CustomerControllerTest {
 
                 // Step 1: Create a Customer object
                 Customer newCustomer = Customer.builder().firstName("Jackie").lastName("Chan").country("Hong Kong")
-                                .address("123 HK St").postalCode(654321).mobileNumber(87654321)
+                                .address("123 HK St").postalCode(654321).phoneNumber(87654321)
                                 .email("jackie.chan@example.com").build();
 
                 // Step 2: Convert the Java object to JSON using ObjectMapper.
