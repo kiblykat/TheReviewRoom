@@ -58,10 +58,10 @@
     <logger name="sg.com.smartinventory.testloglevel" level="debug" />
     <!--
     <springProfile name="logback-test1">
-        <logger name="sg.com.smartinventory.testloglevel" level="info" />
+        <logger name="sg.com.smartinventory.controllers" level="info" />
     </springProfile>
     <springProfile name="logback-test2">
-        <logger name="sg.com.smartinventory.testloglevel" level="trace" />
+        <logger name="sg.com.smartinventory.controllers" level="trace" />
     </springProfile>
     -->
 </configuration>
