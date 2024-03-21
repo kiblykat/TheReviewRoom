@@ -5,6 +5,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,9 +29,17 @@ public class ProductControllerTest {
         @Autowired
         private ObjectMapper objectMapper;
 
+        /// Name this according to your class name.
+        // The Logback library defines 5 log levels in order of priority: TRACE, DEBUG,
+        // INFO, WARN, ERROR, with each of these having a corresponding logging method:
+        // trace(), debug(), info(), warn(), error().
+        private static final Logger test_logger = LoggerFactory.getLogger(CustomerControllerTest.class);
+
         @DisplayName("Create product")
         @Test
         public void createProductTest() throws Exception {
+                test_logger.info("Starting test: createProductTest. ");
+
                 // Step 1: Create a Product object
                 Product newProduct = Product.builder().category("Electronics").name("Smartphone")
                                 .description("High-end smartphone with advanced features. ")
@@ -43,9 +54,12 @@ public class ProductControllerTest {
                                 .content(newProductAsJSON);
 
                 // Step 4: Perform the request and get the response and assert.
-                mockMvc.perform(request).andExpect(status().isCreated())
+                mockMvc.perform(request)
+                                .andExpect(status().isCreated())
                                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                                 .andExpect(jsonPath("$.category").value("Electronics"))
                                 .andExpect(jsonPath("$.name").value("Smartphone"));
+
+                test_logger.info("Ending test: createProductTest. ");
         }
 }
