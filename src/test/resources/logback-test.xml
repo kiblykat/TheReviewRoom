@@ -45,17 +45,21 @@
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
     </appender>
-    <!-- Set root log level to "ERROR" -->
-    <root level="error">
-        <!-- Reference the "Console" appender for console output -->
-        <appender-ref ref="Console" />
-        <!-- <appender-ref ref="Console2" /> -->
-        <!-- Reference the "File" appender for file output -->
-        <appender-ref ref="File" />
-        <!-- Reference the "RollingFile" appender for file output -->
-        <!-- <appender-ref ref="RollingFile" /> -->
-    </root>
-    <logger name="sg.com.smartinventory.testloglevel" level="debug" />
+    <springProfile name="development">
+        <!-- Set root log level to "ERROR" -->
+        <root level="error">
+            <!-- Reference the "Console" appender for console output -->
+            <appender-ref ref="Console" />
+            <!-- <appender-ref ref="Console2" /> -->
+            <!-- Reference the "File" appender for file output -->
+            <appender-ref ref="File" />
+            <!-- Reference the "RollingFile" appender for file output -->
+            <!-- <appender-ref ref="RollingFile" /> -->
+        </root>
+    </springProfile>
+    <!-- <logger name="sg.com.smartinventory.controllers" level="debug" /> -->
+    <!-- Add a Spring profile to our test by using the ActiveProfiles annotation, for example
+    @ActiveProfiles("logback-test1"). -->
     <!--
     <springProfile name="logback-test1">
         <logger name="sg.com.smartinventory.controllers" level="info" />
