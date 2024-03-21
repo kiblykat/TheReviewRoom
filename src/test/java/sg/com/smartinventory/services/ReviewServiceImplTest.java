@@ -31,8 +31,8 @@ public class ReviewServiceImplTest {
         // 1. SETUP
         // Create a new review.
         Review review = Review.builder().category("Electronics")
-                .reviewContent("Great smartphone with excellent features. ").rating(5).customerId(101)
-                .productId(201).build();
+                .reviewContent("Great smartphone with excellent features. ").rating(5).customerId(1)
+                .productId(2).build();
 
         // Mock the save method of the review repository.
         when((reviewRepository.save(review))).thenReturn(review);

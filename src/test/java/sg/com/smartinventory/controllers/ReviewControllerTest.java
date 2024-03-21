@@ -66,8 +66,8 @@ public class ReviewControllerTest {
 
                 // Step 1: Create a Review object
                 Review newReview = Review.builder().category("Electronics")
-                                .reviewContent("Great smartphone with excellent features. ").rating(5).customerId(101)
-                                .productId(201).build();
+                                .reviewContent("Great smartphone with excellent features. ").rating(5).customerId(1)
+                                .productId(2).build();
 
                 // Step 2: Convert the Java object to JSON using ObjectMapper.
                 String newReviewAsJSON = objectMapper.writeValueAsString(newReview);
