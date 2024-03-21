@@ -11,7 +11,7 @@ import sg.com.smartinventory.entities.Review;
 // We can also create custom queries using the JPA criteria API by simply creating a method with a certain naming convention specified by the query creation mechanism.
 public interface ReviewRepository extends JpaRepository<Review, Long> {
     // Custom query to find all reviews with a certain ID.
-    List<Review> findByID(long id);
+    List<Review> findById(long id);
 
     // Custom query to find all reviews with a certain category.
     List<Review> findByCategory(String category);
@@ -23,11 +23,11 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     List<Review> findByRating(int rating);
 
     // Custom query to find all reviews with a certain customer ID.
-    List<Review> findByCustomerID(long customerId);
+    List<Review> findByCustomerId(long customerId);
 
     // Custom query to find all reviews with a certain product ID.
-    List<Review> findByProductID(long productId);
+    List<Review> findByProductId(long productId);
 
     // Custom query to find all reviews with a certain customer ID and product ID.
-    List<Review> findByCustomerIDAndProductID(long customerId, long productId);
+    List<Review> findByCustomerIdAndProductId(long customerId, long productId);
 }

@@ -11,7 +11,7 @@ import sg.com.smartinventory.entities.Customer;
 // We can also create custom queries using the JPA criteria API by simply creating a method with a certain naming convention specified by the query creation mechanism.
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
     // Custom query to find all customers with a certain ID.
-    List<Customer> findByID(long id);
+    List<Customer> findById(long id);
 
     // Custom query to find all customers with a certain first name.
     List<Customer> findByFirstName(String firstName);
@@ -20,7 +20,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     List<Customer> findByLastName(String lastName);
 
     // Custom query to find all customers with a certain first name and last name.
-    List<Customer> findByFirstNameAndLastNameAsc(String firstName, String lastName);
+    List<Customer> findByFirstNameAndLastName(String firstName, String lastName);
 
     // Custom query to find all customers with a certain country.
     List<Customer> findByCountry(String country);
