@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Spring Boot uses Logback as the logging library with preconfigured defaults. To customize it,
+use logback-spring.xml instead of the normal Java logback.xml. This is parsed by Spring Boot before
+it configures Logback and provides some extra XML elements that we can use for more dynamic logging
+configurations. It supports Spring Profiles the <springProfile> element to configure the logging
+for
+different profiles. -->
 <configuration>
     <!-- Define a common variable -->
     <property name="AppLogPath" value="./logs" />
@@ -48,21 +54,23 @@
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
     </appender>
-    <!-- Set root log level to "INFO" -->
-    <root level="info">
-        <!-- Reference the "Console" appender for console output -->
-        <appender-ref ref="Console" />
-        <!-- <appender-ref ref="Console2" /> -->
-        <!-- Reference the "File" appender for file output -->
-        <appender-ref ref="File" />
-        <!-- Reference the "RollingFile" appender for file output -->
-        <!-- <appender-ref ref="RollingFile" /> -->
-    </root>
-    <!-- LOG "sg.com.smartinventory*" at "TRACE" level -->
-    <!--
+    <springProfile name="development">
+        <!-- Set root log level to "INFO" -->
+        <root level="info">
+            <!-- Reference the "Console" appender for console output -->
+            <appender-ref ref="Console" />
+            <!-- <appender-ref ref="Console2" /> -->
+            <!-- Reference the "File" appender for file output -->
+            <appender-ref ref="File" />
+            <!-- Reference the "RollingFile" appender for file output -->
+            <!-- <appender-ref ref="RollingFile" /> -->
+        </root>
+        <!-- LOG "sg.com.smartinventory*" at "TRACE" level -->
+        <!--
     <logger name="sg.com.smartinventory" level="trace" additivity="false">
         <appender-ref ref="RollingFile" />
         <appender-ref ref="Console" />
     </logger>
     -->
+    </springProfile>
 </configuration>

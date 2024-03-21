@@ -6,7 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,9 +21,9 @@ import lombok.Setter;
 @Table(name = "review")
 public class Review {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.IDENTITY) // Bigserial.
   @Column(name = "id")
-  private Long id; // PK.
+  private long id; // PK. PostgreSQL bigserial data type.
 
   @Column(name = "category")
   private String category;
@@ -33,17 +34,19 @@ public class Review {
   @Column(name = "rating")
   private int rating;
 
+  @Min(value = 1, message = "Customer ID should start from 1. ")
   @Column(name = "customer_id")
-  private int customerId; // FK.
+  private long customerId; // FK. PostgreSQL bigserial data type.
 
+  @Min(value = 1, message = "Product ID should start from 1. ")
   @Column(name = "product_id")
-  private int productId; // FK.
+  private long productId; // FK. PostgreSQL bigserial data type.
 
   public Review() {
   }
 
   // Define Constructor for DataLoader.
-  public Review(String category, String reviewContent, int rating, int customerId, int productId) {
+  public Review(String category, String reviewContent, int rating, long customerId, long productId) {
     this();
 
     this.category = category;

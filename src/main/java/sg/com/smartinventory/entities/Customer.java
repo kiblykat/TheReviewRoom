@@ -26,7 +26,7 @@ public class Customer {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
-  private Long id; // PK.
+  private long id; // PK. PostgreSQL bigserial data type.
 
   @NotBlank(message = "First name is mandatory. ")
   @Column(name = "first_name")
@@ -53,15 +53,12 @@ public class Customer {
   @Column(name = "email")
   private String email;
 
-  @Column(name = "review_id")
-  private int reviewId; // FK.
-
   public Customer() {
   }
 
   // Define Constructor for DataLoader.
   public Customer(String firstName, String lastName, String country, String address, int postalCode, int mobileNumber,
-      String email, int reviewId) {
+      String email) {
     this();
 
     this.firstName = firstName;
@@ -71,6 +68,5 @@ public class Customer {
     this.postalCode = postalCode;
     this.mobileNumber = mobileNumber;
     this.email = email;
-    this.reviewId = reviewId;
   }
 }

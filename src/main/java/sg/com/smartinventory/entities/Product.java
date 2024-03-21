@@ -22,7 +22,7 @@ public class Product {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
-  private Long id;
+  private long id; // PK. PostgreSQL bigserial data type.
 
   @Column(name = "category")
   private String category;
@@ -39,9 +39,6 @@ public class Product {
   @Column(name = "stock_quantity")
   private int stockQuantity;
 
-  @Column(name = "review_id")
-  private int reviewId; // FK.
-
   public Product() {
   }
 
@@ -54,6 +51,5 @@ public class Product {
     this.description = description;
     this.price = price;
     this.stockQuantity = stockQuantity;
-    this.reviewId = reviewId;
   }
 }
