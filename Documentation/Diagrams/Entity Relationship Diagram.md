@@ -9,7 +9,6 @@ erDiagram
         int postal_code
         int mobile_number
         string email
-        int review_id FK
     }
 
     Review {
@@ -17,8 +16,8 @@ erDiagram
         string category
         string review_content
         int rating
-        int customer_id FK
-        int product_id FK
+        long customer_id FK
+        long product_id FK
     }
 
     Product {
@@ -28,7 +27,6 @@ erDiagram
         string description
         double price
         int stock_quantity
-        int review_id FK
     }
 
     Customer ||--O{ Review : "Has"
