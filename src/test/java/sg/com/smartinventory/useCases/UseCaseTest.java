@@ -88,11 +88,13 @@ public class UseCaseTest {
                                 .content(testObject2AsJSON);
 
                 // Step 4: Perform the request and get the response and assert.
-                mockMvc.perform(request).andExpect(status().isCreated())
+                mockMvc.perform(request)
+                                .andExpect(status().isCreated())
                                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                                 .andExpect(jsonPath("$.firstName").value("Jackie"))
                                 .andExpect(jsonPath("$.lastName").value("Chan"));
-                mockMvc.perform(request2).andExpect(status().isCreated())
+                mockMvc.perform(request2)
+                                .andExpect(status().isCreated())
                                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                                 .andExpect(jsonPath("$.firstName").value("Jackie"))
                                 .andExpect(jsonPath("$.lastName").value("Chang"));
