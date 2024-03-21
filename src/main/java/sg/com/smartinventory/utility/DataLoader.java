@@ -37,7 +37,6 @@ public class DataLoader {
                 // Create fake data.
                 customerRepository.save(new Customer("John", "Doe", "USA", "123 Main St", 123456, 12345678,
                                 "john.doe@example.com"));
-
                 customerRepository.save(new Customer("Alice", "Smith", "Canada", "456 Maple Ave", 543210, 98765432,
                                 "alice.smith@example.com"));
                 customerRepository.save(new Customer("Michael", "Johnson", "UK", "789 Oak Rd", 567890, 98761234,
@@ -48,15 +47,15 @@ public class DataLoader {
                                 "david.wilson@example.com"));
 
                 productRepository.save(new Product("Electronics", "Smartphone",
-                                "High-end smartphone with advanced features. ", 999.99, 100, 101));
+                                "High-end smartphone with advanced features. ", 999.99, 100));
                 productRepository.save(new Product("Clothing", "Men's T-Shirt",
-                                "Comfortable cotton t-shirt for everyday wear. ", 29.99, 500, 102));
+                                "Comfortable cotton t-shirt for everyday wear. ", 29.99, 500));
                 productRepository.save(new Product("Home & Kitchen", "Coffee Maker",
-                                "Automatic coffee maker with programmable settings. ", 49.99, 50, 103));
+                                "Automatic coffee maker with programmable settings. ", 49.99, 50));
                 productRepository.save(new Product("Beauty", "Perfume",
-                                "Elegant fragrance with floral and citrus notes. ", 79.99, 200, 104));
+                                "Elegant fragrance with floral and citrus notes. ", 79.99, 200));
                 productRepository.save(new Product("Books", "Science Fiction Novel",
-                                "Bestselling sci-fi novel set in a dystopian future. ", 14.99, 300, 105));
+                                "Bestselling sci-fi novel set in a dystopian future. ", 14.99, 300));
 
                 reviewRepository.save(new Review("Electronics", "Great smartphone with excellent features. ",
                                 5, 101, 201));

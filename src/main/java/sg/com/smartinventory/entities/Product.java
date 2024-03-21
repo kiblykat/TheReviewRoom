@@ -43,7 +43,7 @@ public class Product {
   }
 
   // Define Constructor for DataLoader.
-  public Product(String category, String name, String description, double price, int stockQuantity, int reviewId) {
+  public Product(String category, String name, String description, double price, int stockQuantity) {
     this();
 
     this.category = category;
