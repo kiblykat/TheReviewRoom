@@ -55,8 +55,10 @@ public class SecurityConfiguration {
                     ex.getMessage());
         }));
 
-        http.authorizeRequests(
-                (authorize) -> authorize.antMatchers("/auth/**").permitAll().anyRequest().authenticated());
+        // http.authorizeRequests((authorize) ->
+        // authorize.antMatchers("/auth/**").permitAll().anyRequest().authenticated());
+        http.authorizeHttpRequests(
+                (authorize) -> authorize.requestMatchers("/auth/**").permitAll().anyRequest().authenticated());
 
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
