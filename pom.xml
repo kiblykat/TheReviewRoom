@@ -14,7 +14,7 @@
 	<artifactId>smart-inventory</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>smart-inventory</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Smart Inventory System</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
