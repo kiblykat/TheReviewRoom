@@ -14,11 +14,11 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
 import sg.com.smartinventory.entities.User;
 
 @Component
 public class JwtTokenUtil {
-
     private final String JWT_SECRET_KEY = "mysecretkey";
 
     @Value("${jwt.session.period:3600000}")
@@ -35,6 +35,7 @@ public class JwtTokenUtil {
 
     public String createToken(User user) {
         Claims claims = Jwts.claims().setSubject(user.getEmail());
+
         claims.put("userName", user.getUsername());
         claims.put("firstName", user.getFirstName());
         claims.put("lastName", user.getLastName());
@@ -54,11 +55,12 @@ public class JwtTokenUtil {
     }
 
     public String resolveToken(HttpServletRequest request) {
-
         String bearerToken = request.getHeader(TOKEN_HEADER);
+
         if (bearerToken != null && bearerToken.startsWith(TOKEN_PREFIX)) {
             return bearerToken.substring(TOKEN_PREFIX.length());
         }
+
         return null;
     }
 

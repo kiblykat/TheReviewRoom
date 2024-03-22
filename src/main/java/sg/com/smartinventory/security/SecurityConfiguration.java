@@ -39,6 +39,7 @@ public class SecurityConfiguration {
         AuthenticationManagerBuilder authenticationManagerBuilder = http
                 .getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder);
+
         return authenticationManagerBuilder.build();
     }
 
@@ -46,13 +47,10 @@ public class SecurityConfiguration {
     SecurityFilterChain securityFitlerChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable());
 
-        http = http.sessionManagement(management -> management
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http = http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         http = http.exceptionHandling(handling -> handling.authenticationEntryPoint((request, response, ex) -> {
-            response.sendError(
-                    HttpServletResponse.SC_UNAUTHORIZED,
-                    ex.getMessage());
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
         }));
 
         // http.authorizeRequests((authorize) ->
