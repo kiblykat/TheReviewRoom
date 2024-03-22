@@ -1,5 +1,8 @@
 package sg.com.smartinventory.serviceImpls;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import sg.com.smartinventory.entities.Customer;
@@ -22,6 +25,51 @@ public class CustomerServiceImpl implements CustomerService {
         Customer newCustomer = customerRepository.save(customer);
 
         return newCustomer;
+    }
+
+    @Override
+    public Customer getCustomer(long id) {
+        // Optional<Customer> optionalCustomer = customerRepository.findById(id);
+        // if(optionalCustomer.isPresent()) {
+        // Customer foundCustomer = optionalCustomer.get();
+        // return foundCustomer;
+        // }
+        // throw new CustomerNotFoundException(id);
+        // return customerRepository.findById(id).orElseThrow(() -> new
+        // CustomerNotFoundException(id));
+        return customerRepository.findById(id).get(0);
+    }
+
+    @Override
+    public ArrayList<Customer> getAllCustomers() {
+        List<Customer> allCustomers = customerRepository.findAll();
+        return (ArrayList<Customer>) allCustomers;
+    }
+
+    @Override
+    public Customer updateCustomer(long id, Customer customer) {
+        // Retrieve the customer from the database.
+        // Customer customerToUpdate = customerRepository.findById(id).orElseThrow(() ->
+        // new
+        // CustomerNotFoundException(id));
+        Customer customerToUpdate = customerRepository.findById(id).get(0);
+
+        // Update the customer retrieved from the database.
+        customerToUpdate.setFirstName(customer.getFirstName());
+        customerToUpdate.setLastName(customer.getLastName());
+        customerToUpdate.setCountry(customer.getCountry());
+        customerToUpdate.setAddress(customer.getAddress());
+        customerToUpdate.setPostalCode(customer.getPostalCode());
+        customerToUpdate.setPhoneNumber(customer.getPhoneNumber());
+        customerToUpdate.setEmail(customer.getEmail());
+
+        // Save the updated customer back to the database.
+        return customerRepository.save(customerToUpdate);
+    }
+
+    @Override
+    public void deleteCustomer(long id) {
+        customerRepository.deleteById(id);
     }
 
     // @Override
