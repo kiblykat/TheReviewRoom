@@ -1,0 +1,69 @@
+package sg.com.smartinventory.serviceImpls;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import sg.com.smartinventory.entities.User;
+import sg.com.smartinventory.entities.UserRole;
+import sg.com.smartinventory.exceptions.UserNotFoundException;
+import sg.com.smartinventory.exceptions.UserRoleNotFoundException;
+import sg.com.smartinventory.repositories.UserRepository;
+import sg.com.smartinventory.repositories.UserRoleRepository;
+import sg.com.smartinventory.services.UserRoleService;
+
+@Service
+public class UserRoleServiceImpl implements UserRoleService {
+
+    private UserRoleRepository userRoleRepository;
+    private UserRepository userRepository;
+
+    public UserRoleServiceImpl(UserRoleRepository userRoleRepository, UserRepository userRepository) {
+        this.userRoleRepository = userRoleRepository;
+        this.userRepository = userRepository;
+    }
+
+    @Override
+    public UserRole createUserRole(UserRole role) {
+        return userRoleRepository.save(role);
+    }
+
+    @Override
+    public UserRole getOneUserRole(Long id) {
+        return userRoleRepository.findById(id).orElseThrow(() -> new UserRoleNotFoundException(id));
+    }
+
+    @Override
+    public List<UserRole> getAllUserRoles() {
+        return userRoleRepository.findAll();
+    }
+
+    @Override
+    public UserRole updateUserRole(Long id, UserRole role) {
+        UserRole dbRole = userRoleRepository.findById(id).orElseThrow(() -> new UserRoleNotFoundException(id));
+
+        dbRole.setRoleName(dbRole.getRoleName());
+        dbRole.setDescription(dbRole.getDescription());
+
+        return userRoleRepository.save(dbRole);
+    }
+
+    @Override
+    public void deleteUserRole(Long id) {
+        userRoleRepository.deleteById(id);
+    }
+
+    @Override
+    public UserRole addUserToUserRole(Long roleId, Long userId) {
+        User dbUser = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
+
+        UserRole dbUserRole = userRoleRepository.findById(roleId)
+                .orElseThrow(() -> new UserRoleNotFoundException(roleId));
+
+        dbUser.getRoles().add(dbUserRole);
+
+        userRepository.save(dbUser);
+
+        return dbUserRole;
+    }
+}
