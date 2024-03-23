@@ -1,16 +1,16 @@
-package sg.edu.ntu.simpleums.serviceImpls;
+package sg.com.smartinventory.serviceImpls;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import sg.edu.ntu.simpleums.entities.User;
-import sg.edu.ntu.simpleums.entities.UserRole;
-import sg.edu.ntu.simpleums.exceptions.UserNotFoundException;
-import sg.edu.ntu.simpleums.exceptions.UserRoleNotFoundException;
-import sg.edu.ntu.simpleums.repositories.UserRepository;
-import sg.edu.ntu.simpleums.repositories.UserRoleRepository;
-import sg.edu.ntu.simpleums.services.UserService;
+import sg.com.smartinventory.entities.User;
+import sg.com.smartinventory.entities.UserRole;
+import sg.com.smartinventory.exceptions.UserNotFoundException;
+import sg.com.smartinventory.exceptions.UserRoleNotFoundException;
+import sg.com.smartinventory.repositories.UserRepository;
+import sg.com.smartinventory.repositories.UserRoleRepository;
+import sg.com.smartinventory.services.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getOneUser(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException (id));
     }
 
     @Override
@@ -59,11 +59,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User addUserRoleToUser(Long userId, Long roleId) {
         User dbUser = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
+        
         UserRole dbUserRole = userRoleRepository.findById(roleId).orElseThrow(() -> new UserRoleNotFoundException(roleId)); 
 
         dbUser.getRoles().add(dbUserRole);
+        
         userRepository.save(dbUser);
+        
         return dbUser;
     }
-    
 }
