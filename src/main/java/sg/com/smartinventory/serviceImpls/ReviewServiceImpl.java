@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import sg.com.smartinventory.entities.Review;
-// import sg.com.smartinventory.exceptions.ReviewNotFoundException;
+import sg.com.smartinventory.exceptions.ReviewNotFoundException;
 import sg.com.smartinventory.repositories.ReviewRepository;
 import sg.com.smartinventory.services.ReviewService;
 
@@ -27,16 +27,14 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Review getReview(long id) {
+    public Review getReview(Long id) {
         // Optional<Review> optionalReview = reviewRepository.findById(id);
         // if(optionalReview.isPresent()) {
         // Review foundReview = optionalReview.get();
         // return foundReview;
         // }
         // throw new ReviewNotFoundException(id);
-        // return reviewRepository.findById(id).orElseThrow(() -> new
-        // ReviewNotFoundException(id));
-        return reviewRepository.findById(id).get(0);
+        return reviewRepository.findById(id).orElseThrow(() -> new ReviewNotFoundException(id));
     }
 
     @Override
@@ -46,11 +44,9 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Review updateReview(long id, Review review) {
+    public Review updateReview(Long id, Review review) {
         // Retrieve the review from the database.
-        // Review reviewToUpdate = reviewRepository.findById(id).orElseThrow(() -> new
-        // ReviewNotFoundException(id));
-        Review reviewToUpdate = reviewRepository.findById(id).get(0);
+        Review reviewToUpdate = reviewRepository.findById(id).orElseThrow(() -> new ReviewNotFoundException(id));
 
         // Update the review retrieved from the database.
         reviewToUpdate.setCategory(review.getCategory());

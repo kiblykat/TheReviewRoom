@@ -1,0 +1,69 @@
+package sg.com.smartinventory.serviceImpls;
+
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+
+import sg.com.smartinventory.entities.User;
+import sg.com.smartinventory.entities.UserRole;
+import sg.com.smartinventory.repositories.UserRepository;
+import sg.com.smartinventory.repositories.UserRoleRepository;
+
+@Component
+public class UserDataLoader {
+    private UserRepository userRepository;
+    private UserRoleRepository userRoleRepository;
+    private PasswordEncoder encoder;
+
+    public DataLoader(UserRepository userRepository, UserRoleRepository userRoleRepository, PasswordEncoder encoder) {
+        this.userRepository = userRepository;
+        this.userRoleRepository = userRoleRepository;
+        this.encoder = encoder;
+    }
+
+    @PostConstruct
+    public void preLoadData() {
+        // Check if there's any record inside the database.
+        if (userRepository.count() == 0 && userRoleRepository.count() == 0) {
+            userRepository.save(User.builder()
+                    .username("IronMan")
+                    .firstName("Tony")
+                    .lastName("Stark")
+                    .contactNo("22310091")
+                    .email("ironman@avengers.com")
+                    .password(encoder.encode("Iamironman"))
+                    .build());
+
+            userRepository.save(User.builder()
+                    .username("CaptainAmerica")
+                    .firstName("Steve")
+                    .lastName("Roger")
+                    .contactNo("11215542")
+                    .email("capt@avengers.com")
+                    .password(encoder.encode("Icandothisallday"))
+                    .build());
+
+            userRoleRepository.save(UserRole.builder()
+                    .roleName("Admin")
+                    .description("Administrator")
+                    .build());
+
+            userRoleRepository.save(UserRole.builder()
+                    .roleName("User")
+                    .description("System User")
+                    .build());
+
+            List<User> users = userRepository.findAll();
+            List<UserRole> roles = userRoleRepository.findAll();
+
+            for (User user : users) {
+                user.setRoles(roles);
+            }
+
+            userRepository.saveAll(users);
+        }
+    }
+}

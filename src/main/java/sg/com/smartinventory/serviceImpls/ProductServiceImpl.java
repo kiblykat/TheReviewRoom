@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import sg.com.smartinventory.entities.Product;
-// import sg.com.smartinventory.exceptions.ProductNotFoundException;
+import sg.com.smartinventory.exceptions.ProductNotFoundException;
 import sg.com.smartinventory.repositories.ProductRepository;
 import sg.com.smartinventory.services.ProductService;
 
@@ -27,16 +27,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProduct(long id) {
+    public Product getProduct(Long id) {
         // Optional<Product> optionalProduct = productRepository.findById(id);
         // if(optionalProduct.isPresent()) {
         // Product foundProduct = optionalProduct.get();
         // return foundProduct;
         // }
         // throw new ProductNotFoundException(id);
-        // return productRepository.findById(id).orElseThrow(() -> new
-        // ProductNotFoundException(id));
-        return productRepository.findById(id).get(0);
+        return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
     }
 
     @Override
@@ -46,12 +44,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct(long id, Product product) {
+    public Product updateProduct(Long id, Product product) {
         // Retrieve the product from the database.
-        // Product productToUpdate = productRepository.findById(id).orElseThrow(() ->
-        // new
-        // ProductNotFoundException(id));
-        Product productToUpdate = productRepository.findById(id).get(0);
+        Product productToUpdate = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
 
         // Update the product retrieved from the database.
         productToUpdate.setCategory(product.getCategory());

@@ -7,11 +7,11 @@ import sg.com.smartinventory.entities.Review;
 public interface ReviewService {
     Review createReview(Review review);
 
-    Review getReview(long id);
+    Review getReview(Long id);
 
     ArrayList<Review> getAllReviews();
 
-    Review updateReview(long id, Review review);
+    Review updateReview(Long id, Review review);
 
     void deleteReview(long id);
 

@@ -8,11 +8,11 @@ import sg.com.smartinventory.entities.Customer;
 public interface CustomerService {
     Customer createCustomer(Customer customer);
 
-    Customer getCustomer(long id);
+    Customer getCustomer(Long id);
 
     ArrayList<Customer> getAllCustomers();
 
-    Customer updateCustomer(long id, Customer customer);
+    Customer updateCustomer(Long id, Customer customer);
 
     void deleteCustomer(long id);
 

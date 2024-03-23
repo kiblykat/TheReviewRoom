@@ -11,7 +11,7 @@ import sg.com.smartinventory.entities.Product;
 // We can also create custom queries using the JPA criteria API by simply creating a method with a certain naming convention specified by the query creation mechanism.
 public interface ProductRepository extends JpaRepository<Product, Long> {
     // Custom query to find all products with a certain ID.
-    List<Product> findById(long id);
+    // List<Product> findById(long id);
 
     // Custom query to find all products with a certain category.
     List<Product> findByCategory(String category);
