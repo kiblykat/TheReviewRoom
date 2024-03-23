@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import sg.com.smartinventory.entities.Customer;
 // import sg.com.smartinventory.entities.Review;
-// import sg.com.smartinventory.exceptions.CustomerNotFoundException;
+import sg.com.smartinventory.exceptions.CustomerNotFoundException;
 import sg.com.smartinventory.repositories.CustomerRepository;
 import sg.com.smartinventory.services.CustomerService;
 
@@ -28,16 +28,14 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer getCustomer(long id) {
+    public Customer getCustomer(Long id) {
         // Optional<Customer> optionalCustomer = customerRepository.findById(id);
         // if(optionalCustomer.isPresent()) {
         // Customer foundCustomer = optionalCustomer.get();
         // return foundCustomer;
         // }
         // throw new CustomerNotFoundException(id);
-        // return customerRepository.findById(id).orElseThrow(() -> new
-        // CustomerNotFoundException(id));
-        return customerRepository.findById(id).get(0);
+        return customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
     }
 
     @Override
@@ -47,12 +45,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer updateCustomer(long id, Customer customer) {
+    public Customer updateCustomer(Long id, Customer customer) {
         // Retrieve the customer from the database.
-        // Customer customerToUpdate = customerRepository.findById(id).orElseThrow(() ->
-        // new
-        // CustomerNotFoundException(id));
-        Customer customerToUpdate = customerRepository.findById(id).get(0);
+        Customer customerToUpdate = customerRepository.findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException(id));
 
         // Update the customer retrieved from the database.
         customerToUpdate.setFirstName(customer.getFirstName());
