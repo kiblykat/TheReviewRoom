@@ -1,0 +1,60 @@
+package sg.com.smartinventory.controllers;
+
+import java.util.List;
+
+import jakarta.validation.Valid;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import sg.com.smartinventory.entities.UserRole;
+import sg.com.smartinventory.services.UserRoleService;
+
+@RestController
+@RequestMapping("/userroles")
+public class UserRoleController {
+    private UserRoleService userRoleService;
+
+    public UserRoleController(UserRoleService userRoleService) {
+        this.userRoleService = userRoleService;
+    }
+
+    @GetMapping("")
+    public ResponseEntity<List<UserRole>> getAllUsers() {
+        return new ResponseEntity<>(userRoleService.getAllUserRoles(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserRole> getOneUser(@PathVariable Long id) {
+        return new ResponseEntity<>(userRoleService.getOneUserRole(id), HttpStatus.OK);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<UserRole> createUser(@Valid @RequestBody UserRole role) {
+        return new ResponseEntity<>(userRoleService.createUserRole(role), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserRole> updateUser(@PathVariable Long id, @Valid @RequestBody UserRole role) {
+        return new ResponseEntity<>(userRoleService.updateUserRole(id, role), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<UserRole> deleteUser(@PathVariable Long id) {
+        userRoleService.deleteUserRole(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/{id}/user/{userId}")
+    public ResponseEntity<UserRole> putMethodName(@PathVariable Long id, @PathVariable Long userId) {
+        return new ResponseEntity<>(userRoleService.addUserToUserRole(id, userId), HttpStatus.OK);
+    }
+}

@@ -1,9 +1,10 @@
-package sg.com.smartinventory.exceptions;
+package sg.com.smartinventory.controllers;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import sg.com.smartinventory.entities.ErrorResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -13,43 +14,36 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import sg.com.smartinventory.entities.ErrorResponse;
+import sg.com.smartinventory.exceptions.UserNotFoundException;
+import sg.com.smartinventory.exceptions.UserRoleNotFoundException;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    // This is handler for CustomerNotFoundException
-    @ExceptionHandler({ CustomerNotFoundException.class, ProductNotFoundException.class,
-            ReviewNotFoundException.class })
-    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(CustomerNotFoundException ex) {
-        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), LocalDateTime.now());
+    private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    @ExceptionHandler({ UserNotFoundException.class, UserRoleNotFoundException.class })
+    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(Exception ex) {
+        return new ResponseEntity<>(new ErrorResponse(ex.getMessage(), LocalDateTime.now()), HttpStatus.NOT_FOUND);
     }
-
-    // @ExceptionHandler(ProductNotFoundException.class)
-    // public ResponseEntity<ErrorResponse>
-    // handleProductNotFoundException(CustomerNotFoundException ex){
-    // ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(),
-    // LocalDateTime.now());
-    //
-    // return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-    // }
 
     @ExceptionHandler(EmptyResultDataAccessException.class)
     public ResponseEntity<ErrorResponse> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex) {
-        ErrorResponse errorResponse = new ErrorResponse("Entry does not exist. ", LocalDateTime.now());
+        ErrorResponse errorResponse = new ErrorResponse("Resource does not exist.", LocalDateTime.now());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        // Get a list of all validation errors from the exception object.
+        // Get a list of all validation errors from the exception object
         List<ObjectError> validationErrors = ex.getBindingResult().getAllErrors();
 
-        // Create a StringBuilder to store all error messages.
+        // Create a StringBuilder to store all error messages
         StringBuilder sb = new StringBuilder();
 
         for (ObjectError error : validationErrors) {
-            sb.append(error.getDefaultMessage() + ".");
+            sb.append(error.getDefaultMessage() + ". ");
         }
 
         ErrorResponse errorResponse = new ErrorResponse(sb.toString(), LocalDateTime.now());
@@ -59,11 +53,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception ex) {
-        // We can log the exception here.
-        // logger.error(ex.getMessage(), ex);
+        logger.error("Unknown Exception occured!", ex);
 
-        // Return generic error message.
-        ErrorResponse errorResponse = new ErrorResponse("Something went wrong", LocalDateTime.now());
+        ErrorResponse errorResponse = new ErrorResponse("Something went wrong. ", LocalDateTime.now());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
