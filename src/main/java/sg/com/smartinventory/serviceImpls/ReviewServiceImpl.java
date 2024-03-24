@@ -52,7 +52,6 @@ public class ReviewServiceImpl implements ReviewService {
         reviewToUpdate.setCategory(review.getCategory());
         reviewToUpdate.setReviewContent(review.getReviewContent());
         reviewToUpdate.setRating(review.getRating());
-        reviewToUpdate.setCustomerId(review.getCustomerId());
         reviewToUpdate.setProductId(review.getProductId());
 
         // Save the updated review back to the database.

@@ -1,10 +1,13 @@
 package sg.com.smartinventory.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
@@ -35,13 +38,18 @@ public class Review {
   @Column(name = "rating")
   private int rating;
 
-  @Min(value = 1, message = "Customer ID should start from 1. ")
-  @Column(name = "customer_id")
-  private long customerId; // FK. PostgreSQL bigserial data type.
-
   @Min(value = 1, message = "Product ID should start from 1. ")
   @Column(name = "product_id")
   private long productId; // FK. PostgreSQL bigserial data type.
+
+  // @ManyToOne Customer -> Many Reviews can be linked to 1 Customer
+  // @Min(value = 1, message = "Customer ID should start from 1. ")
+  @JsonBackReference
+  @ManyToOne(optional = false)
+  @JoinColumn(name = "customer_id", referencedColumnName = "id")
+  private Customer customer;
+
+  // @ManyToOne Product -> Many Reviews can be linked to 1 Product
 
   public Review() {
   }
@@ -53,11 +61,8 @@ public class Review {
     this.category = category;
     this.reviewContent = reviewContent;
     this.rating = rating;
-    this.customerId = customerId;
+    // this.customerId = customerId;
     this.productId = productId;
   }
 
-  // @ManyToOne Product -> Many Reviews can be linked to 1 Product
-
-  // @ManyToOne Customer -> Many Reviews can be linked to 1 Customer
 }
