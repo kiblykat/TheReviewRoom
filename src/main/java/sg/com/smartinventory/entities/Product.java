@@ -72,4 +72,6 @@ public class Product {
     this.price = price;
     this.stockQuantity = stockQuantity;
   }
+
+  // @ManyToOne Customer -> Many Products can be linked to 1 Customer
 }
