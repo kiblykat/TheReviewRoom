@@ -93,5 +93,4 @@ public class ReviewControllerTest {
                 // test_logger.error("Ending test: createReviewTest. ");
                 test_logger.info("Ending test: " + getCurrentMethodName() + ". ");
         }
-        }
 }
