@@ -1,6 +1,8 @@
 package sg.com.smartinventory.integration;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static sg.com.smartinventory.utility.Utility.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -8,11 +10,16 @@ import static org.mockito.Mockito.when;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -43,9 +50,28 @@ public class IntegrationTest {
         @Autowired
         private ObjectMapper objectMapper;
 
+        /// Name this according to your class name.
+        // The Logback library defines 5 log levels in order of priority: TRACE, DEBUG,
+        // INFO, WARN, ERROR, with each of these having a corresponding logging method:
+        // trace(), debug(), info(), warn(), error().
+        private static final Logger test_logger = LoggerFactory.getLogger(IntegrationTest.class);
+
+        // Test Setup and Teardown configuration.
+        @BeforeEach
+        void init() {
+
+        }
+
+        @AfterEach
+        void teardown() {
+
+        }
+
         @DisplayName("Integration Test 1")
         @Test
         public void createCustomerTest() {
+                test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
+
                 // 1. Setup.
                 Customer testObject1 = Customer.builder().firstName("Jackie").lastName("Chan").country("Hong Kong")
                                 .address("123 HK St").postalCode(654321).phoneNumber(87654321)
@@ -62,11 +88,15 @@ public class IntegrationTest {
 
                 // Verify that the save method of the customer repository is called once.
                 verify(customerRepository, times(1)).save(testObject1);
+
+                test_logger.info("Ending test: " + getCurrentMethodName() + ". ");
         }
 
         @DisplayName("Integration Test 2")
         @Test
         public void runIntegratedTest() throws Exception {
+                test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
+
                 // Step 1: Create the test objects.
                 Customer testObject1 = Customer.builder().firstName("Jackie").lastName("Chan").country("Hong Kong")
                                 .address("123 HK St").postalCode(654321).phoneNumber(87654321)
@@ -98,5 +128,7 @@ public class IntegrationTest {
                                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                                 .andExpect(jsonPath("$.firstName").value("Jackie"))
                                 .andExpect(jsonPath("$.lastName").value("Chang"));
+
+                test_logger.info("Ending test: " + getCurrentMethodName() + ". ");
         }
 }

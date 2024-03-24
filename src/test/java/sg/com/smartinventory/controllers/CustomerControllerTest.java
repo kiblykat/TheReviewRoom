@@ -1,7 +1,13 @@
 package sg.com.smartinventory.controllers;
 
+import static sg.com.smartinventory.utility.Utility.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -35,10 +41,21 @@ public class CustomerControllerTest {
         // trace(), debug(), info(), warn(), error().
         private static final Logger test_logger = LoggerFactory.getLogger(CustomerControllerTest.class);
 
-        @DisplayName("Create customer")
+        // Test Setup and Teardown configuration.
+        @BeforeEach
+        void init() {
+
+        }
+
+        @AfterEach
+        void teardown() {
+
+        }
+
+        @DisplayName("Create Customer")
         @Test
         public void createCustomerTest() throws Exception {
-                test_logger.info("Starting test: createCustomerTest. ");
+                test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
 
                 // Step 1: Create a Customer object
                 Customer newCustomer = Customer.builder().firstName("Jackie").lastName("Chan").country("Hong Kong")
@@ -60,6 +77,6 @@ public class CustomerControllerTest {
                                 .andExpect(jsonPath("$.firstName").value("Jackie"))
                                 .andExpect(jsonPath("$.lastName").value("Chan"));
 
-                test_logger.info("Ending test: createCustomerTest. ");
+                test_logger.info("Ending test: " + getCurrentMethodName() + ". ");
         }
 }

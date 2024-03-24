@@ -1,7 +1,13 @@
 package sg.com.smartinventory.controllers;
 
+import static sg.com.smartinventory.utility.Utility.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -33,12 +39,23 @@ public class ProductControllerTest {
         // The Logback library defines 5 log levels in order of priority: TRACE, DEBUG,
         // INFO, WARN, ERROR, with each of these having a corresponding logging method:
         // trace(), debug(), info(), warn(), error().
-        private static final Logger test_logger = LoggerFactory.getLogger(CustomerControllerTest.class);
+        private static final Logger test_logger = LoggerFactory.getLogger(ProductControllerTest.class);
 
-        @DisplayName("Create product")
+        // Test Setup and Teardown configuration.
+        @BeforeEach
+        void init() {
+
+        }
+
+        @AfterEach
+        void teardown() {
+
+        }
+
+        @DisplayName("Create Product")
         @Test
         public void createProductTest() throws Exception {
-                test_logger.info("Starting test: createProductTest. ");
+                test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
 
                 // Step 1: Create a Product object
                 Product newProduct = Product.builder().category("Electronics").name("Smartphone")
@@ -60,6 +77,6 @@ public class ProductControllerTest {
                                 .andExpect(jsonPath("$.category").value("Electronics"))
                                 .andExpect(jsonPath("$.name").value("Smartphone"));
 
-                test_logger.info("Ending test: createProductTest. ");
+                test_logger.info("Ending test: " + getCurrentMethodName() + ". ");
         }
 }
