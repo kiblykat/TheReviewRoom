@@ -3,8 +3,6 @@ package sg.com.smartinventory.exceptions;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import sg.com.smartinventory.entities.ErrorResponse;
-
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,15 +21,6 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
-
-    // @ExceptionHandler(ProductNotFoundException.class)
-    // public ResponseEntity<ErrorResponse>
-    // handleProductNotFoundException(CustomerNotFoundException ex){
-    // ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(),
-    // LocalDateTime.now());
-    //
-    // return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-    // }
 
     @ExceptionHandler(EmptyResultDataAccessException.class)
     public ResponseEntity<ErrorResponse> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex) {
