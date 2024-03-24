@@ -6,7 +6,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,6 +44,16 @@ public class CustomerControllerTest {
         private static final Logger test_logger = LoggerFactory.getLogger(CustomerControllerTest.class);
 
         // Test Setup and Teardown configuration.
+        @BeforeAll
+        static void initAll() {
+
+        }
+
+        @AfterAll
+        static void teardownAll() {
+
+        }
+
         @BeforeEach
         void init() {
 

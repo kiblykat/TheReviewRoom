@@ -4,7 +4,9 @@ import static sg.com.smartinventory.utility.Utility.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,6 +34,16 @@ public class CustomerTest {
     private static final Logger test_logger = LoggerFactory.getLogger(CustomerTest.class);
 
     // Test Setup and Teardown configuration.
+    @BeforeAll
+    static void initAll() {
+
+    }
+
+    @AfterAll
+    static void teardownAll() {
+
+    }
+
     @BeforeEach
     void init() {
 
