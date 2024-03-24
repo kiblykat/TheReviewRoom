@@ -30,10 +30,20 @@ public class DataLoader {
         @PostConstruct
         public void loadData() {
                 // Clear all data.
+                clearTableData();
+
+                // Create fake data.
+                generateFakeData();
+        }
+
+        public void clearTableData() {
+                // Clear all data.
                 customerRepository.deleteAll();
                 productRepository.deleteAll();
                 reviewRepository.deleteAll();
+        }
 
+        public void generateFakeData() {
                 // Create fake data.
                 customerRepository.save(new Customer("John", "Doe", "USA", "123 Main St", 123456, 12345678,
                                 "john.doe@example.com"));
