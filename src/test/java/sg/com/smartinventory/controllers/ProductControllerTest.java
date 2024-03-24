@@ -57,7 +57,7 @@ public class ProductControllerTest {
         public void createProductTest() throws Exception {
                 test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
 
-                // Step 1: Create a Product object
+                // Step 1: Create a Product object.
                 Product newProduct = Product.builder().category("Electronics").name("Smartphone")
                                 .description("High-end smartphone with advanced features. ")
                                 .price(999.99).stockQuantity(100).build();

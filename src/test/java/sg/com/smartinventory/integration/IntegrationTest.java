@@ -77,7 +77,7 @@ public class IntegrationTest {
                                 .address("123 HK St").postalCode(654321).phoneNumber(87654321)
                                 .email("jackie.chan@example.com").build();
 
-                // mock the save method of the customer repository
+                // Mock the save method of the customer repository.
                 when((customerRepository.save(testObject1))).thenReturn(testObject1);
 
                 // 2. Execution.

@@ -53,7 +53,7 @@ public class ReviewServiceImplTest {
     public void createReviewTest() {
         test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
 
-        // 1. SETUP
+        // 1. SETUP.
         // Create a new review.
         Review review = Review.builder().category("Electronics")
                 .reviewContent("Great smartphone with excellent features. ").rating(5).customerId(1)

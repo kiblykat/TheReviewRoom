@@ -53,7 +53,7 @@ public class CustomerServiceImplTest {
     public void createCustomerTest() {
         test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
 
-        // 1. SETUP
+        // 1. SETUP.
         // Create a new customer.
         Customer customer = Customer.builder().firstName("John").lastName("Wick").country("USA").address("123 Main St")
                 .postalCode(123456).phoneNumber(12345678).email("john.wick@example.com").build();

@@ -62,7 +62,7 @@ public class ReviewControllerTest {
         public void createReviewTest() throws Exception {
                 test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
 
-                // Step 1: Create a Review object
+                // Step 1: Create a Review object. 
                 Review newReview = Review.builder().category("Electronics")
                                 .reviewContent("Great smartphone with excellent features. ").rating(5).customerId(1)
                                 .productId(2).build();

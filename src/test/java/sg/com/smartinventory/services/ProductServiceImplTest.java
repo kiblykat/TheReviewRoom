@@ -53,7 +53,7 @@ public class ProductServiceImplTest {
     public void createProductTest() {
         test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
 
-        // 1. SETUP
+        // 1. SETUP.
         // Create a new product.
         Product product = Product.builder().category("Electronics").name("Smartphone")
                 .description("High-end smartphone with advanced features. ")
