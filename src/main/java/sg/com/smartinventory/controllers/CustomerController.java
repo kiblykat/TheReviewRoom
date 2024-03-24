@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 
 import sg.com.smartinventory.entities.Customer;
+import sg.com.smartinventory.entities.Review;
 // import sg.com.smartinventory.entities.Review;
 import sg.com.smartinventory.services.CustomerService;
 
@@ -45,6 +46,13 @@ public class CustomerController {
         return new ResponseEntity<>(newCustomer, HttpStatus.CREATED);
     }
 
+    @PostMapping("/{id}/reviews")
+    public ResponseEntity<Review> addReviewToCustomer(@PathVariable long id, @RequestBody Review review) {
+        // TODO: process POST request
+        Review newReview = customerService.addReviewToCustomer(id, review);
+        return new ResponseEntity<>(newReview, HttpStatus.OK);
+    }
+
     // READ (all)
     @GetMapping("")
     public ResponseEntity<ArrayList<Customer>> getAllCustomers() {
@@ -59,10 +67,16 @@ public class CustomerController {
         return new ResponseEntity<>(foundCustomer, HttpStatus.OK);
     }
 
+    // READ (by name CONTAINS)
+    @GetMapping("/search")
+    public ResponseEntity<ArrayList<Customer>> searchCustomer(@RequestParam String firstName) {
+        ArrayList<Customer> customers = customerService.searchCustomer(firstName);
+        return new ResponseEntity<>(customers, HttpStatus.OK);
+    }
+
     // UPDATE
     @PutMapping("/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable long id, @RequestBody Customer customer) {
-        // TODO: process PUT request
         Customer updatedCustomer = customerService.updateCustomer(id, customer);
         return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
     }
@@ -71,7 +85,7 @@ public class CustomerController {
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteCustomer(@PathVariable long id) {
         customerService.deleteCustomer(id);
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     // // Nested route - Add review to customer.

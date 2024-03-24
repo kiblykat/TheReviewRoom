@@ -60,25 +60,15 @@ public class Customer {
   @Column(name = "email")
   private String email;
 
-  // Uni-directional One to Many mapping -> One Customer (Parent) can have many
-  // Reviews (Child). The extra column 'customer_id' will be created on the many
-  // side of the relationship, that is, in the Review table. The cascade attribute
-  // is set to CascadeType.ALL to cascade all operations (e.g., save, update,
-  // delete) to the associated Review entities. The @JoinColumn annotation is used
-  // to specify the foreign key column (customer_id) in the Review table that
-  // establishes the relationship. Thus, it specifies the foreign key column in
-  // the child entity’s table that refers to the parent entity. The ‘mappedBy’
-  // attribute is not used in a unidirectional relationship as it’s specific to
-  // bidirectional relationships.
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-  @JoinColumn(name = "customer_id", referencedColumnName = "id")
+  @OneToMany(mappedBy = "customer")
   private List<Review> reviews;
 
   public Customer() {
   }
 
   // Define Constructor for DataLoader.
-  public Customer(String firstName, String lastName, String country, String address, int postalCode, int phoneNumber,
+  public Customer(String firstName, String lastName, String country, String address, int postalCode,
+      int phoneNumber,
       String email) {
     this();
 
