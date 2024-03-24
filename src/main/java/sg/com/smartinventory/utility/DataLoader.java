@@ -57,15 +57,25 @@ public class DataLoader {
                 productRepository.save(new Product("Books", "Science Fiction Novel",
                                 "Bestselling sci-fi novel set in a dystopian future. ", 14.99, 300));
 
-                reviewRepository.save(new Review("Electronics", "Great smartphone with excellent features. ",
-                                5, 1, 1));
+                reviewRepository.save(new Review("Books", "Expected more from the ending, felt rushed. ",
+                                3, 1, 1));
+                reviewRepository.save(new Review("Electronics", "Fast delivery, product works as expected. ",
+                                4, 1, 2));
                 reviewRepository.save(new Review("Clothing", "Very comfortable t-shirt, fits perfectly. ",
                                 4, 2, 2));
-                reviewRepository.save(new Review("Home & Kitchen", "Makes delicious coffee, easy to use. ",
-                                4, 3, 3));
+                reviewRepository.save(new Review("Home & Kitchen", "Difficult to assemble, but sturdy once done. ",
+                                3, 2, 4));
+                reviewRepository.save(new Review("Electronics", "Great smartphone with excellent features. ",
+                                5, 3, 1));
+                reviewRepository.save(new Review("Clothing", "The color faded after a few washes. ",
+                                2, 3, 3));
                 reviewRepository.save(new Review("Beauty", "Lovely fragrance, long-lasting. ",
                                 5, 4, 4));
+                reviewRepository.save(new Review("Home & Kitchen", "Makes delicious coffee, easy to use. ",
+                                4, 4, 3));
                 reviewRepository.save(new Review("Books", "Intriguing plot, couldn't put it down. ",
                                 5, 5, 5));
+                reviewRepository.save(new Review("Beauty", "Disappointed with the scent, doesn't last long. ",
+                                2, 5, 5));
         }
 }
