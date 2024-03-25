@@ -27,16 +27,8 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    // CREATE.
-    @PostMapping("")
-    public ResponseEntity<Review> createReview(@Valid @RequestBody Review review) {
-        // if(bindingResult.hasErrors()) {
-        // return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        // }
-
-        Review newReview = reviewService.createReview(review);
-        return new ResponseEntity<>(newReview, HttpStatus.CREATED);
-    }
+    // - - - NO POST HERE, due to data integrity with Customer FK - - -
+    // @PostMapping("")...
 
     // READ (GET ALL).
     @GetMapping("")

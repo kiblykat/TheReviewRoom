@@ -1,5 +1,7 @@
 package sg.com.smartinventory.entities;
 
+import org.springframework.stereotype.Component;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
@@ -17,6 +19,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+@Component // @Component annotation required to inject into DataLoader
 @Getter
 @Setter
 @Builder
@@ -38,7 +41,7 @@ public class Review {
   @Column(name = "rating")
   private int rating;
 
-  @Min(value = 1, message = "Product ID should start from 1. ")
+  // @Min(value = 1, message = "Product ID should start from 1. ")
   @Column(name = "product_id")
   private long productId; // FK. PostgreSQL bigserial data type.
 
@@ -50,6 +53,7 @@ public class Review {
   private Customer customer;
 
   // @ManyToOne Product -> Many Reviews can be linked to 1 Product
+  // TODO
 
   public Review() {
   }

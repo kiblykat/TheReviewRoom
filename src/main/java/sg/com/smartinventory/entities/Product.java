@@ -55,9 +55,9 @@ public class Product {
   // the child entity’s table that refers to the parent entity. The ‘mappedBy’
   // attribute is not used in a unidirectional relationship as it’s specific to
   // bidirectional relationships.
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-  @JoinColumn(name = "product_id", referencedColumnName = "id")
-  private List<Review> reviews;
+  // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  // @JoinColumn(name = "product_id", referencedColumnName = "id")
+  // private List<Review> reviews;
 
   public Product() {
   }
