@@ -91,4 +91,9 @@ public class CustomerControllerTest {
 
                 test_logger.info("Ending test: " + getCurrentMethodName() + ". ");
         }
+
+        @DisplayName("Create Customer")
+        @Test
+        public void addReviewToCustomerTest() throws Exception {
+        }
 }

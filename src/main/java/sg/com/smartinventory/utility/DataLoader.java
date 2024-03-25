@@ -18,13 +18,15 @@ public class DataLoader {
         private CustomerRepository customerRepository;
         private ProductRepository productRepository;
         private ReviewRepository reviewRepository;
+        private Review review;
 
         // @Autowired
         public DataLoader(CustomerRepository customerRepository, ProductRepository productRepository,
-                        ReviewRepository reviewRepository) {
+                        ReviewRepository reviewRepository, Review review) {
                 this.customerRepository = customerRepository;
                 this.productRepository = productRepository;
                 this.reviewRepository = reviewRepository;
+                this.review = review;
         }
 
         @PostConstruct
@@ -43,19 +45,78 @@ public class DataLoader {
                 reviewRepository.deleteAll();
         }
 
-        public void generateFakeData() {
-                // Create fake data.
-                customerRepository.save(new Customer("John", "Doe", "USA", "123 Main St", 123456, 12345678,
-                                "john.doe@example.com"));
-                customerRepository.save(new Customer("Alice", "Smith", "Canada", "456 Maple Ave", 543210, 98765432,
-                                "alice.smith@example.com"));
-                customerRepository.save(new Customer("Michael", "Johnson", "UK", "789 Oak Rd", 567890, 98761234,
-                                "michael.johnson@example.com"));
-                customerRepository.save(new Customer("Emily", "Brown", "Australia", "321 Elm St", 135790, 45678912,
-                                "emily.brown@example.com"));
-                customerRepository.save(new Customer("David", "Wilson", "Germany", "654 Pine Rd", 987655, 36985214,
-                                "david.wilson@example.com"));
+// <<<<<<< SIS-39
+                // = = = CUSTOMER DATA = = =
+                Customer customer1 = customerRepository
+                                .save(new Customer("John", "Doe", "USA", "123 Main St", 123456, 12345678,
+                                                "john.doe@example.com"));
+                Customer customer2 = customerRepository
+                                .save(new Customer("Alice", "Smith", "Canada", "456 Maple Ave", 543210, 98765432,
+                                                "alice.smith@example.com"));
+                Customer customer3 = customerRepository
+                                .save(new Customer("Michael", "Johnson", "UK", "789 Oak Rd", 567890, 98761234,
+                                                "michael.johnson@example.com"));
+                Customer customer4 = customerRepository
+                                .save(new Customer("Emily", "Brown", "Australia", "321 Elm St", 135790, 45678912,
+                                                "emily.brown@example.com"));
+                Customer customer5 = customerRepository
+                                .save(new Customer("David", "Wilson", "Germany", "654 Pine Rd", 987655, 36985214,
+                                                "david.wilson@example.com"));
+// =======
+//         public void generateFakeData() {
+//                 // Create fake data.
+//                 customerRepository.save(new Customer("John", "Doe", "USA", "123 Main St", 123456, 12345678,
+//                                 "john.doe@example.com"));
+//                 customerRepository.save(new Customer("Alice", "Smith", "Canada", "456 Maple Ave", 543210, 98765432,
+//                                 "alice.smith@example.com"));
+//                 customerRepository.save(new Customer("Michael", "Johnson", "UK", "789 Oak Rd", 567890, 98761234,
+//                                 "michael.johnson@example.com"));
+//                 customerRepository.save(new Customer("Emily", "Brown", "Australia", "321 Elm St", 135790, 45678912,
+//                                 "emily.brown@example.com"));
+//                 customerRepository.save(new Customer("David", "Wilson", "Germany", "654 Pine Rd", 987655, 36985214,
+//                                 "david.wilson@example.com"));
+// >>>>>>> main
 
+                // = = = REVIEW DATA = = =
+                // Adding review data (note that the "same" review object is being used in all,
+                // this is because of Bean injection so its actually diff instances)
+                Review review = new Review("Books", "Expected more from the ending, felt rushed. ", 3, 1, 1);
+                review.setCustomer(customer1);
+                reviewRepository.save(review);
+
+                review = new Review("Electronics", "Fast delivery, product works as expected. ", 4, 1, 2);
+                review.setCustomer(customer2);
+                reviewRepository.save(review);
+
+                review = new Review("Home & Kitchen", "Difficult to assemble, but sturdy once done. ", 3, 2, 4);
+                review.setCustomer(customer3);
+                reviewRepository.save(review);
+
+                review = new Review("Electronics", "Great smartphone with excellent features. ", 5, 3, 1);
+                review.setCustomer(customer4);
+                reviewRepository.save(review);
+
+                review = new Review("Clothing", "The color faded after a few washes. ", 2, 3, 3);
+                review.setCustomer(customer5);
+                reviewRepository.save(review);
+
+                review = (new Review("Beauty", "Lovely fragrance, long-lasting. ", 5, 4, 4));
+                review.setCustomer(customer1);
+                reviewRepository.save(review);
+
+                review = (new Review("Home & Kitchen", "Makes delicious coffee, easy to use. ", 4, 4, 3));
+                review.setCustomer(customer2);
+                reviewRepository.save(review);
+
+                review = (new Review("Books", "Intriguing plot, couldn't put it down. ", 5, 5, 5));
+                review.setCustomer(customer3);
+                reviewRepository.save(review);
+
+                review = (new Review("Beauty", "Disappointed with the scent, doesn't last long. ", 2, 5, 5));
+                review.setCustomer(customer4);
+                reviewRepository.save(review);
+
+                // = = = PRODUCT = = =
                 productRepository.save(new Product("Electronics", "Smartphone",
                                 "High-end smartphone with advanced features. ", 999.99, 100));
                 productRepository.save(new Product("Clothing", "Men's T-Shirt",
@@ -67,25 +128,8 @@ public class DataLoader {
                 productRepository.save(new Product("Books", "Science Fiction Novel",
                                 "Bestselling sci-fi novel set in a dystopian future. ", 14.99, 300));
 
-                reviewRepository.save(new Review("Books", "Expected more from the ending, felt rushed. ",
-                                3, 1, 1));
-                reviewRepository.save(new Review("Electronics", "Fast delivery, product works as expected. ",
-                                4, 1, 2));
-                reviewRepository.save(new Review("Clothing", "Very comfortable t-shirt, fits perfectly. ",
-                                4, 2, 2));
-                reviewRepository.save(new Review("Home & Kitchen", "Difficult to assemble, but sturdy once done. ",
-                                3, 2, 4));
-                reviewRepository.save(new Review("Electronics", "Great smartphone with excellent features. ",
-                                5, 3, 1));
-                reviewRepository.save(new Review("Clothing", "The color faded after a few washes. ",
-                                2, 3, 3));
-                reviewRepository.save(new Review("Beauty", "Lovely fragrance, long-lasting. ",
-                                5, 4, 4));
-                reviewRepository.save(new Review("Home & Kitchen", "Makes delicious coffee, easy to use. ",
-                                4, 4, 3));
-                reviewRepository.save(new Review("Books", "Intriguing plot, couldn't put it down. ",
-                                5, 5, 5));
-                reviewRepository.save(new Review("Beauty", "Disappointed with the scent, doesn't last long. ",
-                                2, 5, 5));
+                // = = = NOTE: DATALOADER DONT WORK FOR ENTITIES WITH FK* (cant specify
+                // customer_id column) = = =
+
         }
 }
