@@ -8,7 +8,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,6 +41,16 @@ public class CustomerServiceImplTest {
     private static final Logger test_logger = LoggerFactory.getLogger(CustomerServiceImplTest.class);
 
     // Test Setup and Teardown configuration.
+    @BeforeAll
+    static void initAll() {
+
+    }
+
+    @AfterAll
+    static void teardownAll() {
+
+    }
+
     @BeforeEach
     void init() {
 
@@ -53,7 +65,7 @@ public class CustomerServiceImplTest {
     public void createCustomerTest() {
         test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
 
-        // 1. SETUP
+        // 1. SETUP.
         // Create a new customer.
         Customer customer = Customer.builder().firstName("John").lastName("Wick").country("USA").address("123 Main St")
                 .postalCode(123456).phoneNumber(12345678).email("john.wick@example.com").build();

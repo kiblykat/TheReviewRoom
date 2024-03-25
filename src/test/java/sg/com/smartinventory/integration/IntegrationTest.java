@@ -10,7 +10,9 @@ import static org.mockito.Mockito.when;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -57,6 +59,16 @@ public class IntegrationTest {
         private static final Logger test_logger = LoggerFactory.getLogger(IntegrationTest.class);
 
         // Test Setup and Teardown configuration.
+        @BeforeAll
+        static void initAll() {
+
+        }
+
+        @AfterAll
+        static void teardownAll() {
+
+        }
+
         @BeforeEach
         void init() {
 
@@ -77,7 +89,7 @@ public class IntegrationTest {
                                 .address("123 HK St").postalCode(654321).phoneNumber(87654321)
                                 .email("jackie.chan@example.com").build();
 
-                // mock the save method of the customer repository
+                // Mock the save method of the customer repository.
                 when((customerRepository.save(testObject1))).thenReturn(testObject1);
 
                 // 2. Execution.

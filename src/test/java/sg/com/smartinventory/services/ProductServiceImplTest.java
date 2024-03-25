@@ -8,7 +8,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,6 +41,16 @@ public class ProductServiceImplTest {
     private static final Logger test_logger = LoggerFactory.getLogger(ProductServiceImplTest.class);
 
     // Test Setup and Teardown configuration.
+    @BeforeAll
+    static void initAll() {
+
+    }
+
+    @AfterAll
+    static void teardownAll() {
+
+    }
+
     @BeforeEach
     void init() {
 
@@ -53,7 +65,7 @@ public class ProductServiceImplTest {
     public void createProductTest() {
         test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
 
-        // 1. SETUP
+        // 1. SETUP.
         // Create a new product.
         Product product = Product.builder().category("Electronics").name("Smartphone")
                 .description("High-end smartphone with advanced features. ")
