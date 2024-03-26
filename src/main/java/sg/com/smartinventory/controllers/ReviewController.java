@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import sg.com.smartinventory.entities.Review;
 import sg.com.smartinventory.services.ReviewService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/reviews")
@@ -42,6 +43,12 @@ public class ReviewController {
     public ResponseEntity<Review> getReview(@PathVariable long id) {
         Review foundReview = reviewService.getReview(id);
         return new ResponseEntity<>(foundReview, HttpStatus.OK);
+    }
+
+    // Read (Get ratings)
+    @GetMapping("/ratings")
+    public ArrayList<Review> getRatings(@Valid @RequestParam int rating) {
+        return reviewService.getRatings(rating);
     }
 
     // UPDATE.
