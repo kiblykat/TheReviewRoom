@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 
 import lombok.AllArgsConstructor;
@@ -38,6 +39,8 @@ public class Review {
   @Column(name = "review_content")
   private String reviewContent;
 
+  @Min(value = 1, message = "Value must be between 1 and 5")
+  @Max(value = 5, message = "Value must be between 1 and 5")
   @Column(name = "rating")
   private int rating;
 

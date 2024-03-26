@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    // This is handler for CustomerNotFoundException.
+    // This is handler for RuntimeExceptions. Flow: When a client request throws an
+    // exception, SB will find @ControllerAdvice and find the @ExceptionHandler that
+    // contains the Exception thrown.
     @ExceptionHandler({ CustomerNotFoundException.class, ProductNotFoundException.class,
-            ReviewNotFoundException.class })
-    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(CustomerNotFoundException ex) {
+            ReviewNotFoundException.class, RatingNotFoundException.class })
+    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(RuntimeException ex) {
         ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), LocalDateTime.now());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);

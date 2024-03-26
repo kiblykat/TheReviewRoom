@@ -18,4 +18,6 @@ public interface ReviewService {
     ArrayList<Review> searchCustomerReviews(long customerId);
 
     ArrayList<Review> searchProductReviews(long productId);
+
+    ArrayList<Review> getRatings(int rating);
 }
