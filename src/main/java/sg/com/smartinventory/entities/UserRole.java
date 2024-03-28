@@ -31,14 +31,14 @@ public class UserRole {
   @Column(name = "role")
   private String roleName;
 
-  @Column(name = "desc")
-  private String desc;
+  @Column(name = "description")
+  private String description;
 
   @OneToMany(mappedBy = "userRole", cascade = CascadeType.ALL)
   private List<User> users;
 
-  public UserRole(String roleName, String desc) {
+  public UserRole(String roleName, String description) {
     this.roleName = roleName;
-    this.desc = desc;
+    this.description = description;
   }
 }

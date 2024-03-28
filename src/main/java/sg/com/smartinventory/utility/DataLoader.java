@@ -114,5 +114,41 @@ public class DataLoader {
                 productRepository.save(new Product("Books", "Science Fiction Novel",
                                 "Bestselling sci-fi novel set in a dystopian future. ", 14.99, 300));
 
+                // = = = Accesssible USERS (JWT) = = =
+                if (userRepository.count() == 0) {
+                        // Defining User Roles
+                        UserRole admin = userRoleRepository.save(UserRole.builder()
+                                        .roleName("Admin")
+                                        .description("Administrator Access")
+                                        .build());
+
+                        UserRole basic = userRoleRepository.save(UserRole.builder()
+                                        .roleName("Basic")
+                                        .description("Basic Access")
+                                        .build());
+
+                        // Defining Users and assigning user Roles
+                        User user1 = User.builder()
+                                        .username("IronMan")
+                                        .firstName("Tony")
+                                        .lastName("Stark")
+                                        .contactNo("22310091")
+                                        .email("ironman@avengers.com")
+                                        .password("Iamironman")
+                                        .build();
+                        user1.setUserRole(admin);
+                        userRepository.save(user1);
+
+                        User user2 = User.builder()
+                                        .username("CaptainAmerica")
+                                        .firstName("Steve")
+                                        .lastName("Roger")
+                                        .contactNo("11215542")
+                                        .email("capt@avengers.com")
+                                        .password("Icandothisallday")
+                                        .build();
+                        user2.setUserRole(basic);
+                        userRepository.save(user2);
+                }
         }
 }
