@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Digits;
@@ -58,7 +59,10 @@ public class User {
 
   @JsonBackReference
   @ManyToOne(optional = false)
-  @JoinColumn(name = "user_role", referencedColumnName = "role")
+  @JoinColumns({
+      @JoinColumn(name = "role_id", referencedColumnName = "id"),
+      @JoinColumn(name = "role_name", referencedColumnName = "role_name")
+  })
   private UserRole userRole;
 
   public User(String username) {

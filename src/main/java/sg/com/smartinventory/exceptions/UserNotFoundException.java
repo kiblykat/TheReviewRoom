@@ -1,0 +1,7 @@
+package sg.com.smartinventory.exceptions;
+
+public class UserNotFoundException extends RuntimeException {
+    public UserNotFoundException(Long id) {
+        super("User with id: " + id + " cannot be found");
+    }
+}
