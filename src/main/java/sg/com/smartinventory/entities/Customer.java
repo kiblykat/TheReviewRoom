@@ -61,7 +61,6 @@ public class Customer {
   private String email;
 
   @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-
   private List<Review> reviews;
 
   public Customer() {

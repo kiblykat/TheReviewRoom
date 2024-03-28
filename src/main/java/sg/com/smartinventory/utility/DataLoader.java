@@ -8,9 +8,13 @@ import jakarta.annotation.PostConstruct;
 import sg.com.smartinventory.entities.Customer;
 import sg.com.smartinventory.entities.Product;
 import sg.com.smartinventory.entities.Review;
+import sg.com.smartinventory.entities.User;
+import sg.com.smartinventory.entities.UserRole;
 import sg.com.smartinventory.repositories.CustomerRepository;
 import sg.com.smartinventory.repositories.ProductRepository;
 import sg.com.smartinventory.repositories.ReviewRepository;
+import sg.com.smartinventory.repositories.UserRepository;
+import sg.com.smartinventory.repositories.UserRoleRepository;
 
 @Component
 public class DataLoader {
@@ -18,14 +22,19 @@ public class DataLoader {
         private CustomerRepository customerRepository;
         private ProductRepository productRepository;
         private ReviewRepository reviewRepository;
+        private UserRepository userRepository;
+        private UserRoleRepository userRoleRepository;
         private Review review;
 
         // @Autowired
         public DataLoader(CustomerRepository customerRepository, ProductRepository productRepository,
-                        ReviewRepository reviewRepository, Review review) {
+                        ReviewRepository reviewRepository, Review review, UserRepository userRepository,
+                        UserRoleRepository userRoleRepository) {
                 this.customerRepository = customerRepository;
                 this.productRepository = productRepository;
                 this.reviewRepository = reviewRepository;
+                this.userRepository = userRepository;
+                this.userRoleRepository = userRoleRepository;
                 this.review = review;
         }
 
@@ -104,8 +113,6 @@ public class DataLoader {
                                 "Elegant fragrance with floral and citrus notes. ", 79.99, 200));
                 productRepository.save(new Product("Books", "Science Fiction Novel",
                                 "Bestselling sci-fi novel set in a dystopian future. ", 14.99, 300));
-
-                // = = = USERS = = =
 
         }
 }

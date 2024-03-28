@@ -1,0 +1,9 @@
+package sg.com.smartinventory.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import sg.com.smartinventory.entities.UserRole;
+
+public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
+
+}
