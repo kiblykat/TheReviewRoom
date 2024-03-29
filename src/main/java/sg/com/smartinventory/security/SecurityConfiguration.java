@@ -14,15 +14,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import sg.com.smartinventory.serviceImpls.CustomUserDetailsService;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-
+  private final JwtTokenFilter jwtTokenFilter;
   private final CustomUserDetailsService customUserDetailsService;
 
-  public SecurityConfiguration(CustomUserDetailsService customUserDetailsService) {
+  public SecurityConfiguration(CustomUserDetailsService customUserDetailsService, JwtTokenFilter jwtTokenFilter) {
+    this.jwtTokenFilter = jwtTokenFilter;
     this.customUserDetailsService = customUserDetailsService;
   }
 
@@ -39,4 +41,30 @@ public class SecurityConfiguration {
     authenticationManagerBuilder.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder);
     return authenticationManagerBuilder.build();
   }
+
+  @Bean
+  SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http.csrf(csrf -> csrf.disable());
+
+    http = http.sessionManagement(management -> management
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+    http = http.exceptionHandling(handling -> handling.authenticationEntryPoint((request, response, ex) -> {
+      response.sendError(
+          HttpServletResponse.SC_UNAUTHORIZED,
+          ex.getMessage());
+    }));
+
+    http.authorizeHttpRequests(
+        (authorize) -> authorize
+            .requestMatchers("/auth/**")
+            .permitAll()
+            .anyRequest()
+            .authenticated());
+
+    http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+
+    return http.build();
+  }
+
 }

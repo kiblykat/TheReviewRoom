@@ -1,5 +1,6 @@
 package sg.com.smartinventory.utility;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 // import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,18 +25,21 @@ public class DataLoader {
         private ReviewRepository reviewRepository;
         private UserRepository userRepository;
         private UserRoleRepository userRoleRepository;
+        private PasswordEncoder encoder;
+
         private Review review;
 
         // @Autowired
         public DataLoader(CustomerRepository customerRepository, ProductRepository productRepository,
                         ReviewRepository reviewRepository, Review review, UserRepository userRepository,
-                        UserRoleRepository userRoleRepository) {
+                        UserRoleRepository userRoleRepository, PasswordEncoder encoder) {
                 this.customerRepository = customerRepository;
                 this.productRepository = productRepository;
                 this.reviewRepository = reviewRepository;
                 this.userRepository = userRepository;
                 this.userRoleRepository = userRoleRepository;
                 this.review = review;
+                this.encoder = encoder;
         }
 
         @PostConstruct
@@ -44,6 +48,8 @@ public class DataLoader {
                 customerRepository.deleteAll();
                 productRepository.deleteAll();
                 reviewRepository.deleteAll();
+                userRepository.deleteAll();
+                userRoleRepository.deleteAll();
                 // }
 
                 // = = = CUSTOMER DATA = = =
@@ -134,7 +140,7 @@ public class DataLoader {
                                         .lastName("Stark")
                                         .contactNo("22310091")
                                         .email("ironman@avengers.com")
-                                        .password("Iamironman")
+                                        .password(encoder.encode("Iamironman"))
                                         .build();
                         user1.setUserRole(admin);
                         userRepository.save(user1);
@@ -145,7 +151,7 @@ public class DataLoader {
                                         .lastName("Roger")
                                         .contactNo("11215542")
                                         .email("capt@avengers.com")
-                                        .password("Icandothisallday")
+                                        .password(encoder.encode("Icandothisallday"))
                                         .build();
                         user2.setUserRole(basic);
                         userRepository.save(user2);
