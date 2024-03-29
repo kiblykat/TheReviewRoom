@@ -19,6 +19,7 @@ import sg.com.smartinventory.entities.Review;
 // import sg.com.smartinventory.entities.Review;
 import sg.com.smartinventory.services.CustomerService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/customers")
+@CrossOrigin(origins = "http://localhost:5173")
 public class CustomerController {
   private CustomerService customerService;
 
