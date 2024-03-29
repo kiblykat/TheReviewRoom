@@ -1,5 +1,6 @@
 package sg.com.smartinventory.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -12,7 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -61,8 +62,24 @@ public class Customer {
   private String email;
 
   @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-
   private List<Review> reviews;
+
+  @Transient
+  private List<Product> reviewedProducts;
+
+  public List<Product> getReviewedProducts() {
+    if (this.reviews == null) {
+      return new ArrayList<>(); // return empty list if no reviews
+    }
+
+    if (reviewedProducts == null) {
+      reviewedProducts = new ArrayList<>();
+      for (Review review : this.reviews) {
+        reviewedProducts.add(review.getProduct());
+      }
+    }
+    return reviewedProducts;
+  }
 
   public Customer() {
   }

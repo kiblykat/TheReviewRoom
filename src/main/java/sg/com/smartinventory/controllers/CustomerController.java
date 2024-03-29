@@ -28,71 +28,72 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RestController
 @RequestMapping("/customers")
 public class CustomerController {
-    private CustomerService customerService;
+  private CustomerService customerService;
 
-    // @Autowired
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
+  // @Autowired
+  public CustomerController(CustomerService customerService) {
+    this.customerService = customerService;
+  }
 
-    // CREATE.
-    @PostMapping("")
-    public ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer) {
-        // if(bindingResult.hasErrors()) {
-        // return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        // }
-
-        Customer newCustomer = customerService.createCustomer(customer);
-        return new ResponseEntity<>(newCustomer, HttpStatus.CREATED);
-    }
-
-    @PostMapping("/{id}/reviews")
-    public ResponseEntity<Review> addReviewToCustomer(@PathVariable long id, @RequestBody Review review) {
-        // TODO: process POST request
-        Review newReview = customerService.addReviewToCustomer(id, review);
-        return new ResponseEntity<>(newReview, HttpStatus.OK);
-    }
-
-    // READ (all)
-    @GetMapping("")
-    public ResponseEntity<ArrayList<Customer>> getAllCustomers() {
-        ArrayList<Customer> allCustomers = customerService.getAllCustomers();
-        return new ResponseEntity<>(allCustomers, HttpStatus.OK);
-    }
-
-    // READ (id)
-    @GetMapping("/{id}")
-    public ResponseEntity<Customer> getCustomer(@PathVariable long id) {
-        Customer foundCustomer = customerService.getCustomer(id);
-        return new ResponseEntity<>(foundCustomer, HttpStatus.OK);
-    }
-
-    // READ (by name CONTAINS)
-    @GetMapping("/search")
-    public ResponseEntity<ArrayList<Customer>> searchCustomer(@RequestParam String firstName) {
-        ArrayList<Customer> customers = customerService.searchCustomer(firstName);
-        return new ResponseEntity<>(customers, HttpStatus.OK);
-    }
-
-    // UPDATE
-    @PutMapping("/{id}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable long id, @RequestBody Customer customer) {
-        Customer updatedCustomer = customerService.updateCustomer(id, customer);
-        return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
-    }
-
-    // DELETE
-    @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteCustomer(@PathVariable long id) {
-        customerService.deleteCustomer(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    // // Nested route - Add review to customer.
-    // @PostMapping("/{id}/reviews")
-    // public ResponseEntity<Review> addReviewToCustomer(@PathVariable Long id,
-    // @Valid @RequestBody Review review) {
-    // Review newReview = customerService.addReviewToCustomer(id, review);
-    // return new ResponseEntity<>(newReview, HttpStatus.CREATED);
+  // CREATE.
+  @PostMapping("")
+  public ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer) {
+    // if(bindingResult.hasErrors()) {
+    // return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     // }
+
+    Customer newCustomer = customerService.createCustomer(customer);
+    return new ResponseEntity<>(newCustomer, HttpStatus.CREATED);
+  }
+
+  @PostMapping("/{id}/products/{productId}/reviews")
+  public ResponseEntity<Review> addReviewToCustomer(@PathVariable long id, @PathVariable long productId,
+      @RequestBody Review review) {
+    // TODO: process POST request
+    Review newReview = customerService.addReviewToCustomer(id, productId, review);
+    return new ResponseEntity<>(newReview, HttpStatus.OK);
+  }
+
+  // READ (all)
+  @GetMapping("")
+  public ResponseEntity<ArrayList<Customer>> getAllCustomers() {
+    ArrayList<Customer> allCustomers = customerService.getAllCustomers();
+    return new ResponseEntity<>(allCustomers, HttpStatus.OK);
+  }
+
+  // READ (id)
+  @GetMapping("/{id}")
+  public ResponseEntity<Customer> getCustomer(@PathVariable long id) {
+    Customer foundCustomer = customerService.getCustomer(id);
+    return new ResponseEntity<>(foundCustomer, HttpStatus.OK);
+  }
+
+  // READ (by name CONTAINS)
+  @GetMapping("/search")
+  public ResponseEntity<ArrayList<Customer>> searchCustomer(@RequestParam String firstName) {
+    ArrayList<Customer> customers = customerService.searchCustomer(firstName);
+    return new ResponseEntity<>(customers, HttpStatus.OK);
+  }
+
+  // UPDATE
+  @PutMapping("/{id}")
+  public ResponseEntity<Customer> updateCustomer(@PathVariable long id, @RequestBody Customer customer) {
+    Customer updatedCustomer = customerService.updateCustomer(id, customer);
+    return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
+  }
+
+  // DELETE
+  @DeleteMapping("/{id}")
+  public ResponseEntity<HttpStatus> deleteCustomer(@PathVariable long id) {
+    customerService.deleteCustomer(id);
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+  }
+
+  // // Nested route - Add review to customer.
+  // @PostMapping("/{id}/reviews")
+  // public ResponseEntity<Review> addReviewToCustomer(@PathVariable Long id,
+  // @Valid @RequestBody Review review) {
+  // Review newReview = customerService.addReviewToCustomer(id, review);
+  // return new ResponseEntity<>(newReview, HttpStatus.CREATED);
+  // }
 }

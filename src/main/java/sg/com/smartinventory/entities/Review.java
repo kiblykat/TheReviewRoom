@@ -3,6 +3,7 @@ package sg.com.smartinventory.entities;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,9 +45,9 @@ public class Review {
   @Column(name = "rating")
   private int rating;
 
-  // @Min(value = 1, message = "Product ID should start from 1. ")
-  @Column(name = "product_id")
-  private long productId; // FK. PostgreSQL bigserial data type.
+  // // @Min(value = 1, message = "Product ID should start from 1. ")
+  // @Column(name = "product_id")
+  // private long productId; // FK. PostgreSQL bigserial data type.
 
   // @ManyToOne Customer -> Many Reviews can be linked to 1 Customer
   // @Min(value = 1, message = "Customer ID should start from 1. ")
@@ -56,7 +57,11 @@ public class Review {
   private Customer customer;
 
   // @ManyToOne Product -> Many Reviews can be linked to 1 Product
-  // TODO
+
+  // @JsonBackReference
+  @ManyToOne(optional = false)
+  @JoinColumn(name = "product_id", referencedColumnName = "id")
+  private Product product;
 
   public Review() {
   }
@@ -69,7 +74,7 @@ public class Review {
     this.reviewContent = reviewContent;
     this.rating = rating;
     // this.customerId = customerId;
-    this.productId = productId;
+    // this.productId = productId;
   }
 
 }
