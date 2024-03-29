@@ -1,17 +1,18 @@
 package sg.com.smartinventory.security;
 
+import java.util.Base64;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import javax.servlet.http.HttpServletRequest;
+// import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.stereotype.Component;
+// import org.springframework.security.core.AuthenticationException;
+// import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
+// import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -19,12 +20,12 @@ import sg.com.smartinventory.entities.User;
 
 @Service
 public class JwtService {
-
   private static final String JWT_SECRET_KEY = "mysecretkey";
 
   @Value("${jwt.session.period:3600000}")
   private long jwtSessionPeriod;
 
+  private final JwtParser jwtParser;
   private final JwtParser jwtParser;
 
   private final String TOKEN_HEADER = "Authorization";
@@ -47,7 +48,7 @@ public class JwtService {
     Date tokenCreateTime = new Date();
     Date tokenValidity = new Date(tokenCreateTime.getTime() + TimeUnit.MINUTES.toMillis(jwtSessionPeriod));
 
-    // Builds JWT and returns it as a String
+    // Builds JWT and returns it as a String.
     return Jwts.builder()
         .setClaims(claims)
         .setExpiration(tokenValidity)
