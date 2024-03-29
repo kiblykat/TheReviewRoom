@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "SmartInventory",
-    "dateExported": "2024-03-29T15:11:15.315Z",
+    "dateExported": "2024-03-29T17:03:34.803Z",
     "version": "1.1",
     "folders": [
         {
@@ -154,7 +154,7 @@
             "method": "POST",
             "sortNum": 80000,
             "created": "2024-03-29T06:19:27.794Z",
-            "modified": "2024-03-29T15:08:54.672Z",
+            "modified": "2024-03-29T16:52:10.180Z",
             "headers": [],
             "params": [
                 {
@@ -170,7 +170,7 @@
             ],
             "body": {
                 "type": "json",
-                "raw": "{\n    \"category\": \"Books\",\n    \"reviewContent\": \"Expected more from the ending, felt rushed.\",\n    \"rating\": 4\n}",
+                "raw": "{\n    \"category\": \"Books\",\n    \"reviewContent\": \"Kind of Boring\",\n    \"rating\": 2\n}",
                 "form": []
             },
             "tests": []
@@ -263,6 +263,26 @@
             "tests": []
         },
         {
+            "_id": "e47d6714-1722-4dc6-8d35-7bcaecb75dd2",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "0db7fba9-c06d-462f-a621-ce608d52ea78",
+            "name": "Get Ratings",
+            "url": "http://localhost:9090/reviews/ratings?rating=2",
+            "method": "GET",
+            "sortNum": 117500,
+            "created": "2024-03-29T16:19:42.921Z",
+            "modified": "2024-03-29T16:54:37.993Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "rating",
+                    "value": "2",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
             "_id": "24969b8e-21da-4985-ab11-120cc26e3949",
             "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
             "containerId": "b5e69375-1661-4eb4-ba9c-9e01213e091c",
@@ -300,6 +320,31 @@
                     "isPath": false
                 }
             ],
+            "tests": []
+        },
+        {
+            "_id": "9595267f-b4aa-4b75-8b79-d06b1a2b55df",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "0db7fba9-c06d-462f-a621-ce608d52ea78",
+            "name": "Update Review",
+            "url": "http://localhost:9090/reviews/{id}",
+            "method": "PUT",
+            "sortNum": 125000,
+            "created": "2024-03-29T16:08:12.228Z",
+            "modified": "2024-03-29T16:56:50.688Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "4",
+                    "isPath": true
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"category\": \"Electronics\",\n  \"reviewContent\": \"Fast delivery, product works as expected. Like!\",\n  \"rating\": 3\n}",
+                "form": []
+            },
             "tests": []
         },
         {
@@ -351,17 +396,17 @@
             "_id": "fb7039d9-56e5-4883-995c-d06a7eea82b0",
             "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
             "containerId": "0db7fba9-c06d-462f-a621-ce608d52ea78",
-            "name": "Delete Product",
+            "name": "Delete Review",
             "url": "http://localhost:9090/reviews/{id}",
             "method": "DELETE",
             "sortNum": 140000,
             "created": "2024-03-29T12:28:07.295Z",
-            "modified": "2024-03-29T12:38:39.979Z",
+            "modified": "2024-03-29T16:58:08.373Z",
             "headers": [],
             "params": [
                 {
                     "name": "id",
-                    "value": "9",
+                    "value": "10",
                     "isPath": true
                 }
             ],

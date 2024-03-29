@@ -21,47 +21,47 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 @RequestMapping("/reviews")
 public class ReviewController {
-    private ReviewService reviewService;
+  private ReviewService reviewService;
 
-    // @Autowired
-    public ReviewController(ReviewService reviewService) {
-        this.reviewService = reviewService;
-    }
+  // @Autowired
+  public ReviewController(ReviewService reviewService) {
+    this.reviewService = reviewService;
+  }
 
-    // - - - NO POST HERE, due to data integrity with Customer FK - - -
-    // @PostMapping("")...
+  // - - - NO POST HERE, due to data integrity with Customer FK - - -
+  // @PostMapping("")...
 
-    // READ (GET ALL).
-    @GetMapping("")
-    public ResponseEntity<ArrayList<Review>> getAllReviews() {
-        ArrayList<Review> allReviews = reviewService.getAllReviews();
-        return new ResponseEntity<>(allReviews, HttpStatus.OK);
-    }
+  // READ (GET ALL).
+  @GetMapping("")
+  public ResponseEntity<ArrayList<Review>> getAllReviews() {
+    ArrayList<Review> allReviews = reviewService.getAllReviews();
+    return new ResponseEntity<>(allReviews, HttpStatus.OK);
+  }
 
-    // READ (GET ONE).
-    @GetMapping("/{id}")
-    public ResponseEntity<Review> getReview(@PathVariable long id) {
-        Review foundReview = reviewService.getReview(id);
-        return new ResponseEntity<>(foundReview, HttpStatus.OK);
-    }
+  // READ (GET ONE).
+  @GetMapping("/{id}")
+  public ResponseEntity<Review> getReview(@PathVariable long id) {
+    Review foundReview = reviewService.getReview(id);
+    return new ResponseEntity<>(foundReview, HttpStatus.OK);
+  }
 
-    // Read (Get ratings)
-    @GetMapping("/ratings")
-    public ArrayList<Review> getRatings(@Valid @RequestParam int rating) {
-        return reviewService.getRatings(rating);
-    }
+  // Read (Get ratings)
+  @GetMapping("/ratings")
+  public ArrayList<Review> getRatings(@Valid @RequestParam int rating) {
+    return reviewService.getRatings(rating);
+  }
 
-    // UPDATE.
-    @PutMapping("/{id}")
-    public ResponseEntity<Review> updateReview(@PathVariable long id, @RequestBody Review review) {
-        Review updatedReview = reviewService.updateReview(id, review);
-        return new ResponseEntity<>(updatedReview, HttpStatus.OK);
-    }
+  // UPDATE.
+  @PutMapping("/{id}")
+  public ResponseEntity<Review> updateReview(@PathVariable long id, @RequestBody Review review) {
+    Review updatedReview = reviewService.updateReview(id, review);
+    return new ResponseEntity<>(updatedReview, HttpStatus.OK);
+  }
 
-    // DELETE.
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Review> deleteReview(@PathVariable long id) {
-        reviewService.deleteReview(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+  // DELETE.
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Review> deleteReview(@PathVariable long id) {
+    reviewService.deleteReview(id);
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+  }
 }
