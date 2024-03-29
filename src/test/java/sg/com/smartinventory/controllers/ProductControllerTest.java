@@ -5,6 +5,7 @@ import static sg.com.smartinventory.utility.Utility.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -84,6 +85,7 @@ public class ProductControllerTest {
 
                 // Step 4: Perform the request and get the response and assert.
                 mockMvc.perform(request)
+                                .andDo(print())
                                 .andExpect(status().isCreated())
                                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                                 .andExpect(jsonPath("$.category").value("Electronics"))
