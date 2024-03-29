@@ -1,28 +1,35 @@
 {
     "client": "Thunder Client",
     "collectionName": "SmartInventory",
-    "dateExported": "2024-03-25T07:31:20.903Z",
+    "dateExported": "2024-03-29T06:44:41.033Z",
     "version": "1.1",
     "folders": [
         {
-            "_id": "f5054f57-4880-45fa-b08a-f4d9b5359c2c",
+            "_id": "605122de-fb92-469e-ae99-ed47c68b3d96",
             "name": "Customer",
             "containerId": "",
-            "created": "2024-03-24T04:28:29.833Z",
+            "created": "2024-03-29T06:19:27.787Z",
             "sortNum": 10000
+        },
+        {
+            "_id": "b5e69375-1661-4eb4-ba9c-9e01213e091c",
+            "name": "Product",
+            "containerId": "",
+            "created": "2024-03-29T06:21:13.542Z",
+            "sortNum": 20000
         }
     ],
     "requests": [
         {
-            "_id": "9e08f024-8b20-4f4d-b49f-b45d3c5a8bac",
-            "colId": "5c57004c-dd7a-4942-ab04-3da3fb363ce1",
-            "containerId": "f5054f57-4880-45fa-b08a-f4d9b5359c2c",
+            "_id": "5ab63b29-5cca-49b0-aaa6-b4096cd063f6",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "605122de-fb92-469e-ae99-ed47c68b3d96",
             "name": "Create Customer",
             "url": "http://localhost:9090/customers",
             "method": "POST",
             "sortNum": 30000,
-            "created": "2024-03-24T04:29:24.892Z",
-            "modified": "2024-03-24T07:13:21.478Z",
+            "created": "2024-03-29T06:19:27.788Z",
+            "modified": "2024-03-29T06:19:27.788Z",
             "headers": [],
             "params": [],
             "body": {
@@ -33,29 +40,29 @@
             "tests": []
         },
         {
-            "_id": "77ac4300-178d-4d25-ab90-7132d09ba81f",
-            "colId": "5c57004c-dd7a-4942-ab04-3da3fb363ce1",
-            "containerId": "f5054f57-4880-45fa-b08a-f4d9b5359c2c",
+            "_id": "6ad34b41-f511-42f8-9871-b05ce1326906",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "605122de-fb92-469e-ae99-ed47c68b3d96",
             "name": "Get All Customers",
             "url": "http://localhost:9090/customers",
             "method": "GET",
             "sortNum": 40000,
-            "created": "2024-03-24T04:29:30.285Z",
-            "modified": "2024-03-24T04:38:04.649Z",
+            "created": "2024-03-29T06:19:27.789Z",
+            "modified": "2024-03-29T06:19:27.789Z",
             "headers": [],
             "params": [],
             "tests": []
         },
         {
-            "_id": "171a9cf1-4dcb-443a-bf62-3c32cab85409",
-            "colId": "5c57004c-dd7a-4942-ab04-3da3fb363ce1",
-            "containerId": "f5054f57-4880-45fa-b08a-f4d9b5359c2c",
+            "_id": "80fa1d7b-791c-4a7e-ae07-a14fd39056a8",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "605122de-fb92-469e-ae99-ed47c68b3d96",
             "name": "Get 1 Customer",
             "url": "http://localhost:9090/customers/{uuid}",
             "method": "GET",
             "sortNum": 50000,
-            "created": "2024-03-24T04:29:42.726Z",
-            "modified": "2024-03-24T14:49:05.718Z",
+            "created": "2024-03-29T06:19:27.790Z",
+            "modified": "2024-03-29T06:19:27.790Z",
             "headers": [],
             "params": [
                 {
@@ -67,15 +74,15 @@
             "tests": []
         },
         {
-            "_id": "7d08442c-1f3c-4482-95d1-9d5cfa782411",
-            "colId": "5c57004c-dd7a-4942-ab04-3da3fb363ce1",
-            "containerId": "f5054f57-4880-45fa-b08a-f4d9b5359c2c",
+            "_id": "24ccf681-63a9-43ac-ab16-dab10996caa6",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "605122de-fb92-469e-ae99-ed47c68b3d96",
             "name": "Search by FirstName",
             "url": "http://localhost:9090/customers/search?firstName=e",
             "method": "GET",
             "sortNum": 55000,
-            "created": "2024-03-24T08:58:37.049Z",
-            "modified": "2024-03-24T09:19:19.062Z",
+            "created": "2024-03-29T06:19:27.793Z",
+            "modified": "2024-03-29T06:19:27.793Z",
             "headers": [],
             "params": [
                 {
@@ -87,15 +94,15 @@
             "tests": []
         },
         {
-            "_id": "a2f8e24c-f9c2-49f1-8d37-bdb64b4c6286",
-            "colId": "5c57004c-dd7a-4942-ab04-3da3fb363ce1",
-            "containerId": "f5054f57-4880-45fa-b08a-f4d9b5359c2c",
+            "_id": "fe9bb8f8-1dfa-4c5a-9461-4176d29429f3",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "605122de-fb92-469e-ae99-ed47c68b3d96",
             "name": "Update Customer",
             "url": "http://localhost:9090/customers/{uuid}",
             "method": "PUT",
             "sortNum": 60000,
-            "created": "2024-03-24T04:29:48.079Z",
-            "modified": "2024-03-24T06:30:25.441Z",
+            "created": "2024-03-29T06:19:27.791Z",
+            "modified": "2024-03-29T06:19:27.791Z",
             "headers": [],
             "params": [
                 {
@@ -112,15 +119,15 @@
             "tests": []
         },
         {
-            "_id": "40e4584b-eb1a-43c6-8eb2-8cf2f13beb4a",
-            "colId": "5c57004c-dd7a-4942-ab04-3da3fb363ce1",
-            "containerId": "f5054f57-4880-45fa-b08a-f4d9b5359c2c",
+            "_id": "999623d2-4d6f-4e4e-8a38-08e87cf93898",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "605122de-fb92-469e-ae99-ed47c68b3d96",
             "name": "Delete Customer",
             "url": "http://localhost:9090/customers/{id}",
             "method": "DELETE",
             "sortNum": 70000,
-            "created": "2024-03-24T04:29:54.857Z",
-            "modified": "2024-03-24T06:30:32.997Z",
+            "created": "2024-03-29T06:19:27.792Z",
+            "modified": "2024-03-29T06:19:27.792Z",
             "headers": [],
             "params": [
                 {
@@ -132,15 +139,15 @@
             "tests": []
         },
         {
-            "_id": "460ee27b-cfe3-448e-ab60-8f402c8acd0b",
-            "colId": "5c57004c-dd7a-4942-ab04-3da3fb363ce1",
-            "containerId": "f5054f57-4880-45fa-b08a-f4d9b5359c2c",
+            "_id": "92d5c718-598b-4f66-b30e-459e1470f723",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "605122de-fb92-469e-ae99-ed47c68b3d96",
             "name": "Add Review to Customer",
             "url": "http://localhost:9090/customers/{id}/reviews",
             "method": "POST",
             "sortNum": 80000,
-            "created": "2024-03-24T14:43:48.836Z",
-            "modified": "2024-03-24T14:47:53.708Z",
+            "created": "2024-03-29T06:19:27.794Z",
+            "modified": "2024-03-29T06:19:27.794Z",
             "headers": [],
             "params": [
                 {
@@ -154,6 +161,144 @@
                 "raw": "{\n    \"category\": \"Books\",\n    \"reviewContent\": \"Expected more from the ending, felt rushed.\",\n    \"rating\": 3 ,\n    \"productId\": 1 \n}",
                 "form": []
             },
+            "tests": []
+        },
+        {
+            "_id": "384b3198-6b05-46e8-b1d4-f417dabcd3cf",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "b5e69375-1661-4eb4-ba9c-9e01213e091c",
+            "name": "Create Product",
+            "url": "http://localhost:9090/products",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2024-03-29T06:21:49.579Z",
+            "modified": "2024-03-29T06:27:27.003Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"category\": \"Electronics\",\n  \"name\": \"iPhone 15\",\n  \"description\": \"Latest High-end smartphone\",\n  \"price\": 1999.99,\n  \"stockQuantity\": 40\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "5f776c4e-cd3b-4aae-a55d-d9e3df5f7225",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "b5e69375-1661-4eb4-ba9c-9e01213e091c",
+            "name": "Get All Products",
+            "url": "http://localhost:9090/products",
+            "method": "GET",
+            "sortNum": 100000,
+            "created": "2024-03-29T06:27:49.406Z",
+            "modified": "2024-03-29T06:30:48.289Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "55a70043-6bf7-451d-b62b-8ac0a1b825f6",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "b5e69375-1661-4eb4-ba9c-9e01213e091c",
+            "name": "Get 1 Product",
+            "url": "http://localhost:9090/products/{id}",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2024-03-29T06:27:57.526Z",
+            "modified": "2024-03-29T06:32:00.602Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "7",
+                    "isPath": true
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "24969b8e-21da-4985-ab11-120cc26e3949",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "b5e69375-1661-4eb4-ba9c-9e01213e091c",
+            "name": "Search by name",
+            "url": "http://localhost:9090/products/search?name=iPhone 15",
+            "method": "GET",
+            "sortNum": 120000,
+            "created": "2024-03-29T06:28:04.237Z",
+            "modified": "2024-03-29T06:32:42.915Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "name",
+                    "value": "iPhone 15",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "3890c062-8bf4-40a8-b938-a96cff06d136",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "b5e69375-1661-4eb4-ba9c-9e01213e091c",
+            "name": "Search by Category",
+            "url": "http://localhost:9090/products/search/category?category=Elec",
+            "method": "GET",
+            "sortNum": 125000,
+            "created": "2024-03-29T06:28:58.671Z",
+            "modified": "2024-03-29T06:36:21.520Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "category",
+                    "value": "Elec",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "284be03e-7cea-4fb1-b181-593b29ebf95d",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "b5e69375-1661-4eb4-ba9c-9e01213e091c",
+            "name": "Update Product",
+            "url": "http://localhost:9090/products/{id}",
+            "method": "PUT",
+            "sortNum": 130000,
+            "created": "2024-03-29T06:28:09.610Z",
+            "modified": "2024-03-29T06:38:03.934Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "7",
+                    "isPath": true
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"category\": \"Electronics\",\n  \"name\": \"iPhone 15\",\n  \"description\": \"Latest High-end smartphone\",\n  \"price\": 2499.99,\n  \"stockQuantity\": 40\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "6eccdb31-ed53-45bf-8ced-a548d706cd7b",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "b5e69375-1661-4eb4-ba9c-9e01213e091c",
+            "name": "Delete Product",
+            "url": "http://localhost:9090/products/{id}",
+            "method": "DELETE",
+            "sortNum": 140000,
+            "created": "2024-03-29T06:28:13.074Z",
+            "modified": "2024-03-29T06:39:17.903Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "6",
+                    "isPath": true
+                }
+            ],
             "tests": []
         }
     ]
