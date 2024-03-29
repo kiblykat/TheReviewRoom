@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "SmartInventory",
-    "dateExported": "2024-03-29T14:51:43.089Z",
+    "dateExported": "2024-03-29T15:11:15.315Z",
     "version": "1.1",
     "folders": [
         {
@@ -150,11 +150,11 @@
             "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
             "containerId": "605122de-fb92-469e-ae99-ed47c68b3d96",
             "name": "Add Review to Customer",
-            "url": "http://localhost:9090/customers/{id}/product/{productId}/reviews",
+            "url": "http://localhost:9090/customers/{id}/products/{productId}/reviews",
             "method": "POST",
             "sortNum": 80000,
             "created": "2024-03-29T06:19:27.794Z",
-            "modified": "2024-03-29T14:30:24.128Z",
+            "modified": "2024-03-29T15:08:54.672Z",
             "headers": [],
             "params": [
                 {
@@ -164,7 +164,7 @@
                 },
                 {
                     "name": "productId",
-                    "value": "2",
+                    "value": "5",
                     "isPath": true
                 }
             ],

@@ -46,7 +46,7 @@ public class CustomerController {
     return new ResponseEntity<>(newCustomer, HttpStatus.CREATED);
   }
 
-  @PostMapping("/{id}/product/{productId}/reviews")
+  @PostMapping("/{id}/products/{productId}/reviews")
   public ResponseEntity<Review> addReviewToCustomer(@PathVariable long id, @PathVariable long productId,
       @RequestBody Review review) {
     // TODO: process POST request

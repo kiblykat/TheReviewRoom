@@ -58,7 +58,7 @@ public class Review {
 
   // @ManyToOne Product -> Many Reviews can be linked to 1 Product
 
-  @JsonBackReference
+  // @JsonBackReference
   @ManyToOne(optional = false)
   @JoinColumn(name = "product_id", referencedColumnName = "id")
   private Product product;

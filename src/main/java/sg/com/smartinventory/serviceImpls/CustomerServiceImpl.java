@@ -23,9 +23,11 @@ public class CustomerServiceImpl implements CustomerService {
   private ReviewRepository reviewRepository;
 
   // @Autowired
-  public CustomerServiceImpl(CustomerRepository customerRepository, ReviewRepository reviewRepository) {
+  public CustomerServiceImpl(CustomerRepository customerRepository, ProductRepository productRepository,
+      ReviewRepository reviewRepository) {
     this.customerRepository = customerRepository;
     this.reviewRepository = reviewRepository;
+    this.productRepository = productRepository;
   }
 
   // - - - POST METHODS
