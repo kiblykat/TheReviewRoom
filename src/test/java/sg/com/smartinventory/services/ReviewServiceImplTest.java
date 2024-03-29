@@ -22,67 +22,74 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
+import sg.com.smartinventory.entities.Product;
 import sg.com.smartinventory.entities.Review;
+import sg.com.smartinventory.exceptions.CustomerNotFoundException;
+import sg.com.smartinventory.exceptions.ProductNotFoundException;
+import sg.com.smartinventory.repositories.ProductRepository;
 import sg.com.smartinventory.repositories.ReviewRepository;
 import sg.com.smartinventory.serviceImpls.ReviewServiceImpl;
 
 @SpringBootTest
 public class ReviewServiceImplTest {
-    @Mock
-    private ReviewRepository reviewRepository;
+  @Mock
+  private ReviewRepository reviewRepository;
+  private ProductRepository productRepository;
 
-    @InjectMocks
-    ReviewServiceImpl reviewService;
+  @InjectMocks
+  ReviewServiceImpl reviewService;
 
-    /// Name this according to your class name.
-    // The Logback library defines 5 log levels in order of priority: TRACE, DEBUG,
-    // INFO, WARN, ERROR, with each of these having a corresponding logging method:
-    // trace(), debug(), info(), warn(), error().
-    private static final Logger test_logger = LoggerFactory.getLogger(ReviewServiceImplTest.class);
+  /// Name this according to your class name.
+  // The Logback library defines 5 log levels in order of priority: TRACE, DEBUG,
+  // INFO, WARN, ERROR, with each of these having a corresponding logging method:
+  // trace(), debug(), info(), warn(), error().
+  private static final Logger test_logger = LoggerFactory.getLogger(ReviewServiceImplTest.class);
 
-    // Test Setup and Teardown configuration.
-    @BeforeAll
-    static void initAll() {
+  // Test Setup and Teardown configuration.
+  @BeforeAll
+  static void initAll() {
 
-    }
+  }
 
-    @AfterAll
-    static void teardownAll() {
+  @AfterAll
+  static void teardownAll() {
 
-    }
+  }
 
-    @BeforeEach
-    void init() {
+  @BeforeEach
+  void init() {
 
-    }
+  }
 
-    @AfterEach
-    void teardown() {
+  @AfterEach
+  void teardown() {
 
-    }
+  }
 
-    @Test
-    public void createReviewTest() {
-        test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
+  @Test
+  public void createReviewTest() {
+    test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
 
-        // 1. SETUP.
-        // Create a new review.
-        Review review = Review.builder().category("Electronics")
-                .reviewContent("Great smartphone with excellent features. ").rating(5)
-                .productId(2).build();
+    // 1. SETUP.
+    // Create a new review.
+    long id = 2;
+    Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
+    Review review = Review.builder().category("Electronics")
+        .reviewContent("Great smartphone with excellent features. ").rating(5)
+        .product(product).build();
 
-        // Mock the save method of the review repository.
-        when((reviewRepository.save(review))).thenReturn(review);
+    // Mock the save method of the review repository.
+    when((reviewRepository.save(review))).thenReturn(review);
 
-        // 2. EXECUTE.
-        Review savedReview = reviewService.createReview(review);
+    // 2. EXECUTE.
+    Review savedReview = reviewService.createReview(review);
 
-        // 3. ASSERT.
-        assertEquals(review, savedReview, "The saved review should be the same as the new review created. ");
+    // 3. ASSERT.
+    assertEquals(review, savedReview, "The saved review should be the same as the new review created. ");
 
-        // Verify that the save method of the review repository is called once only.
-        verify(reviewRepository, times(1)).save(review);
+    // Verify that the save method of the review repository is called once only.
+    verify(reviewRepository, times(1)).save(review);
 
-        test_logger.info("Ending test: " + getCurrentMethodName() + ". ");
-    }
+    test_logger.info("Ending test: " + getCurrentMethodName() + ". ");
+  }
 }
