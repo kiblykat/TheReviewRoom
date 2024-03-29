@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "SmartInventory",
-    "dateExported": "2024-03-29T17:03:34.803Z",
+    "dateExported": "2024-03-29T20:18:38.621Z",
     "version": "1.1",
     "folders": [
         {
@@ -407,6 +407,46 @@
                 {
                     "name": "id",
                     "value": "10",
+                    "isPath": true
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "2c1865fa-1561-44ff-89ca-ac310a29a3f9",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "0db7fba9-c06d-462f-a621-ce608d52ea78",
+            "name": "Search by Product ID",
+            "url": "http://localhost:9090/reviews/products/{productId}",
+            "method": "GET",
+            "sortNum": 150000,
+            "created": "2024-03-29T19:23:28.542Z",
+            "modified": "2024-03-29T19:35:16.675Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "productId",
+                    "value": "3",
+                    "isPath": true
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "db42fe54-ccdc-4f85-899c-643aba8abe2a",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "0db7fba9-c06d-462f-a621-ce608d52ea78",
+            "name": "Search by Customer",
+            "url": "http://localhost:9090/reviews/customers/{id}",
+            "method": "GET",
+            "sortNum": 160000,
+            "created": "2024-03-29T19:33:42.375Z",
+            "modified": "2024-03-29T19:35:37.747Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "1",
                     "isPath": true
                 }
             ],

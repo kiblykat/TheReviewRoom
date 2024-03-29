@@ -21,7 +21,7 @@ public class ReviewServiceImpl implements ReviewService {
   private ProductRepository productRepository;
 
   // @Autowired
-  public ReviewServiceImpl(ReviewRepository reviewRepository) {
+  public ReviewServiceImpl(ReviewRepository reviewRepository, ProductRepository productRepository) {
     this.reviewRepository = reviewRepository;
     this.productRepository = productRepository;
   }
@@ -43,7 +43,7 @@ public class ReviewServiceImpl implements ReviewService {
   @Override
   public ArrayList<Review> searchProductReviews(long productId) {
     Product product = productRepository.findById(productId).orElseThrow(() -> new ProductNotFoundException(productId));
-    List<Review> foundReviews = reviewRepository.findByProductId(productId);
+    List<Review> foundReviews = reviewRepository.findByProductId(product.getId());
     return (ArrayList<Review>) foundReviews;
   }
 
