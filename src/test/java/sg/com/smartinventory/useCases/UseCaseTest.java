@@ -9,6 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -113,6 +114,7 @@ public class UseCaseTest {
                 Customer testObject1 = Customer.builder().firstName("Jackie").lastName("Chan").country("Hong Kong")
                                 .address("123 HK St").postalCode(654321).phoneNumber(87654321)
                                 .email("jackie.chan@example.com").build();
+
                 Customer testObject2 = Customer.builder().firstName("Jackie").lastName("Chang").country("Hong Kong")
                                 .address("123 HK St").postalCode(654321).phoneNumber(87654321)
                                 .email("jackie.chang@example.com").build();
@@ -125,17 +127,21 @@ public class UseCaseTest {
                 RequestBuilder request = MockMvcRequestBuilders.post("/customers")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(testObject1AsJSON);
+
                 RequestBuilder request2 = MockMvcRequestBuilders.post("/customers")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(testObject2AsJSON);
 
                 // Step 4: Perform the request and get the response and assert.
                 mockMvc.perform(request)
+                                .andDo(print())
                                 .andExpect(status().isCreated())
                                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                                 .andExpect(jsonPath("$.firstName").value("Jackie"))
                                 .andExpect(jsonPath("$.lastName").value("Chan"));
+
                 mockMvc.perform(request2)
+                                .andDo(print())
                                 .andExpect(status().isCreated())
                                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                                 .andExpect(jsonPath("$.firstName").value("Jackie"))
