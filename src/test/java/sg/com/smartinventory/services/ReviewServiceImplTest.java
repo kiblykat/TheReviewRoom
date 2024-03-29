@@ -30,12 +30,9 @@ import sg.com.smartinventory.serviceImpls.ReviewServiceImpl;
 public class ReviewServiceImplTest {
   @Mock
   private ReviewRepository reviewRepository;
-  @Mock
-  // private ProductRepository productRepository;
 
   @InjectMocks
   ReviewServiceImpl reviewService;
-  // ProductServiceImpl productService;
 
   /// Name this according to your class name.
   // The Logback library defines 5 log levels in order of priority: TRACE, DEBUG,
@@ -70,11 +67,8 @@ public class ReviewServiceImplTest {
 
     // 1. SETUP.
     // Create a new review.
-    // long id = 2;
-    // Product product = productRepository.findById(id).orElseThrow(() -> new
-    // ProductNotFoundException(id)); - NOT needed
-    Review review = Review.builder().category("Electronics")
-        .reviewContent("Great smartphone with excellent features. ").rating(5).build();
+    Review review = Review.builder().category("Electronics").reviewContent("Great smartphone with excellent features. ")
+        .rating(5).build();
 
     // Mock the save method of the review repository.
     when((reviewRepository.save(review))).thenReturn(review);
