@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "SmartInventory",
-    "dateExported": "2024-03-29T06:44:41.033Z",
+    "dateExported": "2024-03-29T14:51:43.089Z",
     "version": "1.1",
     "folders": [
         {
@@ -17,6 +17,13 @@
             "containerId": "",
             "created": "2024-03-29T06:21:13.542Z",
             "sortNum": 20000
+        },
+        {
+            "_id": "0db7fba9-c06d-462f-a621-ce608d52ea78",
+            "name": "Review",
+            "containerId": "",
+            "created": "2024-03-29T12:28:07.289Z",
+            "sortNum": 30000
         }
     ],
     "requests": [
@@ -143,22 +150,27 @@
             "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
             "containerId": "605122de-fb92-469e-ae99-ed47c68b3d96",
             "name": "Add Review to Customer",
-            "url": "http://localhost:9090/customers/{id}/reviews",
+            "url": "http://localhost:9090/customers/{id}/product/{productId}/reviews",
             "method": "POST",
             "sortNum": 80000,
             "created": "2024-03-29T06:19:27.794Z",
-            "modified": "2024-03-29T06:19:27.794Z",
+            "modified": "2024-03-29T14:30:24.128Z",
             "headers": [],
             "params": [
                 {
                     "name": "id",
                     "value": "1",
                     "isPath": true
+                },
+                {
+                    "name": "productId",
+                    "value": "2",
+                    "isPath": true
                 }
             ],
             "body": {
                 "type": "json",
-                "raw": "{\n    \"category\": \"Books\",\n    \"reviewContent\": \"Expected more from the ending, felt rushed.\",\n    \"rating\": 3 ,\n    \"productId\": 1 \n}",
+                "raw": "{\n    \"category\": \"Books\",\n    \"reviewContent\": \"Expected more from the ending, felt rushed.\",\n    \"rating\": 4\n}",
                 "form": []
             },
             "tests": []
@@ -197,6 +209,20 @@
             "tests": []
         },
         {
+            "_id": "2540b4c8-bce7-44d1-8a4e-b020e48cf099",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "0db7fba9-c06d-462f-a621-ce608d52ea78",
+            "name": "Get All Reviews",
+            "url": "http://localhost:9090/reviews",
+            "method": "GET",
+            "sortNum": 100000,
+            "created": "2024-03-29T12:28:07.290Z",
+            "modified": "2024-03-29T12:31:37.627Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
             "_id": "55a70043-6bf7-451d-b62b-8ac0a1b825f6",
             "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
             "containerId": "b5e69375-1661-4eb4-ba9c-9e01213e091c",
@@ -205,12 +231,32 @@
             "method": "GET",
             "sortNum": 110000,
             "created": "2024-03-29T06:27:57.526Z",
-            "modified": "2024-03-29T06:32:00.602Z",
+            "modified": "2024-03-29T09:29:04.154Z",
             "headers": [],
             "params": [
                 {
                     "name": "id",
-                    "value": "7",
+                    "value": "6",
+                    "isPath": true
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "20641995-f278-4f9a-9617-e551ed4b932d",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "0db7fba9-c06d-462f-a621-ce608d52ea78",
+            "name": "Get 1 Review",
+            "url": "http://localhost:9090/reviews/{id}",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2024-03-29T12:28:07.291Z",
+            "modified": "2024-03-29T14:09:12.966Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "2",
                     "isPath": true
                 }
             ],
@@ -265,12 +311,12 @@
             "method": "PUT",
             "sortNum": 130000,
             "created": "2024-03-29T06:28:09.610Z",
-            "modified": "2024-03-29T06:38:03.934Z",
+            "modified": "2024-03-29T09:29:21.073Z",
             "headers": [],
             "params": [
                 {
                     "name": "id",
-                    "value": "7",
+                    "value": "6",
                     "isPath": true
                 }
             ],
@@ -296,6 +342,26 @@
                 {
                     "name": "id",
                     "value": "6",
+                    "isPath": true
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "fb7039d9-56e5-4883-995c-d06a7eea82b0",
+            "colId": "e34b9201-d6f7-4614-a21c-21c245c1032e",
+            "containerId": "0db7fba9-c06d-462f-a621-ce608d52ea78",
+            "name": "Delete Product",
+            "url": "http://localhost:9090/reviews/{id}",
+            "method": "DELETE",
+            "sortNum": 140000,
+            "created": "2024-03-29T12:28:07.295Z",
+            "modified": "2024-03-29T12:38:39.979Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "9",
                     "isPath": true
                 }
             ],
