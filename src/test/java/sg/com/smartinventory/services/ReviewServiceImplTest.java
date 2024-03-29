@@ -22,11 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
-import sg.com.smartinventory.entities.Product;
 import sg.com.smartinventory.entities.Review;
-import sg.com.smartinventory.exceptions.CustomerNotFoundException;
-import sg.com.smartinventory.exceptions.ProductNotFoundException;
-import sg.com.smartinventory.repositories.ProductRepository;
 import sg.com.smartinventory.repositories.ReviewRepository;
 import sg.com.smartinventory.serviceImpls.ReviewServiceImpl;
 
@@ -34,7 +30,6 @@ import sg.com.smartinventory.serviceImpls.ReviewServiceImpl;
 public class ReviewServiceImplTest {
   @Mock
   private ReviewRepository reviewRepository;
-  private ProductRepository productRepository;
 
   @InjectMocks
   ReviewServiceImpl reviewService;
@@ -72,11 +67,8 @@ public class ReviewServiceImplTest {
 
     // 1. SETUP.
     // Create a new review.
-    long id = 2;
-    Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
-    Review review = Review.builder().category("Electronics")
-        .reviewContent("Great smartphone with excellent features. ").rating(5)
-        .product(product).build();
+    Review review = Review.builder().category("Electronics").reviewContent("Great smartphone with excellent features. ")
+        .rating(5).build();
 
     // Mock the save method of the review repository.
     when((reviewRepository.save(review))).thenReturn(review);
