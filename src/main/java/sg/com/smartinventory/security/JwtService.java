@@ -25,17 +25,17 @@ public class JwtService {
   @Value("${jwt.session.period:3600000}")
   private long jwtSessionPeriod;
 
-  // private final JwtParser jwtParser;
+  private final JwtParser jwtParser;
 
   private final String TOKEN_HEADER = "Authorization";
   private final String TOKEN_PREFIX = "Bearer ";
 
   // create Signing Key (create signature of JWT, ensure message wasnt changed)
-  // public JwtService() {
-  // this.jwtParser = Jwts
-  // .parser()
-  // .setSigningKey("mysecretkey");
-  // }
+  public JwtService() {
+    this.jwtParser = Jwts
+        .parser()
+        .setSigningKey("mysecretkey");
+  }
 
   // Create JWT Token
   public String createToken(User user) {
