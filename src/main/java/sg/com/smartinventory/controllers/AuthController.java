@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping("/auth/")
 public class AuthController {
-
   private final AuthenticationManager authenticationManager;
   private JwtService jwtService;
 
@@ -32,12 +31,12 @@ public class AuthController {
     Authentication auth = authenticationManager
         .authenticate(new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword()));
 
-    // get principal name of authenticated obj
+    // Get principal name of authenticated obj.
     String username = auth.getName();
-    // generate JWT token from authenticated obj
+
+    // Generate JWT token from authenticated obj.
     String token = jwtService.createToken(new User(username));
 
     return new ResponseEntity<>(token, HttpStatus.OK);
   }
-
 }
