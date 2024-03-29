@@ -26,7 +26,6 @@ public class JwtService {
   private long jwtSessionPeriod;
 
   private final JwtParser jwtParser;
-  private final JwtParser jwtParser;
 
   private final String TOKEN_HEADER = "Authorization";
   private final String TOKEN_PREFIX = "Bearer ";
