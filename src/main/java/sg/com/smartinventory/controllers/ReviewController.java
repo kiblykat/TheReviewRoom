@@ -53,6 +53,18 @@ public class ReviewController {
     return reviewService.getRatings(rating);
   }
 
+  // READ (Search by customer Id)
+  @GetMapping("/customers/{id}")
+  public ArrayList<Review> searchReviewByCustomerId(@PathVariable long id) {
+    return reviewService.searchCustomerReviews(id);
+  }
+
+  // READ (Search by product Id)
+  @GetMapping("/products/{productId}")
+  public ArrayList<Review> searchReviewByProductId(@PathVariable long productId) {
+    return reviewService.searchProductReviews(productId);
+  }
+
   // UPDATE.
   @PutMapping("/{id}")
   public ResponseEntity<Review> updateReview(@PathVariable long id, @RequestBody Review review) {
