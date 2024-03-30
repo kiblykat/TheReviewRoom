@@ -215,5 +215,4 @@ public class CustomerControllerTest {
 
                 test_logger.info("Ending test: " + getCurrentMethodName() + ". ");
         }
-        }
 }
