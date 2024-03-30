@@ -79,7 +79,7 @@ public class CustomerControllerTest {
                                 .address("123 HK St").postalCode(654321).phoneNumber(87654321)
                                 .email("jackie.chan@example.com").build();
 
-                // Step 2: Convert the Java object to JSON using ObjectMapper.
+                // Step 2: Convert the Java objects to JSON using ObjectMapper.
                 String newCustomerAsJSON = objectMapper.writeValueAsString(newCustomer);
 
                 // Step 3: Build the request.
