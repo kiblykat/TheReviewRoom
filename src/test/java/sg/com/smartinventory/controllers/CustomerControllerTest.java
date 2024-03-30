@@ -216,7 +216,7 @@ public class CustomerControllerTest {
                 test_logger.info("Ending test: " + getCurrentMethodName() + ". ");
         }
 
-        @DisplayName("Get one Customer")
+        @DisplayName("Get One Customer")
         @Test
         public void getOneCustomersTest() throws Exception {
                 test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
