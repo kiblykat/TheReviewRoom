@@ -5,13 +5,17 @@ import java.util.ArrayList;
 import sg.com.smartinventory.entities.Product;
 
 public interface ProductService {
-    Product createProduct(Product product);
+  Product createProduct(Product product);
 
-    Product getProduct(Long id);
+  Product getProduct(Long id);
 
-    ArrayList<Product> getAllProducts();
+  ArrayList<Product> getAllProducts();
 
-    Product updateProduct(Long id, Product product);
+  ArrayList<Product> searchProduct(String name);
 
-    void deleteProduct(long id);
+  ArrayList<Product> searchProductCat(String category);
+
+  Product updateProduct(Long id, Product product);
+
+  void deleteProduct(long id);
 }
