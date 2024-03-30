@@ -21,6 +21,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -31,6 +34,7 @@ import sg.com.smartinventory.entities.Customer;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class CustomerControllerTest {
         @Autowired
         private MockMvc mockMvc;
@@ -75,7 +79,7 @@ public class CustomerControllerTest {
                                 .address("123 HK St").postalCode(654321).phoneNumber(87654321)
                                 .email("jackie.chan@example.com").build();
 
-                // Step 2: Convert the Java object to JSON using ObjectMapper.
+                // Step 2: Convert the Java objects to JSON using ObjectMapper.
                 String newCustomerAsJSON = objectMapper.writeValueAsString(newCustomer);
 
                 // Step 3: Build the request.

@@ -28,6 +28,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -40,6 +42,7 @@ import sg.com.smartinventory.serviceImpls.CustomerServiceImpl;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class IntegrationTest {
         @Mock
         private CustomerRepository customerRepository;
@@ -114,9 +117,10 @@ public class IntegrationTest {
                 Customer testObject1 = Customer.builder().firstName("Jackie").lastName("Chan").country("Hong Kong")
                                 .address("123 HK St").postalCode(654321).phoneNumber(87654321)
                                 .email("jackie.chan@example.com").build();
-                Customer testObject2 = Customer.builder().firstName("Jackie").lastName("Chang").country("Hong Kong")
-                                .address("123 HK St").postalCode(654321).phoneNumber(87654321)
-                                .email("jackie.chang@example.com").build();
+
+                Customer testObject2 = Customer.builder().firstName("Jack").lastName("Chang").country("China")
+                                .address("321 HK St").postalCode(123456).phoneNumber(12345678)
+                                .email("jack.chang@example.com").build();
 
                 // Step 2: Convert the Java objects to JSON using ObjectMapper.
                 String testObject1AsJSON = objectMapper.writeValueAsString(testObject1);
@@ -142,7 +146,7 @@ public class IntegrationTest {
                                 .andDo(print())
                                 .andExpect(status().isCreated())
                                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                                .andExpect(jsonPath("$.firstName").value("Jackie"))
+                                .andExpect(jsonPath("$.firstName").value("Jack"))
                                 .andExpect(jsonPath("$.lastName").value("Chang"));
 
                 test_logger.info("Ending test: " + getCurrentMethodName() + ". ");
