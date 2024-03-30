@@ -311,4 +311,104 @@ public class ReviewControllerTest {
         // test_logger.info("Ending test: " + getCurrentMethodName() + ". ");
         // }
         // >>>>>>> main
+
+        // @DisplayName("Get All Reviews")
+        // @Test
+        // public void getAllReviewsTest() throws Exception {
+        // test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
+
+        // // Step 1: Create the test objects.
+        // Review newReview =
+        // Review.builder().firstName("Jackie").lastName("Chan").country("Hong Kong")
+        // .address("123 HK St").postalCode(654321).phoneNumber(87654321)
+        // .email("jackie.chan@example.com").build();
+
+        // Review newReview2 =
+        // Review.builder().firstName("Jack").lastName("Chang").country("China")
+        // .address("321 HK St").postalCode(123456).phoneNumber(12345678)
+        // .email("jack.chang@example.com").build();
+
+        // // Step 2: Convert the Java objects to JSON using ObjectMapper.
+        // String newReviewAsJSON = objectMapper.writeValueAsString(newReview);
+        // String newReviewAsJSON2 = objectMapper.writeValueAsString(newReview2);
+
+        // // Step 3: Build the request.
+        // RequestBuilder request = MockMvcRequestBuilders.post("/customers")
+        // .contentType(MediaType.APPLICATION_JSON)
+        // .content(newReviewAsJSON);
+
+        // RequestBuilder request2 = MockMvcRequestBuilders.post("/customers")
+        // .contentType(MediaType.APPLICATION_JSON)
+        // .content(newReviewAsJSON2);
+
+        // RequestBuilder request3 = MockMvcRequestBuilders.get("/customers")
+        // .contentType(MediaType.APPLICATION_JSON);
+
+        // // Step 4: Perform the request and get the response and assert.
+        // mockMvc.perform(request)
+        // .andDo(print())
+        // .andExpect(status().isCreated())
+        // .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        // .andExpect(jsonPath("$.firstName").value("Jackie"))
+        // .andExpect(jsonPath("$.lastName").value("Chan"));
+
+        // mockMvc.perform(request2)
+        // .andDo(print())
+        // .andExpect(status().isCreated())
+        // .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        // .andExpect(jsonPath("$.firstName").value("Jack"))
+        // .andExpect(jsonPath("$.lastName").value("Chang"));
+
+        // mockMvc.perform(request3)
+        // .andDo(print())
+        // .andExpect(status().isOk())
+        // .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        // .andExpect(jsonPath("$[0].firstName").value("Jackie"))
+        // .andExpect(jsonPath("$[0].lastName").value("Chan"))
+        // .andExpect(jsonPath("$[1].firstName").value("Jack"))
+        // .andExpect(jsonPath("$[1].lastName").value("Chang"));
+
+        // test_logger.info("Ending test: " + getCurrentMethodName() + ". ");
+        // }
+
+        // @DisplayName("Get one Review")
+        // @Test
+        // public void getOneReviewsTest() throws Exception {
+        // test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
+
+        // // Step 1: Create the test objects.
+        // Review newReview =
+        // Review.builder().firstName("Jackie").lastName("Chan").country("Hong Kong")
+        // .address("123 HK St").postalCode(654321).phoneNumber(87654321)
+        // .email("jackie.chan@example.com").build();
+
+        // // Step 2: Convert the Java objects to JSON using ObjectMapper.
+        // String newReviewAsJSON = objectMapper.writeValueAsString(newReview);
+
+        // // Step 3: Build the request.
+        // RequestBuilder request = MockMvcRequestBuilders.post("/customers")
+        // .contentType(MediaType.APPLICATION_JSON)
+        // .content(newReviewAsJSON);
+
+        // RequestBuilder request2 = MockMvcRequestBuilders.get("/customers/{uuid}",
+        // "1")
+        // .contentType(MediaType.APPLICATION_JSON);
+
+        // // Step 4: Perform the request and get the response and assert.
+        // mockMvc.perform(request)
+        // .andDo(print())
+        // .andExpect(status().isCreated())
+        // .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        // .andExpect(jsonPath("$.firstName").value("Jackie"))
+        // .andExpect(jsonPath("$.lastName").value("Chan"));
+
+        // mockMvc.perform(request2)
+        // .andDo(print())
+        // .andExpect(status().isOk())
+        // .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        // .andExpect(jsonPath("$.firstName").value("Jackie"))
+        // .andExpect(jsonPath("$.lastName").value("Chan"));
+
+        // test_logger.info("Ending test: " + getCurrentMethodName() + ". ");
+        // }
 }
