@@ -67,7 +67,7 @@ public class Review {
   }
 
   // Define Constructor for DataLoader.
-  public Review(String category, String reviewContent, int rating, long productId) {
+  public Review(String category, String reviewContent, int rating, long customerId, long productId) {
     this();
 
     this.category = category;
