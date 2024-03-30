@@ -34,6 +34,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import sg.com.smartinventory.entities.Customer;
+import sg.com.smartinventory.entities.Product;
 import sg.com.smartinventory.entities.Review;
 import sg.com.smartinventory.repositories.ReviewRepository;
 import sg.com.smartinventory.serviceImpls.ReviewServiceImpl;
@@ -85,11 +86,61 @@ public class ReviewControllerTest {
         // <<<<<<< SIS-39
         @DisplayName("Get Review Test by Id")
         public void getReviewTest() throws Exception {
-                // Setup
-                // for now, setup is created in DataLoader. need fix
+                test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
+
+                // Step 1: Create the test objects.
+                Customer newCustomer = Customer.builder().firstName("Jackie").lastName("Chan").country("Hong Kong")
+                                .address("123 HK St").postalCode(654321).phoneNumber(87654321)
+                                .email("jackie.chan@example.com").build();
+
+                Product newProduct = Product.builder().category("Electronics").name("Smartphone")
+                                .description("High-end smartphone with advanced features. ")
+                                .price(999.99).stockQuantity(100).build();
+
+                Review newReview = Review.builder().category("Electronics")
+                                .reviewContent("Fast delivery, product works as expected. ").rating(4)
+                                .customer(newCustomer)
+                                .product(newProduct).build();
+
+                // Step 2: Convert the Java object to JSON using ObjectMapper.
+                String newCustomerAsJSON = objectMapper.writeValueAsString(newCustomer);
+                String newProductAsJSON = objectMapper.writeValueAsString(newProduct);
+                String newReviewAsJSON = objectMapper.writeValueAsString(newReview);
+
+                // Step 3: Build the request.
+                RequestBuilder request = MockMvcRequestBuilders.post("/customers")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(newCustomerAsJSON);
+
+                RequestBuilder request2 = MockMvcRequestBuilders.post("/products")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(newProductAsJSON);
+
+                RequestBuilder request3 = MockMvcRequestBuilders
+                                .post("/customers/{id}/products/{productId}/reviews", "1", "1")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                // .sessionAttr("review", newReview)
+                                // .param("id", "1")
+                                .content(newReviewAsJSON);
+
+                // Step 4: Perform the request and get the response and assert.
+                mockMvc.perform(request)
+                                .andDo(print())
+                                .andExpect(status().isCreated());
+
+                mockMvc.perform(request2)
+                                .andDo(print())
+                                .andExpect(status().isCreated());
+
+                mockMvc.perform(request3).andDo(print())
+                                .andExpect(status().isOk())
+                                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                                // .andExpect(jsonPath("$[0].id").exists())
+                                .andExpect(jsonPath("$.category").value("Electronics"))
+                                .andExpect(jsonPath("$.rating").value(4));
 
                 // Build the GET request
-                RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/reviews/2");
+                RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/reviews/1");
                 // ======= // = = = DATA INTEGRITY VIOLATION EXCEPTION = = =
                 // public void createReviewTest() throws Exception {
                 // test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
@@ -129,7 +180,9 @@ public class ReviewControllerTest {
                                 .andDo(print())
                                 .andExpect(status().isOk())
                                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                                .andExpect(jsonPath("$.id").value(2));
+                                .andExpect(jsonPath("$.id").value(1));
+
+                test_logger.info("Ending test: " + getCurrentMethodName() + ". ");
         }
         // <<<<<<< SIS-39
         // =======
