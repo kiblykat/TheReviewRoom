@@ -99,7 +99,7 @@ public class ProductControllerTest {
 
         @DisplayName("Get All Products")
         @Test
-        public void getAllCustomersTest() throws Exception {
+        public void getAllProductsTest() throws Exception {
                 test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
 
                 // Step 1: Create the test objects.
@@ -112,17 +112,17 @@ public class ProductControllerTest {
                                 .price(29.99).stockQuantity(500).build();
 
                 // Step 2: Convert the Java objects to JSON using ObjectMapper.
-                String newCustomerAsJSON = objectMapper.writeValueAsString(newProduct);
-                String newCustomerAsJSON2 = objectMapper.writeValueAsString(newProduct2);
+                String newProductAsJSON = objectMapper.writeValueAsString(newProduct);
+                String newProductAsJSON2 = objectMapper.writeValueAsString(newProduct2);
 
                 // Step 3: Build the request.
                 RequestBuilder request = MockMvcRequestBuilders.post("/products")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(newCustomerAsJSON);
+                                .content(newProductAsJSON);
 
                 RequestBuilder request2 = MockMvcRequestBuilders.post("/products")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(newCustomerAsJSON2);
+                                .content(newProductAsJSON2);
 
                 RequestBuilder request3 = MockMvcRequestBuilders.get("/products")
                                 .contentType(MediaType.APPLICATION_JSON);
@@ -156,7 +156,7 @@ public class ProductControllerTest {
 
         @DisplayName("Get One Product")
         @Test
-        public void getOneCustomersTest() throws Exception {
+        public void getOneProductsTest() throws Exception {
                 test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
 
                 // Step 1: Create the test objects.
@@ -165,12 +165,12 @@ public class ProductControllerTest {
                                 .price(999.99).stockQuantity(100).build();
 
                 // Step 2: Convert the Java objects to JSON using ObjectMapper.
-                String newCustomerAsJSON = objectMapper.writeValueAsString(newProduct);
+                String newProductAsJSON = objectMapper.writeValueAsString(newProduct);
 
                 // Step 3: Build the request.
                 RequestBuilder request = MockMvcRequestBuilders.post("/products")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(newCustomerAsJSON);
+                                .content(newProductAsJSON);
 
                 RequestBuilder request2 = MockMvcRequestBuilders.get("/products/{uuid}", "1")
                                 .contentType(MediaType.APPLICATION_JSON);
