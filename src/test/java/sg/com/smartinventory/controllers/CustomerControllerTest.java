@@ -31,6 +31,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import sg.com.smartinventory.entities.Customer;
+import sg.com.smartinventory.entities.Product;
+import sg.com.smartinventory.entities.Review;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -98,8 +100,158 @@ public class CustomerControllerTest {
                 test_logger.info("Ending test: " + getCurrentMethodName() + ". ");
         }
 
-        @DisplayName("Create Customer")
+        @DisplayName("Add Review To Customer")
         @Test
         public void addReviewToCustomerTest() throws Exception {
+                test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
+
+                // Step 1: Create the test objects.
+                Customer newCustomer = Customer.builder().firstName("Jackie").lastName("Chan").country("Hong Kong")
+                                .address("123 HK St").postalCode(654321).phoneNumber(87654321)
+                                .email("jackie.chan@example.com").build();
+
+                Product newProduct = Product.builder().category("Electronics").name("Smartphone")
+                                .description("High-end smartphone with advanced features. ")
+                                .price(999.99).stockQuantity(100).build();
+
+                Review newReview = Review.builder().category("Electronics")
+                                .reviewContent("Great smartphone with excellent features. ").rating(5)
+                                .customer(newCustomer)
+                                .product(newProduct).build();
+
+                // Step 2: Convert the Java object to JSON using ObjectMapper.
+                String newCustomerAsJSON = objectMapper.writeValueAsString(newCustomer);
+                String newProductAsJSON = objectMapper.writeValueAsString(newProduct);
+                String newReviewAsJSON = objectMapper.writeValueAsString(newReview);
+
+                // Step 3: Build the request.
+                RequestBuilder request = MockMvcRequestBuilders.post("/customers")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(newCustomerAsJSON);
+
+                RequestBuilder request2 = MockMvcRequestBuilders.post("/products")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(newProductAsJSON);
+
+                RequestBuilder request3 = MockMvcRequestBuilders
+                                .post("/customers/{id}/products/{productId}/reviews", "1", "1")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                // .sessionAttr("review", newReview)
+                                // .param("id", "1")
+                                .content(newReviewAsJSON);
+
+                // Step 4: Perform the request and get the response and assert.
+                mockMvc.perform(request)
+                                .andDo(print())
+                                .andExpect(status().isCreated());
+
+                mockMvc.perform(request2)
+                                .andDo(print())
+                                .andExpect(status().isCreated());
+
+                mockMvc.perform(request3).andDo(print())
+                                .andExpect(status().isOk())
+                                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                                // .andExpect(jsonPath("$[0].id").exists())
+                                .andExpect(jsonPath("$.category").value("Electronics"))
+                                .andExpect(jsonPath("$.rating").value(5));
+
+                test_logger.info("Ending test: " + getCurrentMethodName() + ". ");
+        }
+
+        @DisplayName("Get All Customers")
+        @Test
+        public void getAllCustomersTest() throws Exception {
+                test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
+
+                // Step 1: Create the test objects.
+                Customer newCustomer = Customer.builder().firstName("Jackie").lastName("Chan").country("Hong Kong")
+                                .address("123 HK St").postalCode(654321).phoneNumber(87654321)
+                                .email("jackie.chan@example.com").build();
+
+                Customer newCustomer2 = Customer.builder().firstName("Jack").lastName("Chang").country("China")
+                                .address("321 HK St").postalCode(123456).phoneNumber(12345678)
+                                .email("jack.chang@example.com").build();
+
+                // Step 2: Convert the Java objects to JSON using ObjectMapper.
+                String newCustomerAsJSON = objectMapper.writeValueAsString(newCustomer);
+                String newCustomerAsJSON2 = objectMapper.writeValueAsString(newCustomer2);
+
+                // Step 3: Build the request.
+                RequestBuilder request = MockMvcRequestBuilders.post("/customers")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(newCustomerAsJSON);
+
+                RequestBuilder request2 = MockMvcRequestBuilders.post("/customers")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(newCustomerAsJSON2);
+
+                RequestBuilder request3 = MockMvcRequestBuilders.get("/customers")
+                                .contentType(MediaType.APPLICATION_JSON);
+
+                // Step 4: Perform the request and get the response and assert.
+                mockMvc.perform(request)
+                                .andDo(print())
+                                .andExpect(status().isCreated())
+                                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                                .andExpect(jsonPath("$.firstName").value("Jackie"))
+                                .andExpect(jsonPath("$.lastName").value("Chan"));
+
+                mockMvc.perform(request2)
+                                .andDo(print())
+                                .andExpect(status().isCreated())
+                                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                                .andExpect(jsonPath("$.firstName").value("Jack"))
+                                .andExpect(jsonPath("$.lastName").value("Chang"));
+
+                mockMvc.perform(request3)
+                                .andDo(print())
+                                .andExpect(status().isOk())
+                                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                                .andExpect(jsonPath("$[0].firstName").value("Jackie"))
+                                .andExpect(jsonPath("$[0].lastName").value("Chan"))
+                                .andExpect(jsonPath("$[1].firstName").value("Jack"))
+                                .andExpect(jsonPath("$[1].lastName").value("Chang"));
+
+                test_logger.info("Ending test: " + getCurrentMethodName() + ". ");
+        }
+
+        @DisplayName("Get One Customer")
+        @Test
+        public void getOneCustomersTest() throws Exception {
+                test_logger.info("Starting test: " + getCurrentMethodName() + ". ");
+
+                // Step 1: Create the test objects.
+                Customer newCustomer = Customer.builder().firstName("Jackie").lastName("Chan").country("Hong Kong")
+                                .address("123 HK St").postalCode(654321).phoneNumber(87654321)
+                                .email("jackie.chan@example.com").build();
+
+                // Step 2: Convert the Java objects to JSON using ObjectMapper.
+                String newCustomerAsJSON = objectMapper.writeValueAsString(newCustomer);
+
+                // Step 3: Build the request.
+                RequestBuilder request = MockMvcRequestBuilders.post("/customers")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(newCustomerAsJSON);
+
+                RequestBuilder request2 = MockMvcRequestBuilders.get("/customers/{uuid}", "1")
+                                .contentType(MediaType.APPLICATION_JSON);
+
+                // Step 4: Perform the request and get the response and assert.
+                mockMvc.perform(request)
+                                .andDo(print())
+                                .andExpect(status().isCreated())
+                                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                                .andExpect(jsonPath("$.firstName").value("Jackie"))
+                                .andExpect(jsonPath("$.lastName").value("Chan"));
+
+                mockMvc.perform(request2)
+                                .andDo(print())
+                                .andExpect(status().isOk())
+                                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                                .andExpect(jsonPath("$.firstName").value("Jackie"))
+                                .andExpect(jsonPath("$.lastName").value("Chan"));
+
+                test_logger.info("Ending test: " + getCurrentMethodName() + ". ");
         }
 }
