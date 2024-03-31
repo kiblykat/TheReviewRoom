@@ -5,9 +5,12 @@ The Review Room is a customer review platform that allows customers to easily gi
 
 ## Key Functionalities
 
-Seamless Review Collection: Customers can effortlessly submit detailed reviews with ratings, providing feedback on product features, performance, and overall satisfaction.
-Centralized Review Management: Retailers can manage all customer reviews in a single, user-friendly platform, allowing for efficient monitoring, analysis, and response.
-Data-Driven Product Insights: By leveraging customer reviews, retailers gain valuable insights into product performance, identify trends, and make informed decisions regarding product selection, improvement, and marketing strategies.
+### Seamless Review Collection: 
+Customers can effortlessly submit detailed reviews with ratings, providing feedback on product features, performance, and overall satisfaction. 
+### Centralized Review Management: 
+Retailers can manage all customer reviews in a single, user-friendly platform, allowing for efficient monitoring, analysis, and response. 
+### Data-Driven Product Insights: 
+By leveraging customer reviews, retailers gain valuable insights into product performance, identify trends, and make informed decisions regarding product selection, improvement, and marketing strategies. 
 Project Structure
 
 ## The Review Room project utilizes a Spring Boot framework with clear separation of concerns:
