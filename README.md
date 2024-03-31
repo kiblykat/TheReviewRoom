@@ -16,10 +16,10 @@ Customer Controller: Manages CRUD operations (Create, Read, Update, Delete) for 
 Product Controller: Manages CRUD operations for product data.
 Review Controller: Manages CRUD operations for review data, including filtering reviews by specific criteria (ratings, customer ID, product ID).
 
-##Test Coverage
+## Test Coverage
 
 This project prioritizes code quality and maintainability.  We've included unit tests for the core functionalities of the application, covering all important aspects of the code. These tests ensure the code behaves as expected and helps prevent regressions during future development.
 
-##Front End
+## Front End
 
 A basic front end to highlight an MVP of our project can be found at: https://github.com/kiblykat/ReviewRoom-frontend
