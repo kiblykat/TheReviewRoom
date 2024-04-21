@@ -1,0 +1,1 @@
+uvicorn app.main:the_review_room --reload
