@@ -1,6 +1,11 @@
 @ECHO OFF
+
 PUSHD ..
-.venv\Scripts\Activate.ps1
+
+CALL .venv\Scripts\activate
+
 pip freeze > app\requirements.txt
+
 POPD
+
 @REM PAUSE
