@@ -69,8 +69,8 @@ jobs:
       - name: Upload the generated application jar file artifact
         uses: actions/upload-artifact@v4.3.1
         with:
-          name: smart-inventory-0.0.1-SNAPSHOT
-          path: target/smart-inventory-0.0.1-SNAPSHOT.jar
+          name: the-review-room-0.0.1-SNAPSHOT
+          path: target/the-review-room-0.0.1-SNAPSHOT.jar
           retention-days: 7
 
       - name: Upload the test report artifacts
