@@ -38,6 +38,7 @@ __pycache__/
 
 ### Generated Log Files ###
 src/main/java/sg/com/smartinventory/logfile
+src/main/java/sg/com/thereivewroom/logfile
 logs/**
 
 ### Ports ###
