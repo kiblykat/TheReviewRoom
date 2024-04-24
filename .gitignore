@@ -34,4 +34,12 @@ build/
 
 ### Generated Log Files ###
 src/main/java/sg/com/smartinventory/logfile
+src/main/java/sg/com/thereivewroom/logfile
 logs/**
+
+### Ports ###
+### FastAPI ###
+# Environments
+.venv
+venv/
+venv.bak/
