@@ -1,6 +1,9 @@
 [submodule "frontend"]
-	path = frontend
-	url = https://github.com/kiblykat/ReviewRoom-frontend.git
+path = frontend
+url = https://github.com/kiblykat/ReviewRoom-frontend.git
+[submodule "Ports/TheReviewRoom-FastAPI"]
+path = Ports/TheReviewRoom-FastAPI
+url = https://github.com/nhkhai/TheReviewRoom-FastAPI.git
 [submodule "Ports/TheReviewRoom-Go"]
-	path = Ports/TheReviewRoom-Go
-	url = https://github.com/nhkhai/TheReviewRoom-Go.git
+path = Ports/TheReviewRoom-Go
+url = https://github.com/nhkhai/TheReviewRoom-Go.git
