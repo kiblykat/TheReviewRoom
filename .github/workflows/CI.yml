@@ -19,7 +19,7 @@ jobs:
           POSTGRES_USER: postgres
           # POSTGRES_PASSWORD: postgres
           POSTGRES_HOST_AUTH_METHOD: trust
-          POSTGRES_DB: smart_inventory
+          POSTGRES_DB: the_review_room
 
         # Set health checks to wait until Postgres has started.
         options: >-
