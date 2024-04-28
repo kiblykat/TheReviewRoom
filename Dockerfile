@@ -1,5 +1,5 @@
 # The base image. 
-FROM eclipse-temurin:17-jdk-alpine
+FROM eclipse-temurin:21-jdk-alpine
 
 # The work directory. 
 WORKDIR /
