@@ -4,7 +4,6 @@ version: 2.1
 
 # Orbs - Reusable packages for use.
 orbs:
-  node: circleci/node@5.2.0
   docker: circleci/docker@2.6.0
   # heroku: circleci/heroku@2.0.0
   snyk: snyk/snyk@2.1.0
@@ -19,31 +18,31 @@ jobs:
     docker: # Environment.
       # Specify the version you desire here.
       # See: https://circleci.com/developer/images/image/cimg/base
-      # - image: cimg/node:20.12.2
-      - image: cimg/node:current
+      - image: cimg/openjdk:21.0.2
+        environment:
+          PGHOST: 127.0.0.1
+      - image: cimg/postgres:16.2.0
 
     # Add steps to the job.
     # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
+      - restore_cache # Restore the saved cache after the first run or if 'pom.xml' has changed.
+        # key: cireclci-demo-java-spring-{{checksum "pom.xml"}}
+
       - run: |
           echo "Installing dependencies..."
-          npm install
+          java --version
 
   test:
     docker: # Environment.
-      # - image: cimg/node:20.12.2
-      - image: cimg/node:current
+      - image: cimg/openjdk:21.0.2
 
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
       - run: |
           echo "Running tests..."
-          npm run test
+          java --version
 
   scan:
     docker:
@@ -114,8 +113,8 @@ jobs:
 # Workflow - Defines what sequence will the jobs run.
 # Orchestrate jobs using workflows.
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
-ci_flow:
-  simple_workflow: # Workflow name. This is the name of the workflow, feel free to change it to better match your workflow.
+workflows:
+  ci_flow: # Workflow name. This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build
@@ -170,7 +169,8 @@ ci_flow:
               only:
                 - release
 
-cicd_flow:
+  cicd_flow:
+    jobs:
       - deploy:
           requires:
             - publish
