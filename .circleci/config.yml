@@ -128,12 +128,12 @@ jobs:
       - setup_remote_docker
       - docker/check
       - docker/build: # Build the image.
-          image: nhkhai/education-space
+          image: nhkhai/the-review-room
           # tag: v1.0.1
           tag: latest # Consider setting this dynamically based on the tag using env vars or CircleCI parameters.
           # tag: ${CIRCLE_TAG:-latest}  # Use the tag name if triggered by a tag, otherwise use 'latest'.
       - docker/push: # Pushes the image to the specified account in the environment variables.
-          image: nhkhai/education-space
+          image: nhkhai/the-review-room
           # tag: v1.0.1
           tag: latest # Consider setting this dynamically based on the tag using env vars or CircleCI parameters.
           # tag: ${CIRCLE_TAG:-latest}  # Use the tag name if triggered by a tag, otherwise use 'latest'.
