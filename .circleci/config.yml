@@ -26,7 +26,7 @@ jobs:
       - image: cimg/openjdk:21.0.2
         environment:
           PGHOST: 127.0.0.1
-      - image: cimg/postgres:16.2.0
+      - image: cimg/postgres:16.2
         environment:
           # This optional variable can be used to control the auth-method for host connections for all databases, all users, and all addresses.
           # If unspecified then scram-sha-256 password authentication is used (in 14+; md5 in older releases).
