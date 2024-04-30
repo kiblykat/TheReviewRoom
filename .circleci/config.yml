@@ -26,6 +26,18 @@ jobs:
           path: target/surefire-reports
       - store_artifacts: # Store the uber jar as an artifact.
           path: target/the-review-room-0.0.1-SNAPSHOT.jar
+  publish: # Also known as the build-and-push.
+    executor: docker/docker # Define the execution environment in which the steps of a job will run.
+    steps:
+      - checkout
+      - setup_remote_docker
+      - docker/check
+      - docker/build: # Build the image.
+          image: nhkhai/the-review-room
+          tag: latest # Consider setting this dynamically based on the tag using env vars or CircleCI parameters.
+      - docker/push: # Pushes the image to the specified account in the environment variables.
+          image: nhkhai/the-review-room
+          tag: latest # Consider setting this dynamically based on the tag using env vars or CircleCI parameters.
   scan:
     docker:
       - image: cimg/base:current
@@ -42,19 +54,6 @@ jobs:
           docker-image-name: $IMAGE_NAME # The image name, if scanning a container image.
           fail-on-issues: false # This specifies if builds should be failed or continued based on issues found by Snyk. If false, the failure is hidden and marked as a pass.
           severity-threshold: high # Only report vulnerabilities of provided level or higher (low/medium/high/critical). If param is not present, the default value is low.
-
-  publish: # Also known as the build-and-push.
-    executor: docker/docker # Define the execution environment in which the steps of a job will run.S
-    steps:
-      - checkout
-      - setup_remote_docker
-      - docker/check
-      - docker/build: # Build the image.
-          image: nhkhai/the-review-room
-          tag: latest # Consider setting this dynamically based on the tag using env vars or CircleCI parameters.
-      - docker/push: # Pushes the image to the specified account in the environment variables.
-          image: nhkhai/the-review-room
-          tag: latest # Consider setting this dynamically based on the tag using env vars or CircleCI parameters.
   deploy:
     docker:
       - image: cimg/base:current
@@ -72,17 +71,12 @@ workflows:
             branches:
               ignore:
                 - release
-      - scan:
-          requires:
-            - build_and_test
       - publish:
           requires:
             - build_and_test
-            # - scan
-          filters:
-            branches:
-              ignore:
-                - develop
+      - scan:
+          requires:
+            - publish
   cicd_flow:
     jobs:
       - build_and_test:
@@ -90,13 +84,12 @@ workflows:
             branches:
               only:
                 - release
-      - scan:
-          requires:
-            - build_and_test
       - publish:
           requires:
             - build_and_test
-            - scan
+      - scan:
+          requires:
+            - publish
       - deploy:
           requires:
             - publish
