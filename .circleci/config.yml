@@ -193,7 +193,46 @@ workflows:
       #     #     ignore:
       #     #       - release
 
-      - build_and_test
+      - build_and_test:
+          filters:
+            branches:
+              ignore:
+                - release
+
+      # The Snyk security scan job.
+      - scan:
+          requires:
+            # - build
+            - build_and_test
+          filters:
+            branches:
+              #     only:
+              #       - main
+              ignore:
+                - release
+
+      - publish:
+          # Ensure that the dependency job(s) are able to run (watch out for branch filtering affecting this), else publish and deploy (depends on publish) will not run at all.
+          requires:
+            # - test
+            - build_and_test
+            - scan
+          filters:
+            # tags:
+            #   only: /^v[0-9]+\.[0-9]+\.[0-9]+$/ # Ensure this job runs only for semantically versioned tags. This regex pattern matches semantic versioning tags (e.g., v1.0.0, v2.1.3).
+            branches:
+              # only:
+              #   - release
+              ignore:
+                - develop
+                - release
+
+  cicd_flow:
+    jobs:
+      - build_and_test:
+          branches:
+            only:
+              - release
 
       # The Snyk security scan job.
       - scan:
@@ -206,6 +245,9 @@ workflows:
           #       - main
           #     ignore:
           #       - release
+          branches:
+            only:
+              - release
 
       - publish:
           # Ensure that the dependency job(s) are able to run (watch out for branch filtering affecting this), else publish and deploy (depends on publish) will not run at all.
@@ -220,18 +262,6 @@ workflows:
               only:
                 - release
 
-      - deploy:
-          requires:
-            - publish
-          filters:
-            # tags:
-            #   only: /^v[0-9]+\.[0-9]+\.[0-9]+$/ # Ensure this job runs only for semantically versioned tags. This regex pattern matches semantic versioning tags (e.g., v1.0.0, v2.1.3).
-            branches:
-              only:
-                - release
-
-  cicd_flow:
-    jobs:
       - deploy:
           requires:
             - publish
