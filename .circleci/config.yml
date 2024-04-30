@@ -230,24 +230,25 @@ workflows:
   cicd_flow:
     jobs:
       - build_and_test:
-          branches:
-            only:
-              - release
+          filters:
+            branches:
+              only:
+                - release
 
       # The Snyk security scan job.
       - scan:
           requires:
             # - build
             - build_and_test
-          # filters:
-          #   branches:
-          #     only:
-          #       - main
-          #     ignore:
-          #       - release
-          branches:
-            only:
-              - release
+          filters:
+            #   branches:
+            #     only:
+            #       - main
+            #     ignore:
+            #       - release
+            branches:
+              only:
+                - release
 
       - publish:
           # Ensure that the dependency job(s) are able to run (watch out for branch filtering affecting this), else publish and deploy (depends on publish) will not run at all.
