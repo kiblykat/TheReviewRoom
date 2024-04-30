@@ -6,13 +6,18 @@ version: 2.1
 orbs:
   docker: circleci/docker@2.6.0
   # heroku: circleci/heroku@2.0.0
+  # The maven orb contains a set of prepackaged circleci configuration you can use repeatedly in your configurations files.
+  # Orb commands and jobs help you with common scripting around a language/tool so you dont have to copy and paste it everywhere.
+  # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/maven
+  maven: circleci/maven@1.4.1
   snyk: snyk/snyk@2.1.0
 
 # Jobs - Set of instructions / functions.
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/jobs-steps/#jobs-overview & https://circleci.com/docs/configuration-reference/#jobs
 jobs:
-  build: # Job name.
+  # build: # Job name.
+  build_and_test: # Job name.
     # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/executor-intro/ & https://circleci.com/docs/configuration-reference/#executor-job
     docker: # Environment.
@@ -22,27 +27,79 @@ jobs:
         environment:
           PGHOST: 127.0.0.1
       - image: cimg/postgres:16.2.0
+        environment:
+          # This optional variable can be used to control the auth-method for host connections for all databases, all users, and all addresses.
+          # If unspecified then scram-sha-256 password authentication is used (in 14+; md5 in older releases).
+          # On an uninitialized database, this will populate pg_hba.conf via this approximate line: echo "host all all all $POSTGRES_HOST_AUTH_METHOD" >> pg_hba.conf
+          # See the PostgreSQL documentation on pg_hba.conf for more information about possible values and their meanings.
+          # It is not recommended to use trust since it allows anyone to connect without a password, even if one is set (like via POSTGRES_PASSWORD).
+          # For more information see the PostgreSQL documentation on Trust Authentication.
+          # If you set POSTGRES_HOST_AUTH_METHOD to trust, then POSTGRES_PASSWORD is not required.
+          # If you set this to an alternative value (such as scram-sha-256), you might need additional POSTGRES_INITDB_ARGS for the database
+          # to initialize correctly (such as POSTGRES_INITDB_ARGS=--auth-host=scram-sha-256).
+          # POSTGRES_HOST_AUTH_METHOD: trust
+          # This optional environment variable is used in conjunction with POSTGRES_PASSWORD to set a user and its password.
+          # This variable will create the specified user with superuser power and a database with the same name.
+          # If it is not specified, then the default user of postgres will be used.
+          # POSTGRES_USER: postgres
+          # This environment variable is required for you to use the PostgreSQL image. It must not be empty or undefined.
+          # This environment variable sets the superuser password for PostgreSQL. The default superuser is defined by the POSTGRES_USER environment variable.
+          # The PostgreSQL image sets up trust authentication locally so you may notice a password is not required when connecting from
+          # localhost (inside the same container). However, a password will be required if connecting from a different host/container.
+          # This variable defines the superuser password in the PostgreSQL instance, as set by the initdb script during initial container startup.
+          # It has no effect on the PGPASSWORD environment variable that may be used by the psql client at runtime, as described
+          # at https://www.postgresql.org/docs/14/libpq-envars.html. PGPASSWORD, if used, will be specified as a separate environment variable.
+          POSTGRES_PASSWORD: password
+          # This optional environment variable can be used to define a different name for the default database that is created when the image is first started.
+          # If it is not specified, then the value of POSTGRES_USER will be used.
+          POSTGRES_DB: the_review_room
 
     # Add steps to the job.
     # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
     steps:
-      - checkout
-      - restore_cache # Restore the saved cache after the first run or if 'pom.xml' has changed.
-        # key: cireclci-demo-java-spring-{{checksum "pom.xml"}}
-
+      - checkout # Check out source code to the working directory.
+      # - restore_cache: # Restore the saved cache after the first run or if `pom.xml` has changed.
+      #     # Read about caching dependencies: https://circleci.com/docs/caching/
+      #     key: circleci-the-review-room-{{ checksum "pom.xml" }}
       - run: |
           echo "Installing dependencies..."
-          java --version
+          mvn dependency:go-offline # Get the project dependencies. Goal that resolves all project dependencies, including plugins and reports and their dependencies.
+      # - save_cache: # Save the project dependencies.
+      #     paths:
+      #       - ~/.m2
+      #     key: circleci-the-review-room-{{ checksum "pom.xml" }}
 
-  test:
-    docker: # Environment.
-      - image: cimg/openjdk:21.0.2
+      # Maven Build Lifecycle.
+      # validate - Validate the project is correct and all necessary information is available.
+      # compile - Compile the source code of the project.
+      # test - Test the compiled source code using a suitable unit testing framework. These tests should not require the code be packaged or deployed.
+      # package - Take the compiled code and package it in its distributable format, such as a JAR.
+      # verify - Run any checks on results of integration tests to ensure quality criteria are met.
+      # install - Install the package into the local repository, for use as a dependency in other projects locally.
+      # deploy - Done in the build environment, copies the final package to the remote repository for sharing with other developers and projects.
+      # These lifecycle phases (plus the other lifecycle phases not shown here) are executed sequentially to complete the default lifecycle.
+      # This means that calling the later lifecycle phases will run through all the earlier lifecycle phases sequentially.
+      - run: mvn verify # Build and run the tests.
 
-    steps:
-      - checkout
-      - run: |
-          echo "Running tests..."
-          java --version
+      - store_test_results: # Upload the test metadata from the `target/surefire-reports` directory so that it can show up in the CircleCI dashboard.
+          # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
+          path: target/surefire-reports
+
+      - store_artifacts: # Store the uber jar as an artifact.
+          # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
+          path: target/the-review-room-0.0.1-SNAPSHOT.jar
+          # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples.
+
+  # test:
+  #   docker: # Environment.
+  #     - image: cimg/openjdk:21.0.2
+
+  #   steps:
+  #     - checkout
+  #     - run: |
+  #         echo "Installing dependencies..."
+  #         echo "Running tests..."
+  #         java --version
 
   scan:
     docker:
@@ -117,29 +174,32 @@ workflows:
   ci_flow: # Workflow name. This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
-      - build
-      # - build:
-      #     filters:
-      #       branches:
-      #         only:
-      #           - main
-      #         ignore:
-      #           - release
+      # - build
+      # # - build:
+      # #     filters:
+      # #       branches:
+      # #         only:
+      # #           - main
+      # #         ignore:
+      # #           - release
 
-      - test:
-          requires:
-            - build
-          # filters:
-          #   branches:
-          #     only:
-          #       - main
-          #     ignore:
-          #       - release
+      # - test:
+      #     requires:
+      #       - build
+      #     # filters:
+      #     #   branches:
+      #     #     only:
+      #     #       - main
+      #     #     ignore:
+      #     #       - release
+
+      - build_and_test
 
       # The Snyk security scan job.
       - scan:
           requires:
-            - build
+            # - build
+            - build_and_test
           # filters:
           #   branches:
           #     only:
