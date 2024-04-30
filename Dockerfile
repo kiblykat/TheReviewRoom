@@ -8,7 +8,8 @@ WORKDIR /
 ENV PORT=9090
 
 # The JAR file path. 
-ARG JAR_FILE=*.jar
+# ARG JAR_FILE=*.jar
+ARG JAR_FILE=the-review-room-0.0.1-SNAPSHOT.jar
 
 # Copy the JAR file from the build context into the Docker image. 
 COPY target/${JAR_FILE} application.jar
