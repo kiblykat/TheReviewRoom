@@ -90,6 +90,4 @@ workflows:
       - scan:
           requires:
             - publish
-      - deploy:
-          requires:
-            - publish
+      - deploy
