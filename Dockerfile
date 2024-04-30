@@ -9,19 +9,21 @@ ENV PORT=9090
 
 # The JAR file path. 
 # ARG JAR_FILE=*.jar
-ARG JAR_FILE=the-review-room-0.0.1-SNAPSHOT.jar
+# ARG JAR_FILE=the-review-room-0.0.1-SNAPSHOT.jar
 
 # Copy the JAR file from the build context into the Docker image. 
-COPY target/${JAR_FILE} application.jar
-#COPY .mvn/ .mvn
-#COPY mvnw pom.xml ./
+# COPY target/${JAR_FILE} application.jar
 
-#COPY src ./src
+# Copy the source code into the Docker image.
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+
+COPY src ./src
 
 #CMD apt-get update -y
 
 # Set the default command to run the Java application. 
 #ENTRYPOINT ["java", "-Xmx2048M", "-jar", "/application.jar"]
-ENTRYPOINT ["java","-jar","/application.jar"]
-#RUN ./mvnw install -DskipTests
-#CMD ["./mvnw", "spring-boot:run"]
+# ENTRYPOINT ["java","-jar","/application.jar"]
+RUN ./mvnw install -DskipTests
+CMD ["./mvnw", "spring-boot:run"]
