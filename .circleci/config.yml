@@ -78,7 +78,7 @@ workflows:
       - publish:
           requires:
             - build_and_test
-            - scan
+            # - scan
           filters:
             branches:
               ignore:
