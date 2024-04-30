@@ -5,8 +5,8 @@ orbs:
   maven: circleci/maven@1.4.1
   snyk: snyk/snyk@2.1.0
 
-jobs:
-  build_and_test: # Job name.
+executors: # Executors define the environment in which the steps of a job will be run, allowing you to reuse a single executor definition across multiple jobs.
+  openjdk-with-postgres:
     docker: # Environment.
       - image: cimg/openjdk:21.0.2
         environment:
@@ -16,6 +16,10 @@ jobs:
         environment:
           POSTGRES_PASSWORD: password # Must not be empty or undefined. It is trust authentication locally (inside the same container) so the password is not actually used.
           POSTGRES_DB: the_review_room # This optional environment variable defines the default database created when the image is first started (default is postgres).
+
+jobs:
+  build_and_test: # Job name.
+    executor: openjdk-with-postgres
 
     steps:
       - checkout # Check out source code to the working directory.
@@ -29,7 +33,7 @@ jobs:
           path: target/the-review-room-0.0.1-SNAPSHOT.jar
 
   publish: # Also known as the build-and-push.
-    executor: docker/docker # Define the execution environment in which the steps of a job will run.
+    executor: docker/docker
 
     steps:
       - checkout
@@ -44,7 +48,7 @@ jobs:
 
   scan:
     docker:
-      - image: cimg/base:current
+      - image: cimg/base:current # Define the execution environment in which the steps of a job will run.
 
     environment: # The environment allows us to create an environment for the job and allows us to create custom environment variables.
       IMAGE_NAME: nhkhai/the-review-room
