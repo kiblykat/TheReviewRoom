@@ -20,6 +20,9 @@ COPY mvnw pom.xml ./
 
 COPY src ./src
 
+# Modify the permissions of the mvnw script. 
+RUN chmod +x ./mvnw
+
 #CMD apt-get update -y
 
 # Set the default command to run the Java application. 
