@@ -210,7 +210,8 @@ workflows:
       - publish:
           # Ensure that the dependency job(s) are able to run (watch out for branch filtering affecting this), else publish and deploy (depends on publish) will not run at all.
           requires:
-            - test
+            # - test
+            - build_and_test
             - scan
           filters:
             # tags:
