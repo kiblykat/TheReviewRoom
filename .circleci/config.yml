@@ -204,12 +204,12 @@ workflows:
           requires:
             # - build
             - build_and_test
-          filters:
-            branches:
-              #     only:
-              #       - main
-              ignore:
-                - release
+          # filters:
+          #   branches:
+          #     only:
+          #       - main
+          # ignore:
+          #   - release
 
       - publish:
           # Ensure that the dependency job(s) are able to run (watch out for branch filtering affecting this), else publish and deploy (depends on publish) will not run at all.
@@ -225,7 +225,7 @@ workflows:
               #   - release
               ignore:
                 - develop
-                - release
+                # - release
 
   cicd_flow:
     jobs:
