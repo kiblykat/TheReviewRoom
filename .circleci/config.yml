@@ -13,8 +13,8 @@ jobs:
           PGHOST: 127.0.0.1
       - image: cimg/postgres:16.2
         environment:
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: the_review_room
+          POSTGRES_PASSWORD: password # Must not be empty or undefined. It is trust authentication locally (inside the same container) so the password is not actually used.
+          POSTGRES_DB: the_review_room # This optional environment variable defines the default database created when the image is first started (default is postgres).
 
     steps:
       - checkout # Check out source code to the working directory.
@@ -31,7 +31,7 @@ jobs:
       - image: cimg/base:current
 
     environment: # The environment allows us to create an environment for the job and allows us to create custom environment variables.
-      IMAGE_NAME: nhkhai/education-space
+      IMAGE_NAME: nhkhai/the-review-room
 
     steps:
       - checkout
