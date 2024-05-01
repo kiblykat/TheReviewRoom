@@ -82,8 +82,8 @@ COPY --from=builder /opt/app/target/*.jar /opt/app/*.jar
 # The ENTRYPOINT instruction specifies the command that should be run.
 # ENTRYPOINT ["java"]
 # ENTRYPOINT [ "./mvnw" ]
-# ENTRYPOINT service postgresql start && sleep 10 && gosu postgres psql -c "CREATE DATABASE the_review_room;" && java -jar /opt/app/*.jar
-ENTRYPOINT service postgresql start && sleep 10 && java -jar /opt/app/*.jar
+# ENTRYPOINT service postgresql start && sleep 5 && gosu postgres psql -c "CREATE DATABASE the_review_room;" && java -jar /opt/app/*.jar
+ENTRYPOINT service postgresql start && sleep 5 && java -jar /opt/app/*.jar
 # ENTRYPOINT ["/bin/bash"]
 
 # The CMD instruction provides default arguments to the ENTRYPOINT command.
