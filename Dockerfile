@@ -19,12 +19,12 @@ WORKDIR /opt/app
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
 
+# Modify the permissions of the mvnw script. 
+RUN chmod +x ./mvnw
+
 RUN ./mvnw dependency:go-offline
 
 COPY src ./src
-
-# Modify the permissions of the mvnw script. 
-RUN chmod +x ./mvnw
 
 # RUN apk add --no-cache \
 #         package1 \
