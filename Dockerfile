@@ -62,15 +62,28 @@ EXPOSE $PORT
 
 COPY --from=builder /opt/app/target/*.jar /opt/app/*.jar
 
+# Create a script that starts the PostgreSQL service and waits until it's ready. 
+# gosu postgres psql -c \"CREATE DATABASE the_review_room;\"\n\
+RUN echo "#!/bin/bash\n\
+    service postgresql start\n\
+    while ! pg_isready -h localhost -p 5432 > /dev/null 2> /dev/null; do\n\
+    echo \"Waiting for database to start... \"\n\
+    sleep 2\n\
+    done\n\
+    java -jar /opt/app/*.jar" > /start.sh && chmod +x /start.sh
 
 # Set the default command to run the Java application. 
 # The ENTRYPOINT instruction specifies the command that should be run.
-ENTRYPOINT ["java"]
+# ENTRYPOINT ["java"]
 # ENTRYPOINT [ "./mvnw" ]
+# ENTRYPOINT service postgresql start && sleep 10 && gosu postgres psql -c "CREATE DATABASE the_review_room;" && java -jar /opt/app/*.jar
+# ENTRYPOINT service postgresql start && sleep 10 && java -jar /opt/app/*.jar
+ENTRYPOINT ["/bin/bash"]
 
 # The CMD instruction provides default arguments to the ENTRYPOINT command.
 # CMD ["-Xmx2048M", "-jar", "/application.jar"] # Set a Java heap size of 2GB for the run. 
 # CMD ["-jar","/application.jar"]
 # CMD ["./mvnw", "spring-boot:run"]
 # CMD ["spring-boot:run"]
-CMD ["-jar","/opt/app/*.jar"]
+# CMD ["-jar","/opt/app/*.jar"]
+CMD ["/start.sh"]
