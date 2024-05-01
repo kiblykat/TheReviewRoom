@@ -1,0 +1,9 @@
+.vscode/
+.idea/
+.git/
+.gitignore
+.gitmodules
+.dockerignore
+.circleci/
+.github/
+target/
