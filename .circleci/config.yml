@@ -62,7 +62,7 @@ jobs:
 workflows:
   ci_flow: # Workflow name. This is the name of the workflow, feel free to change it to better match your workflow.
     jobs:
-      - maven/parallel_test:
+      - maven/test: # This will use the CircleCI Maven Orb to do a mvn verify (which includes build and test), then generate the test report.
           executor: openjdk-with-postgres
           filters:
             branches:
@@ -71,7 +71,7 @@ workflows:
 
       - publish:
           requires:
-            - maven/parallel_test
+            - maven/test
 
       - scan:
           requires:
@@ -79,7 +79,7 @@ workflows:
 
   cicd_flow:
     jobs:
-      - maven/parallel_test:
+      - maven/test: # This will use the CircleCI Maven Orb to do a mvn verify (which includes build and test), then generate the test report.
           executor: openjdk-with-postgres
           filters:
             branches:
@@ -88,7 +88,7 @@ workflows:
 
       - publish:
           requires:
-            - maven/parallel_test
+            - maven/test
 
       - scan:
           requires:
