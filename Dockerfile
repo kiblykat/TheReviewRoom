@@ -35,22 +35,29 @@ COPY src ./src
 # RUN apt-get update && \
 #     rm -rf /var/lib/apt/lists/*
 
-# RUN apt-get update && \
-#     apt-get install -y postgresql postgresql-contrib && \
-#     rm -rf /var/lib/apt/lists/*
-
 # Compile the Java application.
 RUN ./mvnw clean install -DskipTests
 
 # The base image to package. 
-# FROM eclipse-temurin:21-jdk-jammy
-FROM eclipse-temurin:21-jdk-alpine
+FROM eclipse-temurin:21-jdk-jammy
+# FROM eclipse-temurin:21-jdk-alpine
 
-# Run the Docker container as a non-root user with user privileges instead of root privileges, since it helps mitigate risks. 
-RUN addgroup deploymentgroup; adduser  --ingroup deploymentgroup --disabled-password deployment
+# Setup a non-root user with user privileges instead of root privileges. 
+# RUN adduser -D myuser
+# RUN addgroup usergroup; adduser --ingroup usergroup --disabled-password myuser; 
 
-# The USER instruction sets the preferred user name (or UID) and optionally the user group (or GID) while running the image — and for any subsequent RUN, CMD, or ENTRYPOINT instructions. 
-USER deployment
+# Install PostgreSQL and change PostgreSQL authentication to trust. 
+RUN apt-get update && apt-get install -y postgresql postgresql-contrib gosu
+
+# RUN service postgresql start && gosu postgres psql -c "ALTER DATABASE postgres RENAME TO the_review_room;"
+RUN service postgresql start && \
+    gosu postgres psql -c "CREATE DATABASE the_review_room;" && \
+    HBA_FILE=$(gosu postgres psql -U postgres -t -P format=unaligned -c 'show hba_file') && \
+    sed -i '/# TYPE  DATABASE        USER            ADDRESS                 METHOD/,$ s/scram-sha-256/trust/g' $HBA_FILE && \
+    service postgresql restart
+
+# The USER Dockerfile instruction sets the preferred user name (or UID) and optionally the user group (or GID) while running the image — and for any subsequent RUN, CMD, or ENTRYPOINT instructions. 
+# USER myuser
 
 # The deployment work directory. 
 WORKDIR /opt/app
@@ -61,18 +68,28 @@ EXPOSE $PORT
 
 COPY --from=builder /opt/app/target/*.jar /opt/app/*.jar
 
-# Run as a non root user. 
-# RUN adduser -D myuser
-# USER myuser
+# Create a script that starts the PostgreSQL service and waits until it's ready. 
+# gosu postgres psql -c \"CREATE DATABASE the_review_room;\"\n\
+# RUN echo "#!/bin/bash\n\
+#     service postgresql start\n\
+#     while ! pg_isready -h localhost -p 5432 > /dev/null 2> /dev/null; do\n\
+#     echo \"Waiting for database to start... \"\n\
+#     sleep 2\n\
+#     done\n\
+#     java -jar /opt/app/*.jar" > /start.sh && chmod +x /start.sh && chmod 777 /var/run/postgresql
 
 # Set the default command to run the Java application. 
 # The ENTRYPOINT instruction specifies the command that should be run.
-ENTRYPOINT ["java"]
+# ENTRYPOINT ["java"]
 # ENTRYPOINT [ "./mvnw" ]
+# ENTRYPOINT service postgresql start && sleep 5 && gosu postgres psql -c "CREATE DATABASE the_review_room;" && java -jar /opt/app/*.jar
+ENTRYPOINT service postgresql start && sleep 5 && java -jar /opt/app/*.jar
+# ENTRYPOINT ["/bin/bash"]
 
 # The CMD instruction provides default arguments to the ENTRYPOINT command.
 # CMD ["-Xmx2048M", "-jar", "/application.jar"] # Set a Java heap size of 2GB for the run. 
 # CMD ["-jar","/application.jar"]
 # CMD ["./mvnw", "spring-boot:run"]
 # CMD ["spring-boot:run"]
-CMD ["-jar","/opt/app/*.jar"]
+# CMD ["-jar","/opt/app/*.jar"]
+# CMD ["/start.sh"]
