@@ -43,7 +43,8 @@ FROM eclipse-temurin:21-jdk-jammy
 # FROM eclipse-temurin:21-jdk-alpine
 
 RUN apt-get update && apt-get install -y postgresql postgresql-contrib gosu
-RUN service postgresql start && gosu postgres psql -c "ALTER DATABASE postgres RENAME TO the_review_room;"
+# RUN service postgresql start && gosu postgres psql -c "ALTER DATABASE postgres RENAME TO the_review_room;"
+RUN service postgresql start && gosu postgres psql -c "CREATE DATABASE the_review_room;"
 
 # Run the Docker container as a non-root user with user privileges instead of root privileges, since it helps mitigate risks. 
 RUN addgroup deploymentgroup; adduser  --ingroup deploymentgroup --disabled-password deployment
