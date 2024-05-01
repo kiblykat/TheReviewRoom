@@ -47,10 +47,11 @@ RUN apt-get update && apt-get install -y postgresql postgresql-contrib gosu
 RUN service postgresql start && gosu postgres psql -c "CREATE DATABASE the_review_room;"
 
 # Run the Docker container as a non-root user with user privileges instead of root privileges, since it helps mitigate risks. 
-RUN addgroup deploymentgroup; adduser  --ingroup deploymentgroup --disabled-password deployment
+# RUN adduser -D myuser
+RUN addgroup usergroup; adduser  --ingroup usergroup --disabled-password myuser
 
 # The USER instruction sets the preferred user name (or UID) and optionally the user group (or GID) while running the image — and for any subsequent RUN, CMD, or ENTRYPOINT instructions. 
-USER deployment
+USER myuser
 
 # The deployment work directory. 
 WORKDIR /opt/app
@@ -61,9 +62,6 @@ EXPOSE $PORT
 
 COPY --from=builder /opt/app/target/*.jar /opt/app/*.jar
 
-# Run as a non root user. 
-# RUN adduser -D myuser
-# USER myuser
 
 # Set the default command to run the Java application. 
 # The ENTRYPOINT instruction specifies the command that should be run.
