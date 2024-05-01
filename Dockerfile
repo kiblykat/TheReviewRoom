@@ -43,4 +43,18 @@ RUN chmod +x ./mvnw
 
 # Compile the Java application.
 RUN ./mvnw install -DskipTests
-CMD ["./mvnw", "spring-boot:run"]
+
+# Run as a non root user. 
+# RUN adduser -D myuser
+# USER myuser
+
+# Set the default command to run the Java application. 
+# The ENTRYPOINT instruction specifies the command that should be run.
+# ENTRYPOINT ["java"]
+ENTRYPOINT [ "./mvnw" ]
+
+# The CMD instruction provides default arguments to the ENTRYPOINT command.
+# CMD ["-Xmx2048M", "-jar", "/application.jar"] # Set a Java heap size of 2GB for the run. 
+# CMD ["-jar","/application.jar"]
+# CMD ["./mvnw", "spring-boot:run"]
+CMD ["spring-boot:run"]
