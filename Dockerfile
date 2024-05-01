@@ -48,7 +48,8 @@ FROM eclipse-temurin:21-jdk-jammy
 
 # Install PostgreSQL and change PostgreSQL authentication to trust. 
 RUN apt-get update && apt-get install -y postgresql postgresql-contrib gosu && \
-    sed -i 's/md5/trust/g' /var/lib/postgresql/data/pg_hba.conf && sed -i 's/peer/trust/g' /var/lib/postgresql/data/pg_hba.conf && sed -i 's/scram-sha-256/trust/g' /var/lib/postgresql/data/pg_hba.conf
+    HBA_FILE=$(gosu postgres psql -U postgres -t -P format=unaligned -c 'show hba_file') && \
+    sed -i '/# TYPE  DATABASE        USER            ADDRESS                 METHOD/,$ s/scram-sha-256/trust/g' $HBA_FILE
 
 # RUN service postgresql start && gosu postgres psql -c "ALTER DATABASE postgres RENAME TO the_review_room;"
 RUN service postgresql start && gosu postgres psql -c "CREATE DATABASE the_review_room;"
