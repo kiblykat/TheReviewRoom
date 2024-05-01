@@ -47,12 +47,14 @@ FROM eclipse-temurin:21-jdk-jammy
 # RUN addgroup usergroup; adduser --ingroup usergroup --disabled-password myuser; 
 
 # Install PostgreSQL and change PostgreSQL authentication to trust. 
-RUN apt-get update && apt-get install -y postgresql postgresql-contrib gosu && \
-    HBA_FILE=$(gosu postgres psql -U postgres -t -P format=unaligned -c 'show hba_file') && \
-    sed -i '/# TYPE  DATABASE        USER            ADDRESS                 METHOD/,$ s/scram-sha-256/trust/g' $HBA_FILE
+RUN apt-get update && apt-get install -y postgresql postgresql-contrib gosu
 
 # RUN service postgresql start && gosu postgres psql -c "ALTER DATABASE postgres RENAME TO the_review_room;"
-RUN service postgresql start && gosu postgres psql -c "CREATE DATABASE the_review_room;"
+RUN service postgresql start && \
+    gosu postgres psql -c "CREATE DATABASE the_review_room;" && \
+    HBA_FILE=$(gosu postgres psql -U postgres -t -P format=unaligned -c 'show hba_file') && \
+    sed -i '/# TYPE  DATABASE        USER            ADDRESS                 METHOD/,$ s/scram-sha-256/trust/g' $HBA_FILE && \
+    service postgresql restart
 
 # The USER Dockerfile instruction sets the preferred user name (or UID) and optionally the user group (or GID) while running the image — and for any subsequent RUN, CMD, or ENTRYPOINT instructions. 
 # USER myuser
