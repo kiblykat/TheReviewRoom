@@ -6,7 +6,7 @@ WORKDIR /
 
 # The environment port to expose. 
 ENV PORT=9090
-EXPOSE 9090
+EXPOSE $PORT
 
 # The JAR file path. 
 # ARG JAR_FILE=*.jar
