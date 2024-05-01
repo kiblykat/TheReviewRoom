@@ -24,7 +24,8 @@ COPY src ./src
 # Modify the permissions of the mvnw script. 
 RUN chmod +x ./mvnw
 
-#CMD apk update -y
+# CMD apk update \
+#     && rm -rf /var/cache/apk/*
 
 # Set the default command to run the Java application. 
 #ENTRYPOINT ["java", "-Xmx2048M", "-jar", "/application.jar"]
