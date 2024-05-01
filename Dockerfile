@@ -1,6 +1,6 @@
 # The base image to build. 
-# FROM eclipse-temurin:21-jdk-jammy as builder
-FROM eclipse-temurin:21-jdk-alpine as builder
+FROM eclipse-temurin:21-jdk-jammy as builder
+# FROM eclipse-temurin:21-jdk-alpine as builder
 
 # The build work directory. 
 WORKDIR /opt/app
@@ -35,16 +35,15 @@ COPY src ./src
 # RUN apt-get update && \
 #     rm -rf /var/lib/apt/lists/*
 
-# RUN apt-get update && \
-#     apt-get install -y postgresql postgresql-contrib && \
-#     rm -rf /var/lib/apt/lists/*
-
 # Compile the Java application.
 RUN ./mvnw clean install -DskipTests
 
 # The base image to package. 
-# FROM eclipse-temurin:21-jdk-jammy
-FROM eclipse-temurin:21-jdk-alpine
+FROM eclipse-temurin:21-jdk-jammy
+# FROM eclipse-temurin:21-jdk-alpine
+
+RUN apt-get update && apt-get install -y postgresql postgresql-contrib
+RUN service postgresql start && sudo -u postgres psql -c "ALTER DATABASE postgres RENAME TO the_review_room;"
 
 # Run the Docker container as a non-root user with user privileges instead of root privileges, since it helps mitigate risks. 
 RUN addgroup deploymentgroup; adduser  --ingroup deploymentgroup --disabled-password deployment
