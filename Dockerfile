@@ -1,6 +1,6 @@
 # The base image to build. 
-FROM eclipse-temurin:21-jdk-jammy as builder
-# FROM eclipse-temurin:21-jdk-alpine as builder
+# FROM eclipse-temurin:21-jdk-jammy as builder
+FROM eclipse-temurin:21-jdk-alpine as builder
 
 # The build work directory. 
 WORKDIR /opt/app
