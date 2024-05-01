@@ -2,13 +2,7 @@
 # FROM eclipse-temurin:21-jdk-jammy as builder
 FROM eclipse-temurin:21-jdk-alpine as builder
 
-# Run the Docker container as a non-root user with user privileges instead of root privileges, since it helps mitigate risks. 
-RUN addgroup deploymentgroup; adduser  --ingroup deploymentgroup --disabled-password deployment
-
-# The USER instruction sets the preferred user name (or UID) and optionally the user group (or GID) while running the image — and for any subsequent RUN, CMD, or ENTRYPOINT instructions. 
-USER deployment
-
-# The work directory. 
+# The build work directory. 
 WORKDIR /opt/app
 
 # Copy the source code into the Docker image.
@@ -58,6 +52,7 @@ RUN addgroup deploymentgroup; adduser  --ingroup deploymentgroup --disabled-pass
 # The USER instruction sets the preferred user name (or UID) and optionally the user group (or GID) while running the image — and for any subsequent RUN, CMD, or ENTRYPOINT instructions. 
 USER deployment
 
+# The deployment work directory. 
 WORKDIR /opt/app
 
 # The environment port to expose. 
