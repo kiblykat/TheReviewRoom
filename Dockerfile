@@ -63,6 +63,7 @@ RUN service postgresql start && \
 WORKDIR /opt/app
 
 # The environment port to expose. 
+EXPOSE 5432
 ENV PORT=9090
 EXPOSE $PORT
 
