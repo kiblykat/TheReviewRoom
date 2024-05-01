@@ -44,7 +44,7 @@ FROM eclipse-temurin:21-jdk-jammy
 
 # Setup a non-root user with user privileges instead of root privileges. 
 # RUN adduser -D myuser
-RUN addgroup usergroup; adduser --ingroup usergroup --disabled-password myuser; 
+# RUN addgroup usergroup; adduser --ingroup usergroup --disabled-password myuser; 
 
 RUN apt-get update && apt-get install -y postgresql postgresql-contrib gosu
 
@@ -52,7 +52,7 @@ RUN apt-get update && apt-get install -y postgresql postgresql-contrib gosu
 RUN service postgresql start && gosu postgres psql -c "CREATE DATABASE the_review_room;"
 
 # The USER Dockerfile instruction sets the preferred user name (or UID) and optionally the user group (or GID) while running the image — and for any subsequent RUN, CMD, or ENTRYPOINT instructions. 
-USER myuser
+# USER myuser
 
 # The deployment work directory. 
 WORKDIR /opt/app
