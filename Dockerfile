@@ -1,13 +1,9 @@
-# The base image. 
+# The base image to build. 
 # FROM eclipse-temurin:21-jdk-jammy as builder
-FROM eclipse-temurin:21-jdk-alpine
+FROM eclipse-temurin:21-jdk-alpine as builder
 
 # The work directory. 
-WORKDIR /
-
-# The environment port to expose. 
-ENV PORT=9090
-EXPOSE $PORT
+WORKDIR /opt/app
 
 # Copy the source code into the Docker image.
 # Docker uses caching to speed up builds by reusing layers from previous builds. 
@@ -22,6 +18,8 @@ EXPOSE $PORT
 
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
+
+RUN ./mvnw dependency:go-offline
 
 COPY src ./src
 
@@ -42,7 +40,19 @@ RUN chmod +x ./mvnw
 #     rm -rf /var/lib/apt/lists/*
 
 # Compile the Java application.
-RUN ./mvnw install -DskipTests
+RUN ./mvnw clean install -DskipTests
+
+# The base image to package. 
+# FROM eclipse-temurin:21-jdk-jammy
+FROM eclipse-temurin:21-jdk-alpine
+
+WORKDIR /opt/app
+
+# The environment port to expose. 
+ENV PORT=9090
+EXPOSE $PORT
+
+COPY --from=builder /opt/app/target/*.jar /opt/app/*.jar
 
 # Run as a non root user. 
 # RUN adduser -D myuser
@@ -50,11 +60,12 @@ RUN ./mvnw install -DskipTests
 
 # Set the default command to run the Java application. 
 # The ENTRYPOINT instruction specifies the command that should be run.
-# ENTRYPOINT ["java"]
-ENTRYPOINT [ "./mvnw" ]
+ENTRYPOINT ["java"]
+# ENTRYPOINT [ "./mvnw" ]
 
 # The CMD instruction provides default arguments to the ENTRYPOINT command.
 # CMD ["-Xmx2048M", "-jar", "/application.jar"] # Set a Java heap size of 2GB for the run. 
 # CMD ["-jar","/application.jar"]
 # CMD ["./mvnw", "spring-boot:run"]
-CMD ["spring-boot:run"]
+# CMD ["spring-boot:run"]
+CMD ["-jar","/opt/app/*.jar"]
