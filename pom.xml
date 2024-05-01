@@ -92,16 +92,16 @@
         </dependency> -->
 	</dependencies>
 	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-maven-plugin</artifactId>
-					<configuration>
-						<mainClass>sg.com.smartinventory.SmartInventoryApplication</mainClass>
-						<layout>JAR</layout>
-					</configuration>
-					<!-- <configuration>
+		<!-- <pluginManagement> -->
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>sg.com.smartinventory.SmartInventoryApplication</mainClass>
+					<layout>JAR</layout>
+				</configuration>
+				<!-- <configuration>
                             <image>
                                     <builder>paketobuildpacks/builder-jammy-base:latest</builder>
                             </image>
@@ -112,28 +112,28 @@
                                     </exclude>
                             </excludes>
                     </configuration> -->
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-shade-plugin</artifactId>
-					<version>3.5.3</version>
-					<executions>
-						<execution>
-							<phase>package</phase>
-							<goals>
-								<goal>shade</goal>
-							</goals>
-							<configuration>
-								<createDependencyReducedPom>false</createDependencyReducedPom>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-				<!-- <plugin>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.5.3</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<createDependencyReducedPom>false</createDependencyReducedPom>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- <plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 				</plugin> -->
-			</plugins>
-		</pluginManagement>
+		</plugins>
+		<!-- </pluginManagement> -->
 	</build>
 </project>
