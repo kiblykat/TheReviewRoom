@@ -71,7 +71,7 @@ workflows:
 
       - publish:
           requires:
-            - build_and_test
+            - maven/parallel_test
 
       - scan:
           requires:
@@ -88,7 +88,7 @@ workflows:
 
       - publish:
           requires:
-            - build_and_test
+            - maven/parallel_test
 
       - scan:
           requires:
