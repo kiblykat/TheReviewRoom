@@ -19,7 +19,7 @@ executors: # Executors define the environment in which the steps of a job will b
 
 jobs:
   publish: # Also known as the build-and-push.
-    executor: docker/docker
+    executor: docker/docker # This executor is provided by the circleci/docker orb.
 
     steps:
       - checkout
@@ -62,7 +62,7 @@ jobs:
 workflows:
   ci_flow: # Workflow name. This is the name of the workflow, feel free to change it to better match your workflow.
     jobs:
-      - maven/test: # This will use the CircleCI Maven Orb to do a mvn verify (which includes build and test), then generate the test report.
+      - maven/test: # This will use the circleci/maven orb to do a mvn verify (which includes build and test), then generate the test report.
           executor: openjdk-with-postgres
           filters:
             branches:
@@ -79,7 +79,7 @@ workflows:
 
   cicd_flow:
     jobs:
-      - maven/test: # This will use the CircleCI Maven Orb to do a mvn verify (which includes build and test), then generate the test report.
+      - maven/test: # This will use the circleci/maven orb to do a mvn verify (which includes build and test), then generate the test report.
           executor: openjdk-with-postgres
           filters:
             branches:
