@@ -68,7 +68,7 @@ RUN echo "#!/bin/bash\n\
     echo \"Waiting for database to start... \"\n\
     sleep 2\n\
     done\n\
-    java -jar /opt/app/*.jar" > /start.sh && chmod +x /start.sh
+    java -jar /opt/app/*.jar" > /start.sh && chmod +x /start.sh && chmod 777 /var/run/postgresql
 
 # The USER Dockerfile instruction sets the preferred user name (or UID) and optionally the user group (or GID) while running the image — and for any subsequent RUN, CMD, or ENTRYPOINT instructions. 
 USER myuser
