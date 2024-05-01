@@ -46,7 +46,9 @@ FROM eclipse-temurin:21-jdk-jammy
 # RUN adduser -D myuser
 # RUN addgroup usergroup; adduser --ingroup usergroup --disabled-password myuser; 
 
-RUN apt-get update && apt-get install -y postgresql postgresql-contrib gosu
+# Install PostgreSQL and change PostgreSQL authentication to trust. 
+RUN apt-get update && apt-get install -y postgresql postgresql-contrib gosu && \
+    sed -i 's/md5/trust/g' /var/lib/postgresql/data/pg_hba.conf && sed -i 's/peer/trust/g' /var/lib/postgresql/data/pg_hba.conf && sed -i 's/scram-sha-256/trust/g' /var/lib/postgresql/data/pg_hba.conf
 
 # RUN service postgresql start && gosu postgres psql -c "ALTER DATABASE postgres RENAME TO the_review_room;"
 RUN service postgresql start && gosu postgres psql -c "CREATE DATABASE the_review_room;"
