@@ -18,20 +18,6 @@ executors: # Executors define the environment in which the steps of a job will b
           POSTGRES_DB: the_review_room # This optional environment variable defines the default database created when the image is first started (default is postgres).
 
 jobs:
-  build_and_test: # Job name.
-    executor: openjdk-with-postgres
-
-    steps:
-      - checkout # Check out source code to the working directory.
-      - run: |
-          echo "Installing dependencies..."
-          mvn dependency:go-offline # Get the project dependencies. Goal that resolves all project dependencies, including plugins and reports and their dependencies.
-      - run: mvn verify # Build and run the tests.
-      - store_test_results: # Upload the test metadata from the `target/surefire-reports` directory so that it can show up in the CircleCI dashboard.
-          path: target/surefire-reports
-      - store_artifacts: # Store the uber jar as an artifact.
-          path: target/the-review-room-0.0.1-SNAPSHOT.jar
-
   publish: # Also known as the build-and-push.
     executor: docker/docker
 
@@ -76,7 +62,8 @@ jobs:
 workflows:
   ci_flow: # Workflow name. This is the name of the workflow, feel free to change it to better match your workflow.
     jobs:
-      - build_and_test:
+      - maven/parallel_test:
+          executor: openjdk-with-postgres
           filters:
             branches:
               ignore:
@@ -92,7 +79,8 @@ workflows:
 
   cicd_flow:
     jobs:
-      - build_and_test:
+      - maven/parallel_test:
+          executor: openjdk-with-postgres
           filters:
             branches:
               only:
