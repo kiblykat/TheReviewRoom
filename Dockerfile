@@ -28,18 +28,18 @@ FROM eclipse-temurin:21-jdk-jammy
 # RUN addgroup usergroup; adduser --ingroup usergroup --disabled-password myuser; 
 
 # Install PostgreSQL and change PostgreSQL authentication to trust. 
-# Install the PostgreSQL package and the Gosu tool. The Gosu tool is used to step down from root to a non-privileged user during the Docker image build process. 
-RUN apt-get update && apt-get install -y postgresql gosu
+# Install the PostgreSQL package.
+RUN apt-get update && apt-get install -y postgresql
+
+# The USER Dockerfile instruction sets the preferred user name (or UID) and optionally the user group (or GID) while running the image — and for any subsequent RUN, CMD, or ENTRYPOINT instructions. 
+# Change the user to the PostgreSQL user.
+USER postgres
 
 # Start the PostgreSQL service and create a new database used by the application, then change the PostgreSQL authentication method to trust and restart the PostgreSQL service. 
 RUN service postgresql start && \
-    gosu postgres psql -c "CREATE DATABASE the_review_room;" && \
-    HBA_FILE=$(gosu postgres psql -U postgres -t -P format=unaligned -c 'show hba_file') && \
-    sed -i '/# TYPE  DATABASE        USER            ADDRESS                 METHOD/,$ s/scram-sha-256/trust/g' $HBA_FILE && \
+    psql -c "CREATE DATABASE the_review_room;" && \
+    sed -i '/# TYPE  DATABASE        USER            ADDRESS                 METHOD/,$ s/scram-sha-256/trust/g' $(psql -U postgres -t -P format=unaligned -c 'show hba_file') && \
     service postgresql restart
-
-# The USER Dockerfile instruction sets the preferred user name (or UID) and optionally the user group (or GID) while running the image — and for any subsequent RUN, CMD, or ENTRYPOINT instructions. 
-# USER myuser
 
 # The deployment work directory. 
 WORKDIR /opt/app
