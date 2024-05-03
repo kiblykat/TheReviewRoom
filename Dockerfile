@@ -24,8 +24,8 @@ RUN ./mvnw clean install -DskipTests
 FROM eclipse-temurin:21-jdk-jammy
 
 # Install PostgreSQL and change PostgreSQL authentication to trust. 
-# Install the PostgreSQL package. 
-RUN apt-get update && apt-get install -y postgresql
+# Install the PostgreSQL package. Remove the package lists to reduce the image size. 
+RUN apt-get update && apt-get install -y postgresql && && rm -rf /var/lib/apt/lists/*
 
 # As a security best practice, switch to a non-root user with user privileges instead of root privileges. 
 # The USER Dockerfile instruction sets the preferred user name (or UID) and optionally the user group (or GID) while running the image — and for any subsequent RUN, CMD, or ENTRYPOINT instructions. 
