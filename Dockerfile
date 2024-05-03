@@ -1,55 +1,37 @@
-# The base image to build. 
-# FROM eclipse-temurin:21-jdk-jammy as builder
+# The base image to build. Define the context name for the build stage. 
 FROM eclipse-temurin:21-jdk-alpine as builder
 
 # The build work directory. 
 WORKDIR /opt/app
 
-# Copy the source code into the Docker image.
-# Docker uses caching to speed up builds by reusing layers from previous builds. 
-# To take advantage of caching, you should order your Dockerfile instructions so that the ones that change frequently are placed towards the end of the file. 
-# For example, if you’re copying files into the image, you should do that at the end of the Dockerfile.
-# The JAR file path. 
-# ARG JAR_FILE=*.jar
-# ARG JAR_FILE=the-review-room-0.0.1-SNAPSHOT.jar
-
-# Copy the JAR file from the build context into the Docker image. 
-# COPY target/${JAR_FILE} application.jar
-
+# Copy the source code into the Docker image to be used for compiling. 
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
 
-# Modify the permissions of the mvnw script. 
+# Modify the permissions of the mvnw script to be executable. 
 RUN chmod +x ./mvnw
 
+# This command downloads all the dependencies that are required for the project. 
 RUN ./mvnw dependency:go-offline
 
+# Copy the source code into the Docker image to be used for compiling. 
 COPY src ./src
 
-# RUN apk add --no-cache \
-#         package1 \
-#         package2 \
-#         package3 && \
-#     rm -rf /var/cache/apk/* /tmp/*
-
-# RUN apt-get update && \
-#     rm -rf /var/lib/apt/lists/*
-
-# Compile the Java application.
+# Compile the Java application, then generate the deployment jar file. 
 RUN ./mvnw clean install -DskipTests
 
-# The base image to package. 
+# The base image to package. This is a multi-stage build using a new context. 
 FROM eclipse-temurin:21-jdk-jammy
-# FROM eclipse-temurin:21-jdk-alpine
 
 # Setup a non-root user with user privileges instead of root privileges. 
 # RUN adduser -D myuser
 # RUN addgroup usergroup; adduser --ingroup usergroup --disabled-password myuser; 
 
 # Install PostgreSQL and change PostgreSQL authentication to trust. 
+# Install the PostgreSQL database and the Gosu tool. The Gosu tool is used to step down from root to a non-privileged user during the Docker image build process. 
 RUN apt-get update && apt-get install -y postgresql postgresql-contrib gosu
 
-# RUN service postgresql start && gosu postgres psql -c "ALTER DATABASE postgres RENAME TO the_review_room;"
+# Start the PostgreSQL service and create a new database used by the application, then change the PostgreSQL authentication method to trust and restart the PostgreSQL service. 
 RUN service postgresql start && \
     gosu postgres psql -c "CREATE DATABASE the_review_room;" && \
     HBA_FILE=$(gosu postgres psql -U postgres -t -P format=unaligned -c 'show hba_file') && \
@@ -62,35 +44,21 @@ RUN service postgresql start && \
 # The deployment work directory. 
 WORKDIR /opt/app
 
-# The environment port to expose. 
+# The environment port(s) to expose. The EXPOSE instruction informs Docker that the container listens on the specified network ports at runtime. 
+# Expose the PostgreSQL port. This is not actually accessible from outside the container when deployed on Render, but it is useful for linking containers together or directly connecting to the database from the host machine. 
 EXPOSE 5432
+
+# Expose the application port. This is the port that the application listens on for incoming requests. 
 ENV PORT=9090
 EXPOSE $PORT
 
+# Copy the Jar file generated from the builder context into the Docker image. 
+# Docker uses caching to speed up builds by reusing layers from previous builds. 
+# To take advantage of caching, you should order your Dockerfile instructions so that the ones that change frequently are placed towards the end of the file. 
+# For example, if you’re copying files into the image, you should do that at the end of the Dockerfile.
 COPY --from=builder /opt/app/target/*.jar /opt/app/*.jar
 
-# Create a script that starts the PostgreSQL service and waits until it's ready. 
-# gosu postgres psql -c \"CREATE DATABASE the_review_room;\"\n\
-# RUN echo "#!/bin/bash\n\
-#     service postgresql start\n\
-#     while ! pg_isready -h localhost -p 5432 > /dev/null 2> /dev/null; do\n\
-#     echo \"Waiting for database to start... \"\n\
-#     sleep 2\n\
-#     done\n\
-#     java -jar /opt/app/*.jar" > /start.sh && chmod +x /start.sh && chmod 777 /var/run/postgresql
-
 # Set the default command to run the Java application. 
-# The ENTRYPOINT instruction specifies the command that should be run.
-# ENTRYPOINT ["java"]
-# ENTRYPOINT [ "./mvnw" ]
-# ENTRYPOINT service postgresql start && sleep 5 && gosu postgres psql -c "CREATE DATABASE the_review_room;" && java -jar /opt/app/*.jar
+# The ENTRYPOINT instruction specifies the command that should be run. The CMD instruction provides default arguments to the ENTRYPOINT command. 
+# Start the PostgreSQL service, wait for it to start, then run the Java application via its Jar file. 
 ENTRYPOINT service postgresql start && sleep 5 && java -jar /opt/app/*.jar
-# ENTRYPOINT ["/bin/bash"]
-
-# The CMD instruction provides default arguments to the ENTRYPOINT command.
-# CMD ["-Xmx2048M", "-jar", "/application.jar"] # Set a Java heap size of 2GB for the run. 
-# CMD ["-jar","/application.jar"]
-# CMD ["./mvnw", "spring-boot:run"]
-# CMD ["spring-boot:run"]
-# CMD ["-jar","/opt/app/*.jar"]
-# CMD ["/start.sh"]
