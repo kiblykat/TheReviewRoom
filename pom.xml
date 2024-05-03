@@ -19,6 +19,13 @@
 		<start-class>sg.com.smartinventory.SmartInventoryApplication</start-class>
 	</properties>
 	<dependencies>
+		<!-- Spring Boot Migration Tool. -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-properties-migrator</artifactId>
+			<scope>runtime</scope>
+		</dependency> -->
+		<!-- Comment out when not using. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
