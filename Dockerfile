@@ -61,4 +61,4 @@ COPY --from=builder /opt/app/target/*.jar /opt/app/*.jar
 # Set the default command to run the Java application. 
 # The ENTRYPOINT instruction specifies the command that should be run. The CMD instruction provides default arguments to the ENTRYPOINT command. 
 # Start the PostgreSQL service, wait for it to start, then run the Java application via its Jar file. 
-ENTRYPOINT service postgresql start && sleep 5 && java -jar /opt/app/*.jar
+ENTRYPOINT service postgresql start && while while ! curl http://localhost:5432/ 2>&1 | grep '52'; do sleep 1; done && java -jar /opt/app/*.jar
