@@ -48,6 +48,7 @@ jobs:
           docker-image-name: $IMAGE_NAME # The image name, if scanning a container image.
           fail-on-issues: false # This specifies if builds should be failed or continued based on issues found by Snyk. If false, the failure is hidden and marked as a pass.
           severity-threshold: high # Only report vulnerabilities of provided level or higher (low/medium/high/critical). If param is not present, the default value is low.
+          monitor-on-build: false
 
   deploy:
     docker:
