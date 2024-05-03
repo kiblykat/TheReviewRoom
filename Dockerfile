@@ -28,8 +28,8 @@ FROM eclipse-temurin:21-jdk-jammy
 # RUN addgroup usergroup; adduser --ingroup usergroup --disabled-password myuser; 
 
 # Install PostgreSQL and change PostgreSQL authentication to trust. 
-# Install the PostgreSQL database and the Gosu tool. The Gosu tool is used to step down from root to a non-privileged user during the Docker image build process. 
-RUN apt-get update && apt-get install -y postgresql postgresql-contrib gosu
+# Install the PostgreSQL package and the Gosu tool. The Gosu tool is used to step down from root to a non-privileged user during the Docker image build process. 
+RUN apt-get update && apt-get install -y postgresql gosu
 
 # Start the PostgreSQL service and create a new database used by the application, then change the PostgreSQL authentication method to trust and restart the PostgreSQL service. 
 RUN service postgresql start && \
