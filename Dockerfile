@@ -18,7 +18,11 @@ RUN ./mvnw dependency:go-offline
 COPY src ./src
 
 # Compile the Java application, then generate the deployment jar file. 
-RUN ./mvnw clean install -DskipTests
+# The Maven basic phases in order: Validate, Compile, Test, Package, Verify, Install, Deploy.
+# The verify command executes each default lifecycle phase in order (validate, compile, package, etc.), before executing verify.
+# In most cases the effect is the same as package. However, in case there are integration tests, these will be executed as well.
+# During the verify phase some additional checks can be done, e.g. if your code is written according to the predefined checkstyle rules.
+RUN ./mvnw clean verify -DskipTests
 
 # The base image to package. This is a multi-stage build using a new context. 
 FROM eclipse-temurin:21-jdk-jammy
