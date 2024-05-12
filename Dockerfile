@@ -41,19 +41,10 @@ RUN ./mvnw clean verify -DskipTests
 # The base image to package. This is a multi-stage build using a new context. 
 FROM eclipse-temurin:21-jdk-jammy
 
-# Use use bash instead of sh from this point forward.
-SHELL ["/bin/bash", "-c"]
-
-# Install Node.JS and NPM via NVM. 
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash && \
-    export NVM_DIR="$HOME/.nvm" && \
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && \
-    nvm install v20.13.1 && \
-    nvm use v20.13.1
-
+# Install Node.JS and NPM. 
 # Install PostgreSQL and change PostgreSQL authentication to trust. 
 # Install the PostgreSQL package. Remove the package lists to reduce the image size. 
-RUN apt-get update && apt-get install -y postgresql && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y ca-certificates curl gnupg && mkdir -p /etc/apt/keyrings && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && apt-get update && apt-get install -y nodejs postgresql && rm -rf /var/lib/apt/lists/*
 
 # As a security best practice, switch to a non-root user with user privileges instead of root privileges. 
 # The USER Dockerfile instruction sets the preferred user name (or UID) and optionally the user group (or GID) while running the image — and for any subsequent RUN, CMD, or ENTRYPOINT instructions. 
