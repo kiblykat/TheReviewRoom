@@ -1,0 +1,23 @@
+services:
+  app:
+    image: "docker-spring-boot-postgres:latest"
+    build:
+      context: .
+    container_name: app
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/the_review_room
+      - SPRING_DATASOURCE_USERNAME=the_review_room
+      - SPRING_DATASOURCE_PASSWORD=the_review_room
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  db:
+    image: "postgres:16.2-alpine"
+    container_name: db
+    environment:
+      - POSTGRES_USER=the_review_room
+      - POSTGRES_PASSWORD=the_review_room
+      - POSTGRES_DB=the_review_room
+    ports:
+      - "5432:5432"
