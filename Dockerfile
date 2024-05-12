@@ -41,8 +41,11 @@ RUN ./mvnw clean verify -DskipTests
 # The base image to package. This is a multi-stage build using a new context. 
 FROM eclipse-temurin:21-jdk-jammy
 
+# Use use bash instead of sh from this point forward.
+SHELL ["/bin/bash", "-c"]
+
 # Install Node.JS and NPM via NVM. 
-RUN /bin/bash -c "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash && export NVM_DIR=\"$HOME/.nvm\" && [ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\" && nvm install v20.13.1 && nvm use v20.13.1"
+RUN /bin/bash -c "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash && source ~/.bashrc && nvm install v20.13.1 && nvm use v20.13.1"
 
 # Install PostgreSQL and change PostgreSQL authentication to trust. 
 # Install the PostgreSQL package. Remove the package lists to reduce the image size. 
