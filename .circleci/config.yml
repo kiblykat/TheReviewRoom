@@ -12,6 +12,11 @@ executors: # Executors define the environment in which the steps of a job will b
         environment:
           PGHOST: 127.0.0.1 # The hostname (or IP) of the postgres server to use.
 
+      - image: cimg/postgres:16.2 # The secondary image. (integration test will fail if this is not defined)
+        environment:
+          POSTGRES_PASSWORD: password # Must not be empty or undefined. It is trust authentication locally (inside the same container) so the password is not actually used.
+          POSTGRES_DB: the_review_room # This optional environment variable defines the default database created when the image is first started (default is postgres).
+
 jobs:
   publish: # Also known as the build-and-push.
     executor: docker/docker # This executor is provided by the circleci/docker orb.
