@@ -12,11 +12,6 @@ executors: # Executors define the environment in which the steps of a job will b
         environment:
           PGHOST: 127.0.0.1 # The hostname (or IP) of the postgres server to use.
 
-      - image: cimg/postgres:16.2 # The secondary image.
-        environment:
-          POSTGRES_PASSWORD: password # Must not be empty or undefined. It is trust authentication locally (inside the same container) so the password is not actually used.
-          POSTGRES_DB: the_review_room # This optional environment variable defines the default database created when the image is first started (default is postgres).
-
 jobs:
   publish: # Also known as the build-and-push.
     executor: docker/docker # This executor is provided by the circleci/docker orb.
@@ -25,13 +20,12 @@ jobs:
       - checkout # Checkout the app source code.
       - setup_remote_docker # When setup_remote_docker executes, any Docker commands you use will execute locally on the virtual machine used to spin up containers for your job.
       - docker/check # Sanity check to make sure you can build a Docker image. Check that Docker username and password environment variables are set, then run docker login to ensure that you can push the built image.
-      - docker/build: # Build the image.
+      - docker/build: # Build the image based on dockerfile
           image: kiblykat/the-review-room # Name of the image to build.
-          tag: latest # Image tag, defaults to the value of $CIRCLE_SHA1. Consider setting this dynamically based on the tag using env vars or CircleCI parameters.
+          tag: latest # image tag (cmd line "docker image build -t the-review-room:latest .")
       - docker/push: # Pushes the image to the specified account in the environment variables.
-          image: kiblykat/the-review-room # Name of the image to push.
-          tag: latest # Comma-separated list of image tag, defaults to the value of $CIRCLE_SHA1. Consider setting this dynamically based on the tag using env vars or CircleCI parameters.
-
+          image: kiblykat/the-review-room # Name of the built image to push to dockerhub
+          tag: latest # image tag (cmd line "docker push  kiblykat/the-review-room:latest")
   scan:
     docker:
       - image: cimg/base:current # Define the execution environment in which the steps of a job will run. This is the base image.
