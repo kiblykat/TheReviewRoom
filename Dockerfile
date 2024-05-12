@@ -1,9 +1,14 @@
 # The base image to build. Define the context name for the build stage. 
 FROM eclipse-temurin:21-jdk-alpine as builder
 
-# The Node.JS build work directory. 
+# The Node.js version to install.
+ENV NODE_PACKAGE_URL  https://unofficial-builds.nodejs.org/download/release/v20.13.1/node-v20.13.1-linux-x64-musl.tar.gz
+
+# Install Node.JS and NPM. 
 RUN apk add libstdc++
+
 WORKDIR /opt
+
 RUN wget $NODE_PACKAGE_URL
 RUN mkdir -p /opt/nodejs
 RUN tar -zxvf *.tar.gz --directory /opt/nodejs --strip-components=1
@@ -14,9 +19,6 @@ RUN npm install -g npm@10.5.2
 
 # The build work directory. 
 WORKDIR /opt/app
-
-# The Node.js version to install.
-ENV NODE_PACKAGE_URL  https://unofficial-builds.nodejs.org/download/release/v20.13.1/node-v20.13.1-linux-x64-musl.tar.gz
 
 # Copy the source code into the Docker image to be used for compiling. 
 COPY .mvn/ .mvn
