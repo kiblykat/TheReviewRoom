@@ -28,7 +28,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/customers")
-@CrossOrigin(origins = "http://localhost:5173")
+// @CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173","${ALLOWED_ORIGIN}")
 public class CustomerController {
   private CustomerService customerService;
 
