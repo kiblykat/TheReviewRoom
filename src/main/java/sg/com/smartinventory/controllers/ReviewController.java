@@ -21,7 +21,7 @@ import sg.com.smartinventory.services.ReviewService;
 @RestController
 @RequestMapping("/reviews")
 // @CrossOrigin(origins = "http://localhost:5173")
-@CrossOrigin(origins = "${server.address}")
+@CrossOrigin(origins = "${frontend.server.address}")
 public class ReviewController {
     private ReviewService reviewService;
 

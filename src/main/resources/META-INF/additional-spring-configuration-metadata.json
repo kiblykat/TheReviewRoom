@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "frontend.server.address",
+      "type": "java.lang.String",
+      "description": "The frontend server address. "
+    }
+  ]
+}

@@ -22,7 +22,7 @@ import sg.com.smartinventory.services.ProductService;
 @RestController
 @RequestMapping("/products")
 // @CrossOrigin(origins = "http://localhost:5173")
-@CrossOrigin(origins = "${server.address}")
+@CrossOrigin(origins = "${frontend.server.address}")
 public class ProductController {
   private ProductService productService;
 
