@@ -94,3 +94,4 @@ ENTRYPOINT service postgresql start && sleep 5 && java -jar /opt/app/*.jar
 # CMD ["spring-boot:run"]
 # CMD ["-jar","/opt/app/*.jar"]
 # CMD ["/start.sh"]
+# CMD ["npm", "run", "preview"]
