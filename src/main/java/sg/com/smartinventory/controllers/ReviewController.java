@@ -21,8 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/reviews")
-// @CrossOrigin(origins = "http://localhost:5173")
-@CrossOrigin(origins = "http://localhost:5173","${ALLOWED_ORIGIN}") 
+@CrossOrigin(origins = "http://localhost:5173")
 public class ReviewController {
     private ReviewService reviewService;
 
