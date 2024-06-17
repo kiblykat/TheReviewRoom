@@ -1,6 +1,9 @@
 [submodule "Frontend/Vite"]
 path = Frontend/Vite
 url = https://github.com/kiblykat/ReviewRoom-frontend.git
+[submodule "Frontend/Next.JS"]
+path = Frontend/Next.JS
+url = https://github.com/nhkhai/TheReviewRoom-Next.JS.git
 [submodule "Ports/TheReviewRoom-FastAPI"]
 path = Ports/TheReviewRoom-FastAPI
 url = https://github.com/nhkhai/TheReviewRoom-FastAPI.git
