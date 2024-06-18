@@ -1,3 +1,4 @@
+```mermaid
 sequenceDiagram
 autonumber
 Frontend->>Backend: Request
@@ -10,3 +11,4 @@ loop
     Backend->>Backend: Process response
 end
 Backend-->>Frontend: Return response
+```
