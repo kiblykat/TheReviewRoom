@@ -17,7 +17,8 @@ Retailers can manage all customer reviews in a single, user-friendly platform, a
 ### Data-Driven Product Insights:
 
 By leveraging customer reviews, retailers gain valuable insights into product performance, identify trends, and make informed decisions regarding product selection, improvement, and marketing strategies.
-Project Structure
+
+## Project Structure
 
 ## The Review Room project utilizes a Spring Boot framework with clear separation of concerns:
 
