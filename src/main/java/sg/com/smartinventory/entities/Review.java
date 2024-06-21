@@ -76,5 +76,4 @@ public class Review {
     // this.customerId = customerId;
     // this.productId = productId;
   }
-
 }
